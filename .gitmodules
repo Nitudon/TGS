@@ -1,0 +1,3 @@
+[submodule "TGS/Assets/submodules"]
+	path = TGS/Assets/submodules
+	url = https://github.com/Nitudon/UdonLib
