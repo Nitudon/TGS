@@ -1,16 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UdonCommons;
 
-public class TresureModel : MonoBehaviour {
+public class TresureModel : UdonBehaviour{ 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public enum TresureColor { red, blue, yellow, green }
+
+    private TresureColor _tresureColor;
+
+    private System.Action _onDestroy;
+
+    public TresureModel(TresureColor color)
+    {
+        _tresureColor = color;
+    }
+
+    public void SetOnDestroy(System.Action action)
+    {
+        _onDestroy = action;
+    }
+
+    private void OnDestroy()
+    {
+        _onDestroy();
+    }
 }
