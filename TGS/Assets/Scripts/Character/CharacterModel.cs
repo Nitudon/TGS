@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using SystemParameter;
 using UdonCommons;
 
 public class CharacterModel : UdonBehaviour {
 
-    public CharacterModel()
+    private GameEnum.tresureColor _color;
+    public GameEnum.tresureColor Color
     {
+        get
+        {
+            return _color;
+        }
+    }
+
+    public CharacterModel(GameEnum.tresureColor color = GameEnum.tresureColor.red)
+    {
+        _color = color;
         _score = new ReactiveProperty<int>(0);
         _tresures = new ReactiveCollection<TresureModel>();
     }

@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SystemParameter;
 using UdonCommons;
 
 public class TresureModel : UdonBehaviour{ 
 
-	public enum TresureColor { red, blue, yellow, green }
-
-    private TresureColor _tresureColor;
+    private GameEnum.tresureColor _tresureColor;
 
     private System.Action _onDestroy;
 
-    public TresureModel(TresureColor color)
+    public TresureModel(GameEnum.tresureColor color)
     {
         _tresureColor = color;
     }
