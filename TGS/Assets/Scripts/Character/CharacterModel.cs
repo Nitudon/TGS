@@ -22,6 +22,7 @@ public class CharacterModel : UdonBehaviour {
                 InstantLog.StringLogError("score property is null");
                 _score = new ReactiveProperty<int>(0);
             }
+
             return _score;
         }
     }
@@ -39,6 +40,21 @@ public class CharacterModel : UdonBehaviour {
 
             return _tresures;
         }
+    }
+
+    public void AddTresure(TresureModel tresure)
+    {
+        _tresures.Add(tresure);
+    }
+
+    public void RemoveTresure(int index)
+    {
+        _tresures.RemoveAt(index);
+    }
+
+    public void RemoveRangeTresure(int start,int end)
+    {
+        
     }
 
     public void SetScore(int score)
