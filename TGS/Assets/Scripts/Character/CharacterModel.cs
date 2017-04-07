@@ -12,6 +12,8 @@ public class CharacterModel : ColorModel {
         _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this);
         _tresures = new ReactiveCollection<TresureModel>();
+        _frontColor = new ReactiveProperty<ColorModel>();
+        _backColor = new ReactiveProperty<ColorModel>();
     }
 
     private CharacterModelController _controller;
