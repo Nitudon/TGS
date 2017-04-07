@@ -5,26 +5,16 @@ using UniRx;
 using SystemParameter;
 using UdonCommons;
 
-public class CharacterModel : UdonBehaviour {
+public class CharacterModel : ColorModel {
 
-    public CharacterModel(GameEnum.tresureColor color = GameEnum.tresureColor.red)
+    private void Awake()
     {
-        _color = color;
         _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this);
         _tresures = new ReactiveCollection<TresureModel>();
     }
 
     private CharacterModelController _controller;
-
-    private GameEnum.tresureColor _color;
-    public GameEnum.tresureColor Color
-    {
-        get
-        {
-            return _color;
-        }
-    }
 
     private ReactiveProperty<int> _score;
     public IReadOnlyReactiveProperty<int> Score
@@ -53,6 +43,36 @@ public class CharacterModel : UdonBehaviour {
             }
 
             return _tresures;
+        }
+    }
+
+    private ReactiveProperty<ColorModel>_frontColor;
+    public IReadOnlyReactiveProperty<ColorModel> FrontColor
+    {
+        get
+        {
+            if (_frontColor == null)
+            {
+                InstantLog.StringLogError("frontColor property is null");
+                _frontColor = new ReactiveProperty<ColorModel>();
+            }
+
+            return _frontColor;
+        }
+    }
+
+    private ReactiveProperty<ColorModel> _backColor;
+    public IReadOnlyReactiveProperty<ColorModel> BackColor
+    {
+        get
+        {
+            if (_backColor == null)
+            {
+                InstantLog.StringLogError("backColor property is null");
+                _backColor = new ReactiveProperty<ColorModel>();
+            }
+
+            return _backColor;
         }
     }
 
