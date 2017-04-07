@@ -7,6 +7,16 @@ using UdonCommons;
 
 public class CharacterModel : UdonBehaviour {
 
+    public CharacterModel(GameEnum.tresureColor color = GameEnum.tresureColor.red)
+    {
+        _color = color;
+        _score = new ReactiveProperty<int>(0);
+        _controller = new CharacterModelController(this);
+        _tresures = new ReactiveCollection<TresureModel>();
+    }
+
+    private CharacterModelController _controller;
+
     private GameEnum.tresureColor _color;
     public GameEnum.tresureColor Color
     {
@@ -14,13 +24,6 @@ public class CharacterModel : UdonBehaviour {
         {
             return _color;
         }
-    }
-
-    public CharacterModel(GameEnum.tresureColor color = GameEnum.tresureColor.red)
-    {
-        _color = color;
-        _score = new ReactiveProperty<int>(0);
-        _tresures = new ReactiveCollection<TresureModel>();
     }
 
     private ReactiveProperty<int> _score;
