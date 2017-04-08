@@ -13,7 +13,7 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
         var blue = SystemParameter.GameEnum.tresureColor.blue;
         var yellow = SystemParameter.GameEnum.tresureColor.yellow;
         var green = SystemParameter.GameEnum.tresureColor.green;
-        var list = new List<SystemParameter.GameEnum.tresureColor> { red, yellow, blue, green, blue };
+        var list = new List<SystemParameter.GameEnum.tresureColor> { red, yellow,green, blue, green,green};
         j.DebugJudge(SystemParameter.GameEnum.tresureColor.red,ref list);
     }
 

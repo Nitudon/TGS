@@ -46,6 +46,7 @@ public class TresureJudge{
         score = 0;
 
         var clone = tresures.ToArray();
+        var tresuresNoTail = tresures.Count > 1 ? tresures.GetRange(0,tresures.Count-2) : new List<GameEnum.tresureColor>();
 
         if (tresures == null)
         {
@@ -53,9 +54,9 @@ public class TresureJudge{
             return false;
         }
 
-        if (tresures.Where(x => x == clone.Last()).Any())
+        if (tresuresNoTail.Count > 0 && tresuresNoTail.Where(x => x == clone.Last()).Any())
         {
-            var index = tresures.GetRange(0, tresures.Count - 2).LastIndexOf(tresures.LastOrDefault(x => x == clone.Last()));
+            var index = tresuresNoTail.LastIndexOf(tresures.LastOrDefault(x => x == clone.Last()));
 
             if (index == tresures.Count - 2)
             {
