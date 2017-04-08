@@ -29,6 +29,9 @@ public class ColorModel : UdonBehaviour {
 
     private void OnDestroy()
     {
-        _onDestroy();
+        if (_onDestroy != null)
+        {
+            _onDestroy();
+        }
     }
 }

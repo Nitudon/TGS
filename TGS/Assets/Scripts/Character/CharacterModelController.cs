@@ -21,7 +21,6 @@ public class CharacterModelController{
         foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction))) {
             KeyObservable.GetKeyObservable(dirToKey(dir))
                 .Subscribe(_ => modelMove(dir));
-
         }
     }    
 
@@ -31,16 +30,16 @@ public class CharacterModelController{
         {
             case GameEnum.direction.up:
                 return KeyCode.UpArrow;
-                break;
+      
             case GameEnum.direction.down:
                 return KeyCode.DownArrow;
-                break;
+                
             case GameEnum.direction.left:
                 return KeyCode.LeftArrow;
-                break;
+                
             case GameEnum.direction.right:
                 return KeyCode.RightArrow;
-                break;
+                
             default:
                 InstantLog.StringLogError("Wrong Direction");
                 return KeyCode.Space;
