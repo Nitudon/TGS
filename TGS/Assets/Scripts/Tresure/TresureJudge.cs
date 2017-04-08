@@ -30,8 +30,10 @@ public class TresureJudge{
         return score;
     }
 
-	public bool JudgeTresures(GameEnum.tresureColor player, List<TresureModel> tresures)
+	public bool JudgeTresures(GameEnum.tresureColor player, List<ColorModel> tresures, out int score)
     {
+        score = 0;
+
         if(tresures == null)
         {
             InstantLog.StringLogError("tresures is null");
@@ -40,19 +42,40 @@ public class TresureJudge{
 
         if (tresures.Where(x => x.TresureColor == player).Any())
         {
-            var index = tresures.;
-            var deleteTresures = tresures.GetRange(0,);
+            var index = tresures.LastIndexOf(tresures.LastOrDefault(x => x.TresureColor == player));
+            if (index == tresures.Count - 1)
+            {
+                return false;
+            }
+
+            var deleteTresures = tresures.GetRange(index, tresures.Count - 1);
+            score = CalculateScore(deleteTresures);
+            if (index > 0)
+            {
+                tresures = tresures.GetRange(0, index - 1);
+            }
+            else
+            {
+                tresures = new List<ColorModel>();
+            }
+
+            return true;
+        }
+
+        else
+        {
+            return false;
         }
     }
 
-    public bool JudgeTresures(GameEnum.tresureColor player, out ColorModel front, List<TresureModel> tresures)
-    {
+    //public bool JudgeTresures(GameEnum.tresureColor player, out ColorModel front, List<TresureModel> tresures)
+    //{
         
-    }
+    //}
 
-    public bool JudgeTresures(GameEnum.tresureColor player,List<TresureModel> tresures, out ColorModel backColor)
-    {
+    //public bool JudgeTresures(GameEnum.tresureColor player,List<TresureModel> tresures, out ColorModel backColor)
+    //{
 
-    }
+    //}
 
 }
