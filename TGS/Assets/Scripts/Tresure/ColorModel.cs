@@ -11,6 +11,16 @@ public class ColorModel : UdonBehaviour {
         _tresureColor = GameEnum.tresureColor.nothing;
     }
 
+    public ColorModel(GameEnum.tresureColor color)
+    {
+        _tresureColor = color;
+    }
+
+    public void SetColor(GameEnum.tresureColor color)
+    {
+        _tresureColor = color;
+    }
+
     protected GameEnum.tresureColor _tresureColor;
     public GameEnum.tresureColor TresureColor
     {

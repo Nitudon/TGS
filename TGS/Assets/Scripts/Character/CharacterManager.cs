@@ -6,6 +6,17 @@ using UdonCommons;
 
 public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
 
+    private void Start()
+    {
+        TresureJudge j = new TresureJudge() ;
+        var red = SystemParameter.GameEnum.tresureColor.red;
+        var blue = SystemParameter.GameEnum.tresureColor.blue;
+        var yellow = SystemParameter.GameEnum.tresureColor.yellow;
+        var green = SystemParameter.GameEnum.tresureColor.green;
+        var list = new List<SystemParameter.GameEnum.tresureColor> { red, yellow, blue, green, blue };
+        j.DebugJudge(SystemParameter.GameEnum.tresureColor.red,ref list);
+    }
+
     private List<CharacterModel> _characterModels;
     public List<CharacterModel> CharacterModels
     {
