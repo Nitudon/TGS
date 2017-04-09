@@ -45,42 +45,51 @@ public class TresureJudge{
     {
         score = 0;
 
-        var clone = tresures.ToArray();
-        var tresuresNoTail = tresures.Count > 1 ? tresures.GetRange(0,tresures.Count-2) : new List<GameEnum.tresureColor>();
-
         if (tresures == null)
         {
             InstantLog.StringLogError("tresures is null");
             return false;
         }
 
-        if (tresuresNoTail.Count > 0 && tresuresNoTail.Where(x => x == clone.Last()).Any())
-        {
-            var index = tresuresNoTail.LastIndexOf(tresures.LastOrDefault(x => x == clone.Last()));
+        var clone = tresures.ToArray();
+        var tresuresNoTail = tresures.Count > 1 ? tresures.GetRange(0, tresures.Count - 2) : new List<GameEnum.tresureColor>();
 
-            if (index == tresures.Count - 2)
+        if (player == clone.Last())
+        {
+            //score = CalculateScore();
+            tresures = new List<GameEnum.tresureColor>();
+            return true;
+        }
+        else
+        {
+            if (tresuresNoTail.Count > 0 && tresuresNoTail.Where(x => x == clone.Last()).Any())
+            {
+                var index = tresuresNoTail.LastIndexOf(tresures.LastOrDefault(x => x == clone.Last()));
+
+                if (index == tresures.Count - 2)
+                {
+                    return false;
+                }
+
+                var deleteModelsCount = tresures.Count - index;
+                var deleteTresures = tresures.GetRange(index, deleteModelsCount);
+                //score = CalculateScore(deleteTresures);
+                if (index > 0)
+                {
+                    tresures = tresures.GetRange(0, index);
+                }
+                else
+                {
+                    tresures = new List<GameEnum.tresureColor>();
+                }
+
+                return true;
+            }
+
+            else
             {
                 return false;
             }
-
-            var deleteModelsCount = tresures.Count - index;
-            var deleteTresures = tresures.GetRange(index, deleteModelsCount);
-            //score = CalculateScore(deleteTresures);
-            if (index > 0)
-            {
-                tresures = tresures.GetRange(0, index);
-            }
-            else
-            {
-                tresures = new List<GameEnum.tresureColor>();
-            }
-
-            return true;
-        }
-
-        else
-        {
-            return false;
         }
     }
 

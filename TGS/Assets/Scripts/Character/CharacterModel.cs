@@ -16,6 +16,12 @@ public class CharacterModel : ColorModel {
         _backColor = new ReactiveProperty<ColorModel>();
     }
 
+    [SerializeField]
+    private Collider FrontCollider;
+
+    [SerializeField]
+    private Collider BackCollider;
+
     private CharacterModelController _controller;
 
     private ReactiveProperty<int> _score;
