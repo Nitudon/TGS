@@ -13,7 +13,14 @@ public class CollisionPresenter : MonoBehaviour {
 
     private Collider _collider;
 
+    [SerializeField]
     private CollisionView _view;
+
+    private void Start()
+    {
+        SetEvents();
+        ObserveCollision();
+    }
 
     private void ObserveCollision()
     {
@@ -26,7 +33,6 @@ public class CollisionPresenter : MonoBehaviour {
             .Where(x => x.gameObject != Character && ExtensionGameObject.HasComponent<ColorModel>(x.gameObject))
             .Subscribe(x => _view.OnTriggerExited(x.gameObject))
             .AddTo(gameObject);
-
     }
 
     private void SetEvents()

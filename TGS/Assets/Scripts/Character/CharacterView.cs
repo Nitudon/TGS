@@ -8,12 +8,6 @@ public class CharacterView : MonoBehaviour {
 
     public Action OnScoreChangedListener;
 
-    public Action OnTresuresAddedListener;
-
-    public Action OnTresuresRemovedListener;
-
-    public Action OnTresuresChangedListener;
-
     public Action OnFrontColorChangedListener;
 
     public Action OnBackColorChangedListener;
@@ -27,42 +21,6 @@ public class CharacterView : MonoBehaviour {
         else
         {
             OnScoreChangedListener();
-        }
-    }
-
-    public void OnTresuresAdded()
-    {
-        if (OnTresuresAddedListener == null)
-        {
-            return;
-        }
-        else
-        {
-            OnTresuresAddedListener();
-        }
-    }
-
-    public void OnTresuresRemoved()
-    {
-        if (OnTresuresRemovedListener == null)
-        {
-            return;
-        }
-        else
-        {
-            OnTresuresRemovedListener();
-        }
-    }
-
-    public void OnTresuresChanged()
-    {
-        if (OnTresuresChangedListener == null)
-        {
-            return;
-        }
-        else
-        {
-            OnTresuresChangedListener();
         }
     }
 
