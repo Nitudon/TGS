@@ -9,7 +9,7 @@ using UdonObservable.ColiderRx;
 public class CollisionPresenter : MonoBehaviour {
 
     [SerializeField]
-    private GameObject Character;
+    private CharacterModel Character;
 
     private Collider _collider;
 
@@ -19,12 +19,12 @@ public class CollisionPresenter : MonoBehaviour {
     {
         ColiderObservable.OnTriggerEnterObservable(gameObject)
             .Where(x => x.gameObject != Character && ExtensionGameObject.HasComponent<ColorModel>(x.gameObject))
-            .Subscribe(_ => _view.OnTriggerEntered())
+            .Subscribe(x => _view.OnTriggerEntered(x.gameObject))
             .AddTo(gameObject);
 
         ColiderObservable.OnTriggerExitObservable(gameObject)
             .Where(x => x.gameObject != Character && ExtensionGameObject.HasComponent<ColorModel>(x.gameObject))
-            .Subscribe(_ => _view.OnTriggerExited())
+            .Subscribe(x => _view.OnTriggerExited(x.gameObject))
             .AddTo(gameObject);
 
     }
@@ -35,12 +35,14 @@ public class CollisionPresenter : MonoBehaviour {
         _view.OnTriggerExitListener = OnCollisionExited;
     }
 
-    private void OnCollisionEntered()
+    private void OnCollisionEntered(GameObject go)
     {
+        ColorModel model = go.GetComponent<ColorModel>();
 
+        Character.AddTresure(model);
     }
 
-    private void OnCollisionExited()
+    private void OnCollisionExited(GameObject go)
     {
 
     }

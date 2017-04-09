@@ -11,7 +11,7 @@ public class CharacterModel : ColorModel {
     {
         _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this);
-        _tresures = new ReactiveCollection<TresureModel>();
+        _tresures = new ReactiveCollection<ColorModel>();
         _frontColor = new ReactiveProperty<ColorModel>();
         _backColor = new ReactiveProperty<ColorModel>();
     }
@@ -39,15 +39,15 @@ public class CharacterModel : ColorModel {
         }
     }
 
-    private ReactiveCollection<TresureModel> _tresures;
-    public IReadOnlyReactiveCollection<TresureModel> Tresures
+    private ReactiveCollection<ColorModel> _tresures;
+    public IReadOnlyReactiveCollection<ColorModel> Tresures
     {
         get
         {
             if(_tresures == null)
             {
                 InstantLog.StringLogError("score property is null");
-                _tresures = new ReactiveCollection<TresureModel>();
+                _tresures = new ReactiveCollection<ColorModel>();
             }
 
             return _tresures;
@@ -84,7 +84,7 @@ public class CharacterModel : ColorModel {
         }
     }
 
-    public void AddTresure(TresureModel tresure)
+    public void AddTresure(ColorModel tresure)
     {
         _tresures.Add(tresure);
     }

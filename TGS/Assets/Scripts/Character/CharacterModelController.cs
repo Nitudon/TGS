@@ -21,6 +21,9 @@ public class CharacterModelController{
         foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction))) {
             KeyObservable.GetKeyObservable(dirToKey(dir))
                 .Subscribe(_ => modelMove(dir));
+
+            KeyObservable.GetKeyUpObservable(dirToKey(dir))
+                .Subscribe(_ => stopMove());
         }
     }    
 
@@ -51,21 +54,30 @@ public class CharacterModelController{
         speedScale = scale;
     }
 
+    private void stopMove()
+    {
+        _characterModel.rigitbody.velocity = new Vector3();
+    }
+
     private void modelMove(GameEnum.direction dir)
     {
         switch (dir)
         {
             case GameEnum.direction.up:
-                _characterModel.posZ += GameValue.MOVE_BASE_SPEED * speedScale;
+                _characterModel.rigitbody.AddForce(new Vector3(0, 0, GameValue.MOVE_BASE_SPEED * speedScale));
+                _characterModel.SetLocalEulerAngles(GameValue.UP_DIRECTION_ANGLE);
                 break;
             case GameEnum.direction.down:
-                _characterModel.posZ -= GameValue.MOVE_BASE_SPEED * speedScale;
+                _characterModel.rigitbody.AddForce(new Vector3(0, 0, -GameValue.MOVE_BASE_SPEED * speedScale));
+                _characterModel.SetLocalEulerAngles(GameValue.DOWN_DIRECTION_ANGLE);
                 break;
             case GameEnum.direction.left:
-                _characterModel.posX -= GameValue.MOVE_BASE_SPEED * speedScale;
+                _characterModel.rigitbody.AddForce(new Vector3(-GameValue.MOVE_BASE_SPEED * speedScale, 0, 0));
+                _characterModel.SetLocalEulerAngles(GameValue.LEFT_DIRECTION_ANGLE);
                 break;
             case GameEnum.direction.right:
-                _characterModel.posX += GameValue.MOVE_BASE_SPEED * speedScale;
+                _characterModel.rigitbody.AddForce(new Vector3(GameValue.MOVE_BASE_SPEED * speedScale, 0, 0));
+                _characterModel.SetLocalEulerAngles(GameValue.RIGHT_DIRECTION_ANGLE);
                 break;
             default:
                 InstantLog.StringLogError("Wrong Direction");

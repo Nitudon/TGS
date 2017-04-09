@@ -6,28 +6,28 @@ using UniRx;
 
 public class CollisionView : MonoBehaviour {
 
-    public Action OnTriggerEnteredListener;
+    public Action<GameObject> OnTriggerEnteredListener;
 
-    public Action OnTriggerExitListener;
+    public Action<GameObject> OnTriggerExitListener;
 
-    public void OnTriggerEntered()
+    public void OnTriggerEntered(GameObject go)
     {
         if(OnTriggerEnteredListener == null)
         {
             return;
         }
 
-        OnTriggerEnteredListener();
+        OnTriggerEnteredListener(go);
     }
 
-    public void OnTriggerExited()
+    public void OnTriggerExited(GameObject go)
     {
         if(OnTriggerEnteredListener == null)
         {
             return;
         }
 
-        OnTriggerExitListener();
+        OnTriggerExitListener(go);
     }
 
 }
