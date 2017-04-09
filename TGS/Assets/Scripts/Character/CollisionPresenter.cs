@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UdonCommons;
+using SystemParameter;
 using UdonObservable.ColiderRx;
 
 [RequireComponent(typeof(Collider))]
-public class CollisionPresenter : MonoBehaviour {
+public class CollisionPresenter : UdonBehaviour {
 
     [SerializeField]
     private CharacterModel Character;
@@ -46,6 +47,8 @@ public class CollisionPresenter : MonoBehaviour {
         ColorModel model = go.GetComponent<ColorModel>();
 
         Character.AddTresure(model);
+
+        posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
     }
 
     private void OnCollisionExited(GameObject go)

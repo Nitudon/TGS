@@ -25,6 +25,8 @@ namespace SystemParameter
 
         public static readonly float SCORE_RATE_CALCULATE = 1.2f;
 
+        public static readonly float OWN_TRESURE_POSITION_OFFSET = 0.6f;
+
         public static readonly Vector3 LEFT_DIRECTION_ANGLE = new Vector3(0,-90,0);
 
         public static readonly Vector3 RIGHT_DIRECTION_ANGLE = new Vector3(0, 90, 0);
