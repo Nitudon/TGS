@@ -98,8 +98,6 @@ public class CharacterModel : ColorModel {
 
         if (_judge.JudgeTresures(_tresureColor,tresurelist, out score,out index, out count))
         {
-            Debug.Log(index);
-            Debug.Log(count);
             for (int i=index + count;i >= index ;--i)
             {
                 RemoveTresure(i);

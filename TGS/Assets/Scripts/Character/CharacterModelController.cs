@@ -6,6 +6,7 @@ using UniRx;
 using UdonCommons;
 using SystemParameter;
 using UdonObservable.InputRx.Key;
+using UdonObservable.InputRx.GamePad;
 
 public class CharacterModelController{
 
@@ -18,13 +19,18 @@ public class CharacterModelController{
         _characterModel = model;
         speedScale = 1.0f;
 
-        foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction))) {
-            KeyObservable.GetKeyObservable(dirToKey(dir))
-                .Subscribe(_ => modelMove(dir));
+        GamePadObservable.GetAnyButtonObservable().Subscribe(_ => InstantLog.CheckLog());
 
-            KeyObservable.GetKeyUpObservable(dirToKey(dir))
-                .Subscribe(_ => stopMove());
-        }
+        GamePadObservable.GetAxisStickObservable()
+            .Subscribe(info => Debug.Log(info));
+
+        //foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction))) {
+        //    KeyObservable.GetKeyObservable(dirToKey(dir))
+        //        .Subscribe(_ => modelMove(dir));
+
+        //    KeyObservable.GetKeyUpObservable(dirToKey(dir))
+        //        .Subscribe(_ => stopMove());
+        //}
     }    
 
     private KeyCode dirToKey(GameEnum.direction dir)
