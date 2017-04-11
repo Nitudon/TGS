@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System.Linq;
 using SystemParameter;
 using UdonCommons;
 
@@ -9,8 +10,10 @@ public class CharacterModel : ColorModel {
 
     private void Awake()
     {
+        _tresureColor = GameEnum.tresureColor.red;
         _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this);
+        _judge = new TresureJudge();
         _tresures = new ReactiveCollection<ColorModel>();
         _frontColor = new ReactiveProperty<ColorModel>();
         _backColor = new ReactiveProperty<ColorModel>();
@@ -23,6 +26,8 @@ public class CharacterModel : ColorModel {
     private Collider BackCollider;
 
     private CharacterModelController _controller;
+
+    private TresureJudge _judge;
 
     private ReactiveProperty<int> _score;
     public IReadOnlyReactiveProperty<int> Score
@@ -84,19 +89,38 @@ public class CharacterModel : ColorModel {
         }
     }
 
+    public void JudgeTresure()
+    {
+        int score;
+        int index;
+        int count;
+        var tresurelist = _tresures.ToList();
+
+        if (_judge.JudgeTresures(_tresureColor,tresurelist, out score,out index, out count))
+        {
+            Debug.Log(index);
+            Debug.Log(count);
+            for (int i=index + count;i >= index ;--i)
+            {
+                RemoveTresure(i);
+            }
+        }
+        
+    }
+
     public void AddTresure(ColorModel tresure)
     {
         _tresures.Add(tresure);
+        JudgeTresure();
     }
 
     public void RemoveTresure(int index)
     {
+        if(_tresures.ElementAt(index) is CharacterModel == false)
+        {
+            _tresures.ElementAt(index).Destroy();
+        }
         _tresures.RemoveAt(index);
-    }
-
-    public void RemoveRangeTresure(int start,int end)
-    {
-        
     }
 
     public void SetScore(int score)
@@ -108,4 +132,5 @@ public class CharacterModel : ColorModel {
     {
         _score.Value += score;
     }
+
 }

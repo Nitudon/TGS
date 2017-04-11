@@ -93,43 +93,55 @@ public class TresureJudge{
         }
     }
 
-    public bool JudgeTresures(GameEnum.tresureColor player, List<ColorModel> tresures, out int score)
+    public bool JudgeTresures(GameEnum.tresureColor player,List<ColorModel> tresures, out int score, out int start, out int count)
     {
-        score = 0;
+        score = start = count= 0;
 
-        if(tresures == null)
+        if (tresures == null)
         {
             InstantLog.StringLogError("tresures is null");
             return false;
         }
 
-        if (tresures.Where(x => x.TresureColor == tresures.Last().TresureColor).Any())
+        if (player == tresures.Last().TresureColor && tresures.Count > 1 && tresures.Select(x => x.TresureColor).Distinct().Count() > 1)
         {
-            var index = tresures.GetRange(0,tresures.Count-2).LastIndexOf(tresures.LastOrDefault(x => x.TresureColor == tresures.Last().TresureColor));
+            //score = CalculateScore();
+            count = tresures.Count-1;
+            return true;
+        }
+        else
+        {
+            var tresuresNoTail = tresures.Count > 1 ? tresures.GetRange(0, tresures.Count - 1) : new List<ColorModel>();
 
-            if (index == tresures.Count - 2)
+            if (tresuresNoTail.Count > 0 && tresuresNoTail.Where(x => x.TresureColor == tresures.Last().TresureColor).Any())
+            {
+                var index = tresuresNoTail.FindLastIndex(x => x.EqualColor(tresures.Last()));
+
+                if (index == tresures.Count - 2)
+                {
+                    return false;
+                }
+
+                var deleteModelsCount = tresures.Count - index;
+                var deleteTresures = tresures.GetRange(index, deleteModelsCount);
+                score = CalculateScore(deleteTresures);
+                if (index > 0)
+                {
+                    start = index;
+                    count = deleteModelsCount-2;
+                }
+                else
+                {
+                    count = tresures.Count;
+                }
+
+                return true;
+            }
+
+            else
             {
                 return false;
             }
-
-            var deleteModelsCount = tresures.Count - index;
-            var deleteTresures = tresures.GetRange(index, deleteModelsCount);
-            score = CalculateScore(deleteTresures);
-            if (index > 0)
-            {
-                tresures = tresures.GetRange(0, index);
-            }
-            else
-            {
-                tresures = new List<ColorModel>();
-            }
-
-            return true;
-        }
-
-        else
-        {
-            return false;
         }
     }
 

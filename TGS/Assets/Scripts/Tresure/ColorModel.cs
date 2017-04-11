@@ -30,6 +30,11 @@ public class ColorModel : UdonBehaviour {
         }
     }
 
+    public bool EqualColor(ColorModel another)
+    {
+        return _tresureColor == another._tresureColor;
+    }
+
     private System.Action _onDestroy;
 
     public void SetOnDestroy(System.Action action)

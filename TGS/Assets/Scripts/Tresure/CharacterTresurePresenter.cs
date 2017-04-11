@@ -32,6 +32,10 @@ public class CharacterTresurePresenter : UdonBehaviour
             .Subscribe(_ => _view.OnTresuresRemoved())
             .AddTo(gameObject);
 
+        _model.Tresures
+            .ObserveReplace()
+            .Subscribe(_ => _view.OnTresuresReplaced())
+            .AddTo(gameObject);
     }
 
     private void SetEvents()

@@ -6,6 +6,14 @@ using UdonCommons;
 
 public class TresureModel : ColorModel{
 
+    [SerializeField]
+    private GameEnum.tresureColor Color;
+
+    private void Awake()
+    {
+        SetColor(Color);
+    }
+
     public CharacterModel Owner
     {
         get
@@ -20,6 +28,22 @@ public class TresureModel : ColorModel{
     }
 
     private CharacterModel _owner;
+
+    private int _ownIndex;
+
+    public int GetIndex
+    {
+        get
+        {
+            if (HasOwner) {
+                return _ownIndex;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
 
     public bool HasOwner
     {
@@ -36,7 +60,14 @@ public class TresureModel : ColorModel{
 
     public void SetOwner(CharacterModel model)
     {
+        if (model == null)
+        {
+            InstantLog.StringLogError("Owner model is Null");
+            return;
+        }
+
         _owner = model;
+        _ownIndex = model.Tresures.Count-1;
     }
 
 }

@@ -6,18 +6,11 @@ using UniRx;
 
 public class CharacterTresureView : MonoBehaviour
 {
-    void Awake()
-    {
-        viewTresureCount = 0;
-    }
-
-    private int viewTresureCount;
-
     public Action OnTresuresAddedListener;
 
     public Action OnTresuresRemovedListener;
 
-    public Action OnTresuresChangedListener;
+    public Action OnTresuresReplacedListener;
 
     public void OnTresuresAdded()
     {
@@ -43,15 +36,15 @@ public class CharacterTresureView : MonoBehaviour
         }
     }
 
-    public void OnTresuresChanged()
+    public void OnTresuresReplaced()
     {
-        if (OnTresuresChangedListener == null)
+        if (OnTresuresReplacedListener == null)
         {
             return;
         }
         else
         {
-            OnTresuresChangedListener();
+            OnTresuresReplacedListener();
         }
     }
 }
