@@ -29,6 +29,8 @@ namespace SystemParameter
 
         public static readonly int OWN_TRESURE_MAX = 5;
 
+        public static readonly int BATTLE_TIME = 120;
+
         public static readonly Vector3 LEFT_DIRECTION_ANGLE = new Vector3(0,-90,0);
 
         public static readonly Vector3 RIGHT_DIRECTION_ANGLE = new Vector3(0, 90, 0);

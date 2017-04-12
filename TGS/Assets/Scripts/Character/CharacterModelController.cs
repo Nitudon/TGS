@@ -22,6 +22,8 @@ public class CharacterModelController{
         GamePadObservable.GetAxisStickObservable()
             .Subscribe(x => x.CharacterControll(_characterModel.transform));
 
+        #region[For Debug]
+#if UNITY_EDITOR
         foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction)))
         {
             KeyObservable.GetKeyObservable(dirToKey(dir))
@@ -30,29 +32,9 @@ public class CharacterModelController{
             KeyObservable.GetKeyUpObservable(dirToKey(dir))
                 .Subscribe(_ => stopMove());
         }
-    }    
-
-    private KeyCode dirToKey(GameEnum.direction dir)
-    {
-        switch (dir)
-        {
-            case GameEnum.direction.up:
-                return KeyCode.UpArrow;
-      
-            case GameEnum.direction.down:
-                return KeyCode.DownArrow;
-                
-            case GameEnum.direction.left:
-                return KeyCode.LeftArrow;
-                
-            case GameEnum.direction.right:
-                return KeyCode.RightArrow;
-                
-            default:
-                InstantLog.StringLogError("Wrong Direction");
-                return KeyCode.Space;
-        }
     }
+#endif
+    #endregion
 
     public void SetSpeedScale(float scale)
     {
@@ -62,6 +44,31 @@ public class CharacterModelController{
     private void stopMove()
     {
         _characterModel.rigitbody.velocity = new Vector3();
+    }
+
+    #region[For Debug]
+#if UNITY_EDITOR
+
+    private KeyCode dirToKey(GameEnum.direction dir)
+    {
+        switch (dir)
+        {
+            case GameEnum.direction.up:
+                return KeyCode.UpArrow;
+
+            case GameEnum.direction.down:
+                return KeyCode.DownArrow;
+
+            case GameEnum.direction.left:
+                return KeyCode.LeftArrow;
+
+            case GameEnum.direction.right:
+                return KeyCode.RightArrow;
+
+            default:
+                InstantLog.StringLogError("Wrong Direction");
+                return KeyCode.Space;
+        }
     }
 
     private void modelMove(GameEnum.direction dir)
@@ -91,4 +98,6 @@ public class CharacterModelController{
 
         return;
     }
+#endif
+    #endregion
 }

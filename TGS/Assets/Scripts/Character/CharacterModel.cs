@@ -108,7 +108,14 @@ public class CharacterModel : ColorModel {
 
     public void AddTresure(ColorModel tresure)
     {
+        if(tresure is TresureModel)
+        {
+            var _tresure = tresure as TresureModel;
+            _tresure.SetOwner(this);
+        }
+
         _tresures.Add(tresure);
+
         JudgeTresure();
     }
 
