@@ -19,18 +19,17 @@ public class CharacterModelController{
         _characterModel = model;
         speedScale = 1.0f;
 
-        GamePadObservable.GetAnyButtonObservable().Subscribe(_ => InstantLog.CheckLog());
-
         GamePadObservable.GetAxisStickObservable()
-            .Subscribe(info => Debug.Log(info));
+            .Subscribe(x => x.CharacterControll(_characterModel.transform));
 
-        //foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction))) {
-        //    KeyObservable.GetKeyObservable(dirToKey(dir))
-        //        .Subscribe(_ => modelMove(dir));
+        foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction)))
+        {
+            KeyObservable.GetKeyObservable(dirToKey(dir))
+                .Subscribe(_ => modelMove(dir));
 
-        //    KeyObservable.GetKeyUpObservable(dirToKey(dir))
-        //        .Subscribe(_ => stopMove());
-        //}
+            KeyObservable.GetKeyUpObservable(dirToKey(dir))
+                .Subscribe(_ => stopMove());
+        }
     }    
 
     private KeyCode dirToKey(GameEnum.direction dir)
