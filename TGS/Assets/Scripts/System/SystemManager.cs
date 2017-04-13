@@ -8,11 +8,6 @@ using UdonObservable.Commons;
 
 public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
-    private void Awake()
-    {
-        _timer = ReactiveTimer.ReactiveTimerForSeconds(GameValue.BATTLE_TIME);
-    }
-
     private ReactiveProperty<int> _timer;
     public IReadOnlyReactiveProperty<int> Timer
     {
@@ -26,6 +21,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
             return _timer;
         }
+    }
+
+    public void SetTimer()
+    {
+        _timer = ReactiveTimer.ReactiveTimerForSeconds(GameValue.BATTLE_TIME);
     }
 
 }
