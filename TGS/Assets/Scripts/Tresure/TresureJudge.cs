@@ -11,12 +11,10 @@ public class TresureJudge{
     public void DebugJudge(GameEnum.tresureColor player,ref List<GameEnum.tresureColor> models)
     {
         int score;
-        Debug.Log(JudgeTresures(player,ref models,out score));
         foreach (GameEnum.tresureColor elm in models)
         {
             InstantLog.StringLog(elm.ToString());
         }
-        Debug.Log(score);
     }
 
     private int CalculateScore(List<ColorModel> models)
@@ -32,6 +30,8 @@ public class TresureJudge{
         var colorCount = array.Select(x => x.TresureColor).Distinct().Count();
         var modelCount = array.Length;
         var hasPlayer = array.Where(x => x is CharacterModel).Any();
+
+        InstantLog.ObjectLog(colorCount + ":" + modelCount + ":" + hasPlayer);
 
         score =
             (int)Mathf.Pow(GameValue.SCORE_RATE_CALCULATE, colorCount) * GameValue.SCORE_RATE_COLOR +
@@ -105,7 +105,7 @@ public class TresureJudge{
 
         if (player == tresures.Last().TresureColor && tresures.Count > 1 && tresures.Select(x => x.TresureColor).Distinct().Count() > 1)
         {
-            //score = CalculateScore();
+            score = CalculateScore(tresures);
             count = tresures.Count-1;
             return true;
         }
@@ -124,11 +124,12 @@ public class TresureJudge{
 
                 var deleteModelsCount = tresures.Count - index;
                 var deleteTresures = tresures.GetRange(index, deleteModelsCount);
+
                 score = CalculateScore(deleteTresures);
                 if (index > 0)
                 {
                     start = index;
-                    count = deleteModelsCount-2;
+                    count = deleteModelsCount-1;
                 }
                 else
                 {
