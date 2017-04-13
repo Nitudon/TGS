@@ -13,8 +13,11 @@ public class SystemPresenter : MonoBehaviour {
     [SerializeField]
     private SystemView _view;
 
+    private SystemManager.SystemModel _model;
+
     public void Init()
     {
+        _model =_system.Model;
         _system.SetTimer();
         SetEvents();
         ObserveSystem();
@@ -22,19 +25,19 @@ public class SystemPresenter : MonoBehaviour {
 
     private void ObserveSystem()
     {
-        _system.Timer
+        _model.Timer
             .First()
             .Publish()
             .Subscribe(_ => _view.OnTimerStarted())
             .AddTo(gameObject);
 
-        _system.Timer
+        _model.Timer
             .Where(x => x >= 0)
             .Publish()
             .Subscribe(_ => _view.OnTimerChanged())
             .AddTo(gameObject);
 
-        _system.Timer
+        _model.Timer
             .Where(x => x == 0)
             .Publish()
             .Subscribe(_ => _view.OnTimerEnded())
