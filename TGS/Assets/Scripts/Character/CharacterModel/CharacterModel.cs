@@ -102,8 +102,6 @@ public class CharacterModel : ColorModel {
             {
                 RemoveTresure(i);
             }
-
-            InstantLog.ObjectLog(score);
         }
         
     }
