@@ -19,22 +19,17 @@ public class CharacterModelController{
         _characterModel = model;
         speedScale = 1.0f;
 
-        GamePadObservable.GetAnyButtonObservable().Subscribe(x => InstantLog.CheckLog());
-
-        GamePadObservable.GetAxisStickObservable().Subscribe(x => Debug.Log(x));
-
-        GamePadObservable.GetAxisStickObservable()
-            .Subscribe(x => x.CharacterControll(_characterModel.transform));
+        ControllConnect();
 
         #region[For Debug]
 #if UNITY_EDITOR
         foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction)))
         {
             KeyObservable.GetKeyObservable(dirToKey(dir))
-                .Subscribe(_ => modelMove(dir));
+                .Subscribe(_ => ModelMove(dir));
 
             KeyObservable.GetKeyUpObservable(dirToKey(dir))
-                .Subscribe(_ => stopMove());
+                .Subscribe(_ => StopMove());
         }
     }
 #endif
@@ -45,7 +40,20 @@ public class CharacterModelController{
         speedScale = scale;
     }
 
-    private void stopMove()
+    public void ControllConnect()
+    {
+        GamePadObservable.GetAxisStickObservable()
+            .Subscribe(x => CharacterMove(x));
+    }
+
+    private void CharacterMove(GamepadStickInput.StickInfo info)
+    {
+        var tresureHeavy = Mathf.Pow(GameValue.SPEED_RATE,_characterModel.Tresures.Count);
+        _characterModel.rigitbody.AddForce(info.movePosition * GameValue.SPEED_BASE * tresureHeavy);
+        info.RotatePosition(_characterModel.transform);
+    }
+
+    private void StopMove()
     {
         _characterModel.rigitbody.velocity = new Vector3();
     }
@@ -75,7 +83,7 @@ public class CharacterModelController{
         }
     }
 
-    private void modelMove(GameEnum.direction dir)
+    private void ModelMove(GameEnum.direction dir)
     {
         switch (dir)
         {
