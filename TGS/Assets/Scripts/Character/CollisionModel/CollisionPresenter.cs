@@ -46,7 +46,7 @@ public class CollisionPresenter : UdonBehaviour {
     {
         ColorModel model = go.GetComponent<ColorModel>();
 
-        Character.AddTresure(model);
+        Character.AddColor(model);
 
         posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
     }

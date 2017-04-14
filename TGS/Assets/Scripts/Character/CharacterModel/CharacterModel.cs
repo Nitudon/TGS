@@ -106,16 +106,39 @@ public class CharacterModel : ColorModel {
         
     }
 
-    public void AddTresure(ColorModel tresure)
+    public void AddColor(ColorModel model)
     {
-        if(tresure is TresureModel)
+        if(model is TresureModel)
         {
-            var _tresure = tresure as TresureModel;
-            _tresure.SetOwner(this);
+            var tresure = model as TresureModel;
+            AddTresure(tresure);
+        }
+        else if(model is CharacterModel)
+        {
+            var character = model as CharacterModel;
+            AddCharacter(character);
+        }
+    }
+
+    private void AddCharacter(CharacterModel model)
+    {
+        _tresures.Add(model);
+
+        if (model.Tresures.Count > 0)
+        {
+            for (int i=0; i < model.Tresures.Count; ++i)
+            {
+                _tresures.Add(model.Tresures.ElementAt(i));
+            }
         }
 
-        _tresures.Add(tresure);
+        JudgeTresure();
+    }
 
+    private void AddTresure(TresureModel tresure)
+    {
+        tresure.SetOwner(this);
+        _tresures.Add(tresure);
         JudgeTresure();
     }
 
