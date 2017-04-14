@@ -19,8 +19,12 @@ public class CharacterModelController{
         _characterModel = model;
         speedScale = 1.0f;
 
-        //GamePadObservable.GetAxisStickObservable()
-        //    .Subscribe(x => x.CharacterControll(_characterModel.transform));
+        GamePadObservable.GetAnyButtonObservable().Subscribe(x => InstantLog.CheckLog());
+
+        GamePadObservable.GetAxisStickObservable().Subscribe(x => Debug.Log(x));
+
+        GamePadObservable.GetAxisStickObservable()
+            .Subscribe(x => x.CharacterControll(_characterModel.transform));
 
         #region[For Debug]
 #if UNITY_EDITOR
