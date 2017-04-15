@@ -9,6 +9,8 @@ public class TresureModel : ColorModel{
     [SerializeField]
     private GameEnum.tresureColor Color;
 
+    private TresureGenerator _tresureGenerator;
+
     private void Awake()
     {
         SetColor(Color);
@@ -68,6 +70,17 @@ public class TresureModel : ColorModel{
 
         _owner = model;
         _ownIndex = model.Tresures.Count-1;
+    }
+
+    public void SetGenerator(TresureGenerator generator)
+    {
+        if (generator == null)
+        {
+            InstantLog.StringLogError("Generator model is Null");
+            return;
+        }
+
+        _tresureGenerator = generator;
     }
 
 }

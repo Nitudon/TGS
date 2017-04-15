@@ -42,7 +42,7 @@ public class CharacterModelController{
 
     public void ControllConnect()
     {
-        GamePadObservable.GetAxisStickObservable()
+        GamePadObservable.GetAxisStickObservable(_characterModel.GetPlayerID)
             .Subscribe(x => CharacterMove(x));
     }
 

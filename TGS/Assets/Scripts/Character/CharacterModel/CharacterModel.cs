@@ -5,6 +5,7 @@ using UniRx;
 using System.Linq;
 using SystemParameter;
 using UdonCommons;
+using UdonObservable.InputRx.GamePad;
 
 public class CharacterModel : ColorModel {
 
@@ -24,6 +25,17 @@ public class CharacterModel : ColorModel {
 
     [SerializeField]
     private Collider BackCollider;
+
+    [SerializeField]
+    private GamePadObservable.Player Player;
+
+    public GamePadObservable.Player GetPlayerID
+    {
+        get
+        {
+            return Player;
+        }
+    }
 
     private CharacterModelController _controller;
 
