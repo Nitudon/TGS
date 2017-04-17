@@ -17,7 +17,7 @@ public class SystemView : UdonBehaviour{
 
     public void OnTimerChanged(int time)
     {
-        TimeText.text = time.ToString() ;
+        TimeText.text = time.ToString();
     }
 
     public void OnTimerStarted()

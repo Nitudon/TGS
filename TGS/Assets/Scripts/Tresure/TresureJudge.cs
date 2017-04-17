@@ -41,69 +41,19 @@ public class TresureJudge{
         return score;
     }
 
-    public bool JudgeTresures(GameEnum.tresureColor player,ref List<GameEnum.tresureColor> tresures, out int score)
-    {
-        score = 0;
-
-        if (tresures == null)
-        {
-            InstantLog.StringLogError("tresures is null");
-            return false;
-        }
-
-        var clone = tresures.ToArray();
-        var tresuresNoTail = tresures.Count > 1 ? tresures.GetRange(0, tresures.Count - 2) : new List<GameEnum.tresureColor>();
-
-        if (player == clone.Last())
-        {
-            //score = CalculateScore();
-            tresures = new List<GameEnum.tresureColor>();
-            return true;
-        }
-        else
-        {
-            if (tresuresNoTail.Count > 0 && tresuresNoTail.Where(x => x == clone.Last()).Any())
-            {
-                var index = tresuresNoTail.LastIndexOf(tresures.LastOrDefault(x => x == clone.Last()));
-
-                if (index == tresures.Count - 2)
-                {
-                    return false;
-                }
-
-                var deleteModelsCount = tresures.Count - index;
-                var deleteTresures = tresures.GetRange(index, deleteModelsCount);
-                //score = CalculateScore(deleteTresures);
-                if (index > 0)
-                {
-                    tresures = tresures.GetRange(0, index);
-                }
-                else
-                {
-                    tresures = new List<GameEnum.tresureColor>();
-                }
-
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    public bool JudgeTresures(GameEnum.tresureColor player,List<ColorModel> tresures, out int score, out int start, out int count)
+    public bool JudgeTresures(CharacterModel player, out int score, out int start, out int count)
     {
         score = start = count= 0;
 
+        var tresures = player.Tresures.ToList();
+
         if (tresures == null)
         {
             InstantLog.StringLogError("tresures is null");
             return false;
         }
 
-        if (player == tresures.Last().TresureColor && tresures.Count > 1 && tresures.Select(x => x.TresureColor).Distinct().Count() > 1)
+        if (player.TresureColor == tresures.Last().TresureColor && tresures.Count > 1 && tresures.Select(x => x.TresureColor).Distinct().Count() > 1)
         {
             score = CalculateScore(tresures);
             count = tresures.Count-1;
@@ -146,9 +96,66 @@ public class TresureJudge{
         }
     }
 
+    public bool JudgeCharacter(CharacterModel backPlayer, CharacterModel frontPlayer, out int score, out int start, out int count)
+    {
+        score = count = 0;
+
+        start = 1;
+
+        var tresures = frontPlayer.Tresures.ToList();
+
+        if (tresures == null)
+        {
+            InstantLog.StringLogError("tresures is null");
+            return false;
+        }
+
+        var frontList = frontPlayer.Tresures.ToList();
+        frontList.Insert(0, frontPlayer);
+
+        if (frontList.Count > 0 && frontList.Where(x => x.TresureColor == tresures.Last().TresureColor).Any())
+        {
+
+            if (backPlayer.TresureColor == tresures.Last().TresureColor && tresures.Count > 1)
+            {
+                score = CalculateScore(frontList);
+                count = tresures.Count;
+            }
+            else
+            {
+                var index = frontList.FindLastIndex(x => x.EqualColor(tresures.Last()));
+
+                if (index == tresures.Count - 2)
+                {
+                    return false;
+                }
+
+                var deleteModelsCount = index + 1;
+                var deleteTresures = tresures.GetRange(0, deleteModelsCount);
+
+                score = CalculateScore(deleteTresures);
+
+                if (index > 0)
+                {
+                    count = deleteModelsCount;
+                }
+                else
+                {
+                    count = tresures.Count;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
     //public bool JudgeTresures(GameEnum.tresureColor player, out ColorModel front, List<TresureModel> tresures)
     //{
-        
+
     //}
 
     //public bool JudgeTresures(GameEnum.tresureColor player,List<TresureModel> tresures, out ColorModel backColor)

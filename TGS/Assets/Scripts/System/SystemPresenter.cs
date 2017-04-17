@@ -17,8 +17,7 @@ public class SystemPresenter : MonoBehaviour {
 
     public void Init()
     {
-        _model =_system.Model;
-        _system.SetTimer();
+        _model = new SystemManager.SystemModel(GameValue.BATTLE_TIME);
         SetEvents();
         ObserveSystem();
     }
@@ -27,20 +26,17 @@ public class SystemPresenter : MonoBehaviour {
     {
         _model.Timer
             .First()
-            .Publish()
             .Subscribe(_ => _view.OnTimerStarted())
             .AddTo(gameObject);
 
         _model.Timer
             .Where(x => x >= 0)
-            .Publish()
             .Subscribe(_ => _view.OnTimerChanged(_model.Timer.Value))
             .AddTo(gameObject);
 
         _model.Timer
             .Where(x => x == 0)
             .First()
-            .Publish()
             .Subscribe(_ => _view.OnTimerEnded())
             .AddTo(gameObject);
     }

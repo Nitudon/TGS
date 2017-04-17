@@ -8,9 +8,29 @@ using UdonObservable.Commons;
 
 public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
+    [SerializeField]
+    private GameObject PlayingGamePrefab;
+
+    [SerializeField]
+    private SystemPresenter Presenter;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            GameStart();
+        }
+    }
+
+    private void GameStart()
+    {
+        var prefab = Instantiate(PlayingGamePrefab,transform);
+        Presenter.Init();   
+    }
+
     public class SystemModel
     {
-        public void Init(int time)
+        public SystemModel(int time)
         {
             _timer = ReactiveTimer.ReactiveTimerForSeconds(time);
         }
@@ -37,7 +57,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         {
             if(_model == null)
             {
-                _model = new SystemModel();
+                _model = new SystemModel(0);
             }
 
             return _model;
@@ -45,10 +65,5 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     }
 
     private SystemModel _model;
-
-    public void SetTimer()
-    {
-        _model.Init(GameValue.BATTLE_TIME);
-    }
 
 }

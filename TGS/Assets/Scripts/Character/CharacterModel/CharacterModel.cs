@@ -101,14 +101,14 @@ public class CharacterModel : ColorModel {
         }
     }
 
-    public void JudgeTresure()
+    private void JudgeTresure()
     {
         int score;
         int index;
         int count;
         var tresurelist = _tresures.ToList();
 
-        if (_judge.JudgeTresures(_tresureColor,tresurelist, out score,out index, out count))
+        if (_judge.JudgeTresures(this, out score,out index, out count))
         {
             for (int i=index + count;i >= index ;--i)
             {
@@ -118,6 +118,24 @@ public class CharacterModel : ColorModel {
             AddScore(score);
         }
         
+    }
+
+    private void JudgeCharacter(CharacterModel model)
+    {
+        int score;
+        int index;
+        int count;
+        var tresurelist = _tresures.ToList();
+
+        if (_judge.JudgeCharacter(this,model, out score, out index, out count))
+        {
+            for (int i = 0; i < count-1; ++i)
+            {
+                model.RemoveTresure(i);
+            }
+
+            AddScore(score);
+        }
     }
 
     public void AddColor(ColorModel model)
@@ -136,17 +154,7 @@ public class CharacterModel : ColorModel {
 
     private void AddCharacter(CharacterModel model)
     {
-        _tresures.Add(model);
-
-        if (model.Tresures.Count > 0)
-        {
-            for (int i=0; i < model.Tresures.Count; ++i)
-            {
-                _tresures.Add(model.Tresures.ElementAt(i));
-            }
-        }
-
-        JudgeTresure();
+        JudgeCharacter(model);
     }
 
     private void AddTresure(TresureModel tresure)
