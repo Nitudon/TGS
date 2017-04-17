@@ -4,23 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UdonCommons;
 using UniRx;
+using UnityEngine.UI;
 
 public class SystemView : UdonBehaviour{
 
-    public Action OnTimerChangedListener;
+    [SerializeField]
+    private Text TimeText;
 
     public Action OnTimerStartedListener;
 
     public Action OnTimerEndedListener;
 
-    public void OnTimerChanged()
+    public void OnTimerChanged(int time)
     {
-        if (OnTimerChangedListener == null)
-        {
-            return;
-        }
-
-        OnTimerChangedListener();
+        TimeText.text = time.ToString() ;
     }
 
     public void OnTimerStarted()

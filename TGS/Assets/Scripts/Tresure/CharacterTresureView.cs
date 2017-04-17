@@ -10,8 +10,6 @@ public class CharacterTresureView : MonoBehaviour
 
     public Action OnTresuresRemovedListener;
 
-    public Action OnTresuresReplacedListener;
-
     public void OnTresuresAdded()
     {
         if (OnTresuresAddedListener == null)
@@ -33,18 +31,6 @@ public class CharacterTresureView : MonoBehaviour
         else
         {
             OnTresuresRemovedListener();
-        }
-    }
-
-    public void OnTresuresReplaced()
-    {
-        if (OnTresuresReplacedListener == null)
-        {
-            return;
-        }
-        else
-        {
-            OnTresuresReplacedListener();
         }
     }
 }

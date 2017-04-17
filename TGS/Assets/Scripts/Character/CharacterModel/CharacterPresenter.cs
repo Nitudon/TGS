@@ -20,7 +20,7 @@ public class CharacterPresenter : MonoBehaviour {
     private void ObserveCharacter()
     {
         _model.Score
-            .Subscribe(_ => _view.OnScoreChanged())
+            .Subscribe(_ => _view.OnScoreChanged(_model.Score.Value))
             .AddTo(gameObject);
 
         _model.FrontColor

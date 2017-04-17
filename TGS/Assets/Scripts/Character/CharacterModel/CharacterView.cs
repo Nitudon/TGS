@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UniRx;
 
 public class CharacterView : MonoBehaviour {
+
+    [SerializeField]
+    private Text Score;
 
     public Action OnScoreChangedListener;
 
@@ -12,16 +16,9 @@ public class CharacterView : MonoBehaviour {
 
     public Action OnBackColorChangedListener;
 
-    public void OnScoreChanged()
+    public void OnScoreChanged(int score)
     {
-        if(OnScoreChangedListener == null)
-        {
-            return;
-        }
-        else
-        {
-            OnScoreChangedListener();
-        }
+        Score.text = score.ToString();
     }
 
     public void OnFrontColorChanged()

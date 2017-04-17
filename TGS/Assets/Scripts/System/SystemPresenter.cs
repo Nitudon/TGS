@@ -34,11 +34,12 @@ public class SystemPresenter : MonoBehaviour {
         _model.Timer
             .Where(x => x >= 0)
             .Publish()
-            .Subscribe(_ => _view.OnTimerChanged())
+            .Subscribe(_ => _view.OnTimerChanged(_model.Timer.Value))
             .AddTo(gameObject);
 
         _model.Timer
             .Where(x => x == 0)
+            .First()
             .Publish()
             .Subscribe(_ => _view.OnTimerEnded())
             .AddTo(gameObject);
@@ -47,7 +48,6 @@ public class SystemPresenter : MonoBehaviour {
     private void SetEvents()
     {
         _view.OnTimerStartedListener = OnTimerStarted;
-        _view.OnTimerChangedListener = OnTimerChanged;
         _view.OnTimerEndedListener = OnTimerEnded;
     }
 

@@ -17,13 +17,13 @@ namespace SystemParameter
 
         public static readonly int SCORE_BASE = 100;
 
-        public static readonly int SCORE_RATE_NUMBER = 100;
+        public static readonly int SCORE_RATE_NUMBER = 150;
 
-        public static readonly int SCORE_RATE_COLOR = 100;
+        public static readonly int SCORE_RATE_COLOR = 250;
 
         public static readonly int SCORE_RATE_PLAYER = 300;
 
-        public static readonly float SCORE_RATE_CALCULATE = 1.2f;
+        public static readonly float SCORE_RATE_CALCULATE = 1.5f;
 
         public static readonly float OWN_TRESURE_POSITION_OFFSET = 0.6f;
 

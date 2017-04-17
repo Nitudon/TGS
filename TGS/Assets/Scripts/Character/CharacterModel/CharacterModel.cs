@@ -114,6 +114,8 @@ public class CharacterModel : ColorModel {
             {
                 RemoveTresure(i);
             }
+
+            AddScore(score);
         }
         
     }
