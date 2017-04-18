@@ -12,7 +12,13 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private GameObject PlayingGamePrefab;
 
     [SerializeField]
+    private GameObject StageManager;
+
+    [SerializeField]
     private SystemPresenter Presenter;
+
+    [SerializeField]
+    private GameObject SystemCanvas;
 
     private void Update()
     {
@@ -24,7 +30,9 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private void GameStart()
     {
+        SystemCanvas.SetActive(true);
         var prefab = Instantiate(PlayingGamePrefab,transform);
+        var stage = Instantiate(StageManager, transform);
         Presenter.Init();   
     }
 
