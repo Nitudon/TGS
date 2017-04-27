@@ -20,6 +20,16 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     [SerializeField]
     private GameObject SystemCanvas;
 
+    private bool _isGame;
+
+    public bool IsGame
+    {
+        get
+        {
+            return _isGame;
+        }
+    }
+
     private bool _isPause;
 
     public bool IsPause
@@ -42,6 +52,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     {
         SystemCanvas.SetActive(true);
         _isPause = false;
+        _isGame = true;
         var prefab = Instantiate(PlayingGamePrefab,transform);
         var stage = Instantiate(StageManager, transform);
         Presenter.Init();   

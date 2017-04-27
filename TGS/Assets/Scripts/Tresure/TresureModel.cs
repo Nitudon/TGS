@@ -87,6 +87,7 @@ public class TresureModel : ColorModel{
     public void GetTresure(CharacterModel model)
     {
         SetOwner(model);
+       _tresureGenerator.GetTresure();
         RotY = 0;
     }
 

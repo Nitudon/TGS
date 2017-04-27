@@ -37,6 +37,8 @@ namespace SystemParameter
 
         public static readonly float SPIN_SPEED = 0.5f;
 
+        public static readonly float GENERATE_TIME_SPAN = 5f;
+
         public static readonly Vector3 LEFT_DIRECTION_ANGLE = new Vector3(0,-90,0);
 
         public static readonly Vector3 RIGHT_DIRECTION_ANGLE = new Vector3(0, 90, 0);
