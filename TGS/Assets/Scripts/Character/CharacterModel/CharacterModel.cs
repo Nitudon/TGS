@@ -143,7 +143,10 @@ public class CharacterModel : ColorModel {
         if(model is TresureModel)
         {
             var tresure = model as TresureModel;
-            AddTresure(tresure);
+            if (tresure.HasOwner == false)
+            {
+                AddTresure(tresure);
+            }
         }
         else if(model is CharacterModel)
         {
@@ -159,7 +162,7 @@ public class CharacterModel : ColorModel {
 
     private void AddTresure(TresureModel tresure)
     {
-        tresure.SetOwner(this);
+        tresure.GetTresure(this);
         _tresures.Add(tresure);
         JudgeTresure();
     }

@@ -14,6 +14,7 @@ public class TresureModel : ColorModel{
     private void Awake()
     {
         SetColor(Color);
+        StartCoroutine(TresureMoveCoroutine());
     }
 
     public CharacterModel Owner
@@ -81,6 +82,21 @@ public class TresureModel : ColorModel{
         }
 
         _tresureGenerator = generator;
+    }
+
+    public void GetTresure(CharacterModel model)
+    {
+        SetOwner(model);
+        RotY = 0;
+    }
+
+    private IEnumerator TresureMoveCoroutine()
+    {
+        while (SystemManager.Instance.IsPause | _owner != null == false)
+        {
+            RotY += GameValue.SPIN_SPEED;
+            yield return null;
+        }
     }
 
 }

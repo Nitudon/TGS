@@ -19,18 +19,18 @@ public class CharacterModelController{
         _characterModel = model;
         speedScale = 1.0f;
 
-        //ControllConnect();
+        ControllConnect();
 
         #region[For Debug]
 #if UNITY_EDITOR
-        foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction)))
-        {
-            KeyObservable.GetKeyObservable(dirToKey(dir))
-                .Subscribe(_ => ModelMove(dir));
+        //foreach (GameEnum.direction dir in Enum.GetValues(typeof(GameEnum.direction)))
+        //{
+        //    KeyObservable.GetKeyObservable(dirToKey(dir))
+        //        .Subscribe(_ => ModelMove(dir));
 
-            KeyObservable.GetKeyUpObservable(dirToKey(dir))
-                .Subscribe(_ => StopMove());
-        }
+        //    KeyObservable.GetKeyUpObservable(dirToKey(dir))
+        //        .Subscribe(_ => StopMove());
+        //}
     }
 #endif
     #endregion
@@ -43,7 +43,8 @@ public class CharacterModelController{
     public void ControllConnect()
     {
         GamePadObservable.GetAxisStickObservable(_characterModel.GetPlayerID)
-            .Subscribe(x => CharacterMove(x));
+            .Subscribe(x => CharacterMove(x))
+            .AddTo(_characterModel);
     }
 
     private void CharacterMove(GamepadStickInput.StickInfo info)

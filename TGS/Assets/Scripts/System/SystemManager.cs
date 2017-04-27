@@ -20,6 +20,16 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     [SerializeField]
     private GameObject SystemCanvas;
 
+    private bool _isPause;
+
+    public bool IsPause
+    {
+        get
+        {
+            return _isPause;
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -31,6 +41,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private void GameStart()
     {
         SystemCanvas.SetActive(true);
+        _isPause = false;
         var prefab = Instantiate(PlayingGamePrefab,transform);
         var stage = Instantiate(StageManager, transform);
         Presenter.Init();   
@@ -73,5 +84,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     }
 
     private SystemModel _model;
+
+    public void SetPause(bool pause)
+    {
+        _isPause = pause;
+    }
 
 }

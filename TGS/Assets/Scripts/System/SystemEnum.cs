@@ -25,7 +25,7 @@ namespace SystemParameter
 
         public static readonly float SCORE_RATE_CALCULATE = 1.5f;
 
-        public static readonly float OWN_TRESURE_POSITION_OFFSET = 0.6f;
+        public static readonly float OWN_TRESURE_POSITION_OFFSET = 1.2f;
 
         public static readonly int OWN_TRESURE_MAX = 5;
 
@@ -33,7 +33,9 @@ namespace SystemParameter
 
         public static readonly float SPEED_BASE = 7.0f;
 
-        public static readonly float SPEED_RATE = 0.9f;
+        public static readonly float SPEED_RATE = 0.75f;
+
+        public static readonly float SPIN_SPEED = 0.5f;
 
         public static readonly Vector3 LEFT_DIRECTION_ANGLE = new Vector3(0,-90,0);
 
