@@ -1,0 +1,128 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Linq;
+using SystemParameter;
+using UdonCommons;
+using UnityEngine;
+
+public static class TresureJudgeHelper{
+
+    private static int CalculateScore(List<ColorModel> models)
+    { 
+        if(models == null)
+        {
+            InstantLog.StringLogError("Calculate models is null");
+            return 0;
+        }
+
+        var score = 0;
+        var colorCount = models.Select(x => x.TresureColor).Distinct().Count();
+        var modelCount = models.Count;
+
+        score =
+            (int)Mathf.Pow(GameValue.SCORE_RATE_CALCULATE, colorCount) * GameValue.SCORE_RATE_COLOR +
+            (int)Mathf.Pow(GameValue.SCORE_RATE_CALCULATE, modelCount) * GameValue.SCORE_RATE_NUMBER;
+
+        return score;
+    }
+
+    public static bool JudgeTresures(CharacterModel player, out int score)
+    {
+        score = 0;
+
+        var tresures = player.Tresures.ToList();
+
+        if (tresures == null)
+        {
+            InstantLog.StringLogError("tresures is null");
+            return false;
+        }
+
+        if (player.TresureColor == tresures.Last().TresureColor && tresures.Count > 1 && tresures.Select(x => x.TresureColor).Distinct().Count() > 1)
+        {
+            score = CalculateScore(tresures);
+            player.RemoveTresureAll();
+            return true;
+        }
+        else
+        {
+            InstantLog.CheckLog();
+            return JudgeColorList(player,tresures,ref score);
+        }
+    }
+
+    public static bool JudgeCharacter(CharacterModel backPlayer, CharacterModel frontPlayer, out int score)
+    {
+        bool judge;
+
+        score = 0;
+
+        var backList = backPlayer.Tresures.ToList();
+        var frontList = frontPlayer.Tresures.ToList();
+
+        if (frontList == null || backList == null)
+        {
+            InstantLog.StringLogError("tresures is null");
+            return false;
+        }
+
+        if(frontList.Count < 1 && backList.Count < 1)
+        {
+            return false;
+        }
+        else if (backList.Count < 1)
+        {
+            judge = JudgeColorList(backPlayer,frontList,ref score);
+            if (judge)
+            {
+                score += GameValue.SCORE_RATE_PLAYER;
+            }
+            return judge;
+        }
+        else if (frontList.Count < 1)
+        {
+            judge = JudgeColorList(backPlayer, backList, ref score);
+            if (judge)
+            {
+                score += GameValue.SCORE_RATE_PLAYER;
+            }
+            return judge;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
+    private static bool JudgeColorList(CharacterModel player,List<ColorModel> list, ref int score)
+    {
+        for(int col = 0; col < GameValue.COLOR_LIST_COUNT; ++col)
+        {
+            GameEnum.tresureColor color = (GameEnum.tresureColor)col;
+            var colorList = list.Where(x => x.TresureColor == color);
+            var isSame = colorList.Count();
+            if (isSame < 2)
+            {
+                continue;
+            }
+
+            var indexList = colorList.Select(x => x.ListNumber);
+            for (int j = 0;j < indexList.Count()-1;++j)
+            {
+                if(indexList.ElementAt(j)+1 != indexList.ElementAt(j + 1))
+                {
+                    int start = indexList.First();
+                    int count = indexList.Last()-start;
+                    player.RemoveTresureRange(start,count);
+                    score = CalculateScore(list.GetRange(start,count));
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+}

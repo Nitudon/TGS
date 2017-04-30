@@ -14,7 +14,6 @@ public class CharacterModel : ColorModel {
         _tresureColor = GameEnum.tresureColor.red;
         _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this);
-        _judge = new TresureJudge();
         _tresures = new ReactiveCollection<ColorModel>();
         _frontColor = new ReactiveProperty<ColorModel>();
         _backColor = new ReactiveProperty<ColorModel>();
@@ -38,8 +37,6 @@ public class CharacterModel : ColorModel {
     }
 
     private CharacterModelController _controller;
-
-    private TresureJudge _judge;
 
     private ReactiveProperty<int> _score;
     public IReadOnlyReactiveProperty<int> Score
@@ -108,13 +105,8 @@ public class CharacterModel : ColorModel {
         int count;
         var tresurelist = _tresures.ToList();
 
-        if (_judge.JudgeTresures(this, out score,out index, out count))
+        if (TresureJudgeHelper.JudgeTresures(this, out score))
         {
-            for (int i=index + count;i >= index ;--i)
-            {
-                RemoveTresure(i);
-            }
-
             AddScore(score);
         }
         
@@ -127,13 +119,8 @@ public class CharacterModel : ColorModel {
         int count;
         var tresurelist = _tresures.ToList();
 
-        if (_judge.JudgeCharacter(this,model, out score, out index, out count))
+        if (TresureJudgeHelper.JudgeCharacter(this, model, out score))
         {
-            for (int i = 0; i < count-1; ++i)
-            {
-                model.RemoveTresure(i);
-            }
-
             AddScore(score);
         }
     }
@@ -164,6 +151,7 @@ public class CharacterModel : ColorModel {
     {
         tresure.GetTresure(this);
         _tresures.Add(tresure);
+        tresure.SetListNumber(_tresures.Count - 1);
         JudgeTresure();
     }
 
@@ -172,8 +160,22 @@ public class CharacterModel : ColorModel {
         if(_tresures.ElementAt(index) is CharacterModel == false)
         {
             _tresures.ElementAt(index).Destroy();
+            _tresures.RemoveAt(index);
         }
-        _tresures.RemoveAt(index);
+    }
+
+    public void RemoveTresureAll()
+    {
+        for (int i=_tresures.Count-1; i >= 0;-- i) {
+            RemoveTresure(i);
+        }
+    }
+    
+    public void RemoveTresureRange(int index,int count)
+    {
+        for (int i=index+count; i >= index;--i) {
+            RemoveTresure(i);
+        }
     }
 
     public void SetScore(int score)

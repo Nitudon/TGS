@@ -21,11 +21,6 @@ public class TresureModel : ColorModel{
     {
         get
         {
-            if(_owner == null)
-            {
-                InstantLog.StringLogError("Owner is null");
-                return null;
-            }
             return _owner;
         }
     }

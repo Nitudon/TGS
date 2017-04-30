@@ -30,6 +30,21 @@ public class ColorModel : UdonBehaviour {
         }
     }
 
+    private int _listNumber;
+
+    public int ListNumber
+    {
+        get
+        {
+            return _listNumber;
+        }
+    }
+
+    public void SetListNumber(int num)
+    {
+        _listNumber = num;
+    }
+
     public bool EqualColor(ColorModel another)
     {
         return _tresureColor == another._tresureColor;

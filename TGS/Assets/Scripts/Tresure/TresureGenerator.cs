@@ -49,7 +49,7 @@ public class TresureGenerator :  UdonBehaviour{
     {
         var tresure = Tresures[index];
 
-        tresure = Instantiate(tresure, transform);
+        tresure = Instantiate(tresure, transform,true);
         tresure.transform.localPosition = position;
         tresure.SetGenerator(this);
         _hasTresure = true;

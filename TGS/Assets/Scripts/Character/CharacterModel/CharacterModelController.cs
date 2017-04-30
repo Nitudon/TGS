@@ -19,7 +19,7 @@ public class CharacterModelController{
         _characterModel = model;
         speedScale = 1.0f;
 
-       // ControllConnect();
+        ControllConnect();
 
         #region[For Debug]
 #if UNITY_EDITOR
