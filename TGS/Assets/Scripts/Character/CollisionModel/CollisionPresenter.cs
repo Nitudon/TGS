@@ -53,7 +53,11 @@ public class CollisionPresenter : UdonBehaviour {
 
     private void OnCollisionExited(GameObject go)
     {
-
+        if(ExtensionGameObject.HasComponent<CharacterModel>(go) && Character.Tresures.Count > 0)
+        {
+            Character.RemoveTresure(Character.Tresures.Count-1);
+            posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
+        }
     }
 
 }

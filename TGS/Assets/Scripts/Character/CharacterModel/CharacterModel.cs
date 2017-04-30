@@ -11,7 +11,7 @@ public class CharacterModel : ColorModel {
 
     private void Awake()
     {
-        _tresureColor = GameEnum.tresureColor.red;
+        _tresureColor = (GameEnum.tresureColor)Player;
         _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this);
         _tresures = new ReactiveCollection<ColorModel>();
@@ -101,8 +101,6 @@ public class CharacterModel : ColorModel {
     private void JudgeTresure()
     {
         int score;
-        int index;
-        int count;
         var tresurelist = _tresures.ToList();
 
         if (TresureJudgeHelper.JudgeTresures(this, out score))
@@ -115,8 +113,6 @@ public class CharacterModel : ColorModel {
     private void JudgeCharacter(CharacterModel model)
     {
         int score;
-        int index;
-        int count;
         var tresurelist = _tresures.ToList();
 
         if (TresureJudgeHelper.JudgeCharacter(this, model, out score))
@@ -144,6 +140,8 @@ public class CharacterModel : ColorModel {
 
     private void AddCharacter(CharacterModel model)
     {
+        _tresures.Add(model);
+        model.SetListNumber(_tresures.Count - 1);
         JudgeCharacter(model);
     }
 
@@ -151,6 +149,14 @@ public class CharacterModel : ColorModel {
     {
         tresure.GetTresure(this);
         _tresures.Add(tresure);
+
+        string ans = "";
+        for (int i=0;i<Tresures.Count;++i)
+        {
+            ans += Tresures.ElementAt(i).TresureColor.ToString() + " : ";
+        }
+
+        Debug.Log(ans);
         tresure.SetListNumber(_tresures.Count - 1);
         JudgeTresure();
     }
@@ -160,20 +166,20 @@ public class CharacterModel : ColorModel {
         if(_tresures.ElementAt(index) is CharacterModel == false)
         {
             _tresures.ElementAt(index).Destroy();
-            _tresures.RemoveAt(index);
         }
+        _tresures.RemoveAt(index);
     }
 
     public void RemoveTresureAll()
     {
-        for (int i=_tresures.Count-1; i >= 0;-- i) {
+        for (int i=_tresures.Count-1; i >= 0; --i) {
             RemoveTresure(i);
         }
     }
     
     public void RemoveTresureRange(int index,int count)
     {
-        for (int i=index+count; i >= index;--i) {
+        for (int i=index+count-1; i >= index; --i) {
             RemoveTresure(i);
         }
     }

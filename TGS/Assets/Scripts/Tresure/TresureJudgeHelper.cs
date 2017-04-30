@@ -47,7 +47,6 @@ public static class TresureJudgeHelper{
         }
         else
         {
-            InstantLog.CheckLog();
             return JudgeColorList(player,tresures,ref score);
         }
     }
@@ -67,18 +66,21 @@ public static class TresureJudgeHelper{
             return false;
         }
 
-        if(frontList.Count < 1 && backList.Count < 1)
+        if(frontList.Count < 1 && backList.Count < 2)
         {
             return false;
         }
-        else if (backList.Count < 1)
+        else if (backList.Count < 2)
         {
-            judge = JudgeColorList(backPlayer,frontList,ref score);
-            if (judge)
+            if (frontList.Where(x => x.TresureColor == backPlayer.TresureColor).Any())
             {
+                var index = frontList.FindLastIndex(x => x.TresureColor == backPlayer.TresureColor);
+                frontPlayer.RemoveTresureRange(0,index+1);
                 score += GameValue.SCORE_RATE_PLAYER;
+                return true;
             }
-            return judge;
+
+            return false;
         }
         else if (frontList.Count < 1)
         {
@@ -98,30 +100,36 @@ public static class TresureJudgeHelper{
 
     private static bool JudgeColorList(CharacterModel player,List<ColorModel> list, ref int score)
     {
-        for(int col = 0; col < GameValue.COLOR_LIST_COUNT; ++col)
+        if (list.Where(x => x is CharacterModel).Any() == false || list.Last() is CharacterModel)
         {
-            GameEnum.tresureColor color = (GameEnum.tresureColor)col;
-            var colorList = list.Where(x => x.TresureColor == color);
-            var isSame = colorList.Count();
-            if (isSame < 2)
+            for (int col = 1; col < GameValue.COLOR_LIST_COUNT+1; ++col)
             {
-                continue;
-            }
-
-            var indexList = colorList.Select(x => x.ListNumber);
-            for (int j = 0;j < indexList.Count()-1;++j)
-            {
-                if(indexList.ElementAt(j)+1 != indexList.ElementAt(j + 1))
+                GameEnum.tresureColor color = (GameEnum.tresureColor)col;
+                var colorList = list.Where(x => x.TresureColor == color);
+                var isSame = colorList.Count();
+                if (isSame < 2)
                 {
-                    int start = indexList.First();
-                    int count = indexList.Last()-start;
-                    player.RemoveTresureRange(start,count);
-                    score = CalculateScore(list.GetRange(start,count));
-                    return true;
+                    continue;
+                }
+                var indexList = colorList.Select(x => x.ListNumber);
+                for (int j = 0; j < indexList.Count() - 1; ++j)
+                {
+                    Debug.Log(indexList.ElementAt(j));
+                    if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
+                    {
+                        int start = indexList.First();
+                        int count = indexList.Last() - start;
+                        player.RemoveTresureRange(start, count);
+                        score = CalculateScore(list.GetRange(start, count));
+                        return true;
+                    }
                 }
             }
         }
+        else
+        {
 
+        }
         return false;
     }
 
