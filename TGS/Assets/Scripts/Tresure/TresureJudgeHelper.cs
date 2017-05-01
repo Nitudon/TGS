@@ -93,7 +93,15 @@ public static class TresureJudgeHelper{
         }
         else
         {
-            return false;
+            frontList.Insert(0,frontPlayer);
+            backList.AddRange(frontList);
+            backList.Insert(0,backPlayer);
+            judge = JudgeColorList(backPlayer,backList,ref score);
+            if (judge)
+            {
+                score += GameValue.SCORE_RATE_PLAYER;
+            }
+            return judge;
         }
         
     }
@@ -114,7 +122,6 @@ public static class TresureJudgeHelper{
                 var indexList = colorList.Select(x => x.ListNumber);
                 for (int j = 0; j < indexList.Count() - 1; ++j)
                 {
-                    Debug.Log(indexList.ElementAt(j));
                     if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
                     {
                         int start = indexList.First();
@@ -128,6 +135,33 @@ public static class TresureJudgeHelper{
         }
         else
         {
+            int playerIndex = list.FindLastIndex(x => x is CharacterModel);
+            for (int col = 1; col < GameValue.COLOR_LIST_COUNT + 1; ++col)
+            {
+                GameEnum.tresureColor color = (GameEnum.tresureColor)col;
+                var colorList = list.Where(x => x.TresureColor == color);
+                var isSame = colorList.Count();
+                if (isSame < 2)
+                {
+                    continue;
+                }
+                var indexList = colorList.Select(x => x.ListNumber);
+                CharacterModel interPlayer = list.ElementAt(playerIndex) as CharacterModel;
+                for (int j = 0; j < indexList.Count() - 1; ++j)
+                {
+                    if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
+                    {
+                        int start = indexList.First();
+                        int count = indexList.Last() - start;
+                        int frontCount = playerIndex - start;
+                        int backCount = indexList.Last() - playerIndex;
+                        player.RemoveTresureRange(start, frontCount);
+                        interPlayer.RemoveTresureRange(0,backCount);
+                        score = CalculateScore(list.GetRange(start, count));
+                        return true;
+                    }
+                }
+            }
 
         }
         return false;
