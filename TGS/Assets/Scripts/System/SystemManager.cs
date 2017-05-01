@@ -12,13 +12,23 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private GameObject PlayingGamePrefab;
 
     [SerializeField]
-    private GameObject StageManager;
+    private GameObject StageManagerPrefab;
 
     [SerializeField]
     private SystemPresenter Presenter;
 
     [SerializeField]
     private GameObject SystemCanvas;
+
+    [SerializeField]
+    private GameObject StartSceneObjects;
+
+    [SerializeField]
+    private GameObject EndSceneObjects;
+
+    private GameObject PlayingGameObject;
+
+    private GameObject StageManagerObject;
 
     private bool _isGame;
 
@@ -48,14 +58,41 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         }
     }
 
-    private void GameStart()
+    public void GameStart()
     {
+        StartSceneObjects.SetActive(false);
         SystemCanvas.SetActive(true);
         _isPause = false;
         _isGame = true;
-        var prefab = Instantiate(PlayingGamePrefab,transform);
-        var stage = Instantiate(StageManager, transform);
+        CreatePlayingObjects();
         Presenter.Init();   
+    }
+
+    public void GameEnd()
+    {
+        StartSceneObjects.SetActive(true);
+        SystemCanvas.SetActive(false);
+        _isGame = false;
+        _model.Dispose();
+        DestroyPlayingObjects();
+    }
+
+    private void BackTitle()
+    {
+        StartSceneObjects.SetActive(true);
+        EndSceneObjects.SetActive(false);
+    }
+
+    private void CreatePlayingObjects()
+    {
+        PlayingGameObject = Instantiate(PlayingGamePrefab, transform);
+        StageManagerObject = Instantiate(StageManagerPrefab, transform);
+    }
+
+    private void DestroyPlayingObjects()
+    {
+        Destroy(PlayingGameObject);
+        Destroy(StageManagerObject);
     }
 
     public class SystemModel
@@ -78,6 +115,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
                 return _timer;
             }
+        }
+
+        public void Dispose()
+        {
+            _timer.Dispose();
         }
     }
 

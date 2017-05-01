@@ -59,6 +59,6 @@ public class SystemPresenter : MonoBehaviour {
 
     private void OnTimerEnded()
     {
-
+        SystemManager.Instance.GameEnd();
     }
 }
