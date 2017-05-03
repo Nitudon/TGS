@@ -56,6 +56,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         {
             GameStart();
         }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            BackTitle();
+        }
     }
 
     public void GameStart()
@@ -70,10 +75,9 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     public void GameEnd()
     {
-        StartSceneObjects.SetActive(true);
+        EndSceneObjects.SetActive(true);
         SystemCanvas.SetActive(false);
         _isGame = false;
-        _model.Dispose();
         DestroyPlayingObjects();
     }
 

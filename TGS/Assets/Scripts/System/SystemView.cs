@@ -18,7 +18,7 @@ public class SystemView : UdonBehaviour{
 
     public void OnTimerChanged(int time)
     {
-        TimeBar.SetFill((float)(time/GameValue.BATTLE_TIME));
+        TimeBar.SetFill(((float)time/(float)GameValue.BATTLE_TIME));
     }
 
     public void OnTimerStarted()

@@ -36,7 +36,6 @@ public class SystemPresenter : MonoBehaviour {
 
         _model.Timer
             .Where(x => x == 0)
-            .First()
             .Subscribe(_ => _view.OnTimerEnded())
             .AddTo(gameObject);
     }
