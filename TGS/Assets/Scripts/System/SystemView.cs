@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UdonCommons;
+using SystemParameter;
 using UniRx;
 using UnityEngine.UI;
 
 public class SystemView : UdonBehaviour{
 
     [SerializeField]
-    private Text TimeText;
+    private FilledSprite TimeBar;
 
     public Action OnTimerStartedListener;
 
@@ -17,7 +18,7 @@ public class SystemView : UdonBehaviour{
 
     public void OnTimerChanged(int time)
     {
-        TimeText.text = time.ToString();
+        TimeBar.SetFill((float)(time/GameValue.BATTLE_TIME));
     }
 
     public void OnTimerStarted()
