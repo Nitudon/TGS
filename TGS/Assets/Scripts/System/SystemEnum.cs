@@ -9,6 +9,8 @@ namespace SystemParameter
         public enum tresureColor { nothing, red, blue, yellow, green }
 
         public enum direction { left, up, down, right }
+
+        public enum animTrigger { walk,stop,tresure}
     }
 
     public static class GameValue
@@ -31,9 +33,11 @@ namespace SystemParameter
 
         public static readonly int OWN_TRESURE_MAX = 5;
 
-        public static readonly int BATTLE_TIME = 5;
+        public static readonly int BATTLE_TIME = 120;
 
         public static readonly float SPEED_BASE = 7.0f;
+
+        public static readonly float SPEED_BASE_SCALE = 1.0f;
 
         public static readonly float SPEED_RATE = 0.75f;
 

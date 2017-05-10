@@ -13,7 +13,7 @@ public class CharacterModel : ColorModel {
     {
         _tresureColor = (GameEnum.tresureColor)Player;
         _score = new ReactiveProperty<int>(0);
-        _controller = new CharacterModelController(this);
+        _controller = new CharacterModelController(this,CharacterAnimator);
         _tresures = new ReactiveCollection<ColorModel>();
         _frontColor = new ReactiveProperty<ColorModel>();
         _backColor = new ReactiveProperty<ColorModel>();
@@ -23,7 +23,7 @@ public class CharacterModel : ColorModel {
     private Collider FrontCollider;
 
     [SerializeField]
-    private Collider BackCollider;
+    private Animator CharacterAnimator;
 
     [SerializeField]
     private GamePadObservable.Player Player;
@@ -107,7 +107,10 @@ public class CharacterModel : ColorModel {
         {
             AddScore(score);
         }
-        
+        else
+        {
+            _controller.SetAnimTrigger(GameEnum.animTrigger.tresure);
+        }
     }
 
     private void JudgeCharacter(CharacterModel model)
@@ -149,7 +152,7 @@ public class CharacterModel : ColorModel {
     {
         tresure.GetTresure(this);
         _tresures.Add(tresure);
-
+        #region[Debug]
         string ans = "";
         for (int i=0;i<Tresures.Count;++i)
         {
@@ -157,6 +160,7 @@ public class CharacterModel : ColorModel {
         }
 
         Debug.Log(ans);
+        #endregion
         tresure.SetListNumber(_tresures.Count - 1);
         JudgeTresure();
     }
