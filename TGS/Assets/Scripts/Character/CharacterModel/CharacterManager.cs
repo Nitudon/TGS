@@ -42,4 +42,42 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
         }
     }
 
+    public void AddCharacterModel(CharacterModel model)
+    {
+        if (_characterModels == null)
+        {
+            _characterModels = new List<CharacterModel>();
+        }
+       
+            _characterModels.Add(model);
+            _characterModels = _characterModels.OrderBy(x => x.GetPlayerID).ToList();
+
+    }
+
+    public int GetCharacterScore(int index)
+    {
+        if (_characterModels == null)
+        {
+            InstantLog.StringLogError("characterModels is null");
+            return 0;
+        }
+        else
+        {
+            if (_characterModels.Count <= index || _characterModels.ElementAt(index) == null)
+            {
+                InstantLog.StringLogError("access to characterModels is wrong");
+                return 0;
+            }
+            else
+            {
+                return _characterModels.ElementAt(index).Score.Value;
+            }
+        }
+    }
+
+    public List<CharacterModel> GetCharacterRankList()
+    {
+        return _characterModels.OrderBy(x => x.Score.Value).ToList();
+    }
+
 }
