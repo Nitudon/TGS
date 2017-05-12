@@ -15,6 +15,9 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private GameObject StageManagerPrefab;
 
     [SerializeField]
+    private GameObject ParticleManagerPrefab;
+
+    [SerializeField]
     private SystemPresenter Presenter;
 
     [SerializeField]
@@ -25,6 +28,8 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     [SerializeField]
     private GameObject EndSceneObjects;
+
+    private GameObject ParticleManagerObject;
 
     private GameObject PlayingGameObject;
 
@@ -61,6 +66,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         {
             BackTitle();
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            ParticleManager.Instance.GetParticleEvent(0).NumEmit(100);
+        }
     }
 
     public void GameStart()
@@ -91,6 +101,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     {
         PlayingGameObject = Instantiate(PlayingGamePrefab, transform);
         StageManagerObject = Instantiate(StageManagerPrefab, transform);
+        ParticleManagerObject = Instantiate(ParticleManagerPrefab, transform);
     }
 
     private void DestroyPlayingObjects()
