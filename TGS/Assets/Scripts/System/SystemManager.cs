@@ -69,7 +69,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            ParticleManager.Instance.GetParticleEvent(0).NumEmit(100);
+            ParticleManager.Instance.GetParticleEvent(0).NumEmit(CharacterManager.Instance.GetCharacterModel(0).transform.localPosition);
         }
     }
 

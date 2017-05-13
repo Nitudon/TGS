@@ -96,6 +96,8 @@ public class Emit_Particle : ParticleEvent
     [SerializeField]
     private AnimationCurve lifetimeSize = AnimationCurve.Linear(0,0,1f,1f);
     [SerializeField]
+    private int ParticleNum;
+    [SerializeField]
     private Vector3[] positions;
 
     private float _giveLifeTime {get { return (giveLifeTime == 0) ? particle.lifetime : giveLifeTime; } }
@@ -105,10 +107,16 @@ public class Emit_Particle : ParticleEvent
         ParticleEmitter();
     }
 
-    public void NumEmit(int num)
+    public void NumEmit()
     {
-        for(int i=0;i < num; ++i)
+        for(int i=0;i < ParticleNum; ++i)
         particle.Emit();
+    }
+
+    public void NumEmit(Vector3 pos)
+    {
+        for (int i = 0; i < ParticleNum; ++i)
+            particle.Emit(pos);
     }
 
     protected override void Emit()
