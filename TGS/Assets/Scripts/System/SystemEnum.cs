@@ -17,7 +17,7 @@ namespace SystemParameter
     {
         public static readonly int COLOR_LIST_COUNT = 4;
 
-        public static readonly float MOVE_BASE_SPEED = 5.0f;
+        public static readonly float MOVE_BASE_SPEED = 2.0f;
 
         public static readonly int SCORE_BASE = 100;
 

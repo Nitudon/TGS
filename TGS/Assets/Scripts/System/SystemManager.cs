@@ -66,11 +66,6 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         {
             BackTitle();
         }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ParticleManager.Instance.GetParticleEvent(0).NumEmit(CharacterManager.Instance.GetCharacterModel(0).transform.localPosition);
-        }
     }
 
     public void GameStart()

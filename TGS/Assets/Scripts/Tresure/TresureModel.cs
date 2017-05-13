@@ -15,6 +15,7 @@ public class TresureModel : ColorModel{
     {
         SetColor(Color);
         StartCoroutine(TresureMoveCoroutine());
+        SetOnDestroy(BreakTresure);
     }
 
     public CharacterModel Owner
@@ -95,4 +96,8 @@ public class TresureModel : ColorModel{
         }
     }
 
+    private void BreakTresure()
+    {
+        ParticleManager.Instance.GetParticleEvent(0).NumEmit(position);
+    }
 }
