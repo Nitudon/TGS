@@ -75,6 +75,11 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         _playerSources.Add(player,source);
     }
 
+    protected override void Init()
+    {
+        _playerSources = new Dictionary<GamePadObservable.Player, AudioSource>();
+    }
+
     public void PlayBGM(GameEnum.BGM value)
     {
         AudioClip clip;
@@ -95,13 +100,24 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
     }
 
-    public void PlayPlayerSE(GamePadObservable.Player player)
+    public void PlayPlayerSE(GamePadObservable.Player player,GameEnum.SE value)
     {
         AudioSource source;
+        AudioClip clip;
         if (_playerSources == null || _playerSources.TryGetValue(player, out source) == false)
         {
             InstantLog.StringLogError("Invalid access to PlayerSource");
             return;
+        }
+        else if (SEClips.TryGetValue(value, out clip) == false)
+        {
+            InstantLog.StringLogError(value.ToString() + " type clip is nothing");
+            return;
+        }
+        else
+        {
+            source.clip = clip;
+            source.Play();
         }
     }
 

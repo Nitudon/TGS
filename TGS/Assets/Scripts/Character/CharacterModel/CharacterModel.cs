@@ -19,6 +19,7 @@ public class CharacterModel : ColorModel {
         _frontColor = new ReactiveProperty<ColorModel>();
         _backColor = new ReactiveProperty<ColorModel>();
         CharacterManager.Instance.AddCharacterModel(this);
+        AudioManager.Instance.SetPlayerSource(Player,SEPlayer);
     }
 
     [SerializeField]
@@ -32,6 +33,9 @@ public class CharacterModel : ColorModel {
 
     [SerializeField]
     private AnimationScoreText ScoreSuscription;
+
+    [SerializeField]
+    private AudioSource SEPlayer;
 
     public GamePadObservable.Player GetPlayerID
     {
@@ -114,6 +118,7 @@ public class CharacterModel : ColorModel {
         }
         else
         {
+            AudioManager.Instance.PlayPlayerSE(Player, GameEnum.SE.get);
             _controller.SetAnimTrigger(GameEnum.animTrigger.tresure);
         }
     }
@@ -174,6 +179,7 @@ public class CharacterModel : ColorModel {
     {
         if(_tresures.ElementAt(index) is CharacterModel == false)
         {
+            AudioManager.Instance.PlayPlayerSE(Player,GameEnum.SE.crash);
             _tresures.ElementAt(index).Destroy();
         }
         _tresures.RemoveAt(index);
