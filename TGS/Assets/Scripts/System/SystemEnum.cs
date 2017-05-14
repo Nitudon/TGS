@@ -11,13 +11,15 @@ namespace SystemParameter
         public enum direction { left, up, down, right }
 
         public enum animTrigger { walk,stop,tresure}
+
+        public enum BGM { title, battle, end}
+
+        public enum SE { get, crash}
     }
 
     public static class GameValue
     {
         public static readonly int COLOR_LIST_COUNT = 4;
-
-        public static readonly float MOVE_BASE_SPEED = 2.0f;
 
         public static readonly int SCORE_BASE = 100;
 
@@ -35,13 +37,15 @@ namespace SystemParameter
 
         public static readonly int BATTLE_TIME = 120;
 
-        public static readonly float SPEED_BASE = 7.0f;
+        public static readonly float SPEED_BASE = 1.0f;
 
         public static readonly float SPEED_BASE_SCALE = 1.0f;
 
         public static readonly float SPEED_RATE = 0.75f;
 
         public static readonly float SPIN_SPEED = 0.5f;
+
+        public static readonly float SPEED_MAX = 0.3f;
 
         public static readonly float GENERATE_TIME_SPAN = 5f;
 

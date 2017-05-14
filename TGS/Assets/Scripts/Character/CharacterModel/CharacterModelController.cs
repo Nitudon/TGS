@@ -47,8 +47,8 @@ public class CharacterModelController{
 
     private void CharacterMove(GamepadStickInput.StickInfo info)
     {
-        var tresureHeavy = Mathf.Pow(GameValue.SPEED_RATE,_characterModel.Tresures.Count);
-        _characterModel.rigitbody.AddForce(info.movePosition * GameValue.SPEED_BASE * tresureHeavy);
+        var tresureHeavy = Mathf.Pow(GameValue.SPEED_RATE, _characterModel.Tresures.Count);
+        _characterModel.rigitbody.velocity = info.movePosition * GameValue.SPEED_BASE * tresureHeavy;
         info.RotatePosition(_characterModel.transform);
     }
 

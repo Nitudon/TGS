@@ -75,7 +75,8 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         _isPause = false;
         _isGame = true;
         CreatePlayingObjects();
-        Presenter.Init();   
+        Presenter.Init();
+        AudioManager.Instance.PlayBGM(GameEnum.BGM.battle);
     }
 
     public void GameEnd()

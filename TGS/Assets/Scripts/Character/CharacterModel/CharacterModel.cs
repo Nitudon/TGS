@@ -6,6 +6,7 @@ using System.Linq;
 using SystemParameter;
 using UdonCommons;
 using UdonObservable.InputRx.GamePad;
+using DG.Tweening;
 
 public class CharacterModel : ColorModel {
 
@@ -28,6 +29,9 @@ public class CharacterModel : ColorModel {
 
     [SerializeField]
     private GamePadObservable.Player Player;
+
+    [SerializeField]
+    private AnimationScoreText ScoreSuscription;
 
     public GamePadObservable.Player GetPlayerID
     {
@@ -197,6 +201,7 @@ public class CharacterModel : ColorModel {
     public void AddScore(int score)
     {
         _score.Value += score;
+        ScoreSuscription.gameObject.SetActive(true);
+        ScoreSuscription.Play(score);
     }
-
 }
