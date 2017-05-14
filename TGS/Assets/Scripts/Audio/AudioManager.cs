@@ -116,8 +116,7 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
         else
         {
-            source.clip = clip;
-            source.Play();
+            source.PlayOneShot(clip);
         }
     }
 
