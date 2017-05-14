@@ -31,6 +31,7 @@ public class CharacterModelController{
     {
         return
         GamePadObservable.GetAxisStickObservable(_characterModel.GetPlayerID)
+            .Where(_ => SystemManager.Instance.IsGame)
             .Subscribe(x => CharacterMove(x))
             .AddTo(_characterModel);
     }

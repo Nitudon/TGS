@@ -100,6 +100,26 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
     }
 
+    public void PlaySystemSE(GameEnum.SE value)
+    {
+        AudioClip clip;
+
+        if ( _BGMSource == null)
+        {
+            InstantLog.StringLogError("BGMSource is null");
+            return;
+        }
+        else if (SEClips.TryGetValue(value, out clip) == false)
+        {
+            InstantLog.StringLogError(value.ToString() + " type clip is nothing");
+            return;
+        }
+        else
+        {
+            _BGMSource.PlayOneShot(clip);
+        }
+    }
+
     public void PlayPlayerSE(GamePadObservable.Player player,GameEnum.SE value)
     {
         AudioSource source;

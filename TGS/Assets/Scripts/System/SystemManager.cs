@@ -21,7 +21,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private SystemPresenter Presenter;
 
     [SerializeField]
-    private GameObject SystemCanvas;
+    private SceneController SystemCanvas;
 
     [SerializeField]
     private GameObject StartSceneObjects;
@@ -70,21 +70,34 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     public void GameStart()
     {
-        StartSceneObjects.SetActive(false);
-        SystemCanvas.SetActive(true);
-        _isPause = false;
-        _isGame = true;
-        CreatePlayingObjects();
-        Presenter.Init();
-        AudioManager.Instance.PlayBGM(GameEnum.BGM.battle);
+        StartCoroutine(OnGameStartCoroutine());
     }
 
     public void GameEnd()
     {
         EndSceneObjects.SetActive(true);
-        SystemCanvas.SetActive(false);
+        SystemCanvas.gameObject.SetActive(false);
         _isGame = false;
         DestroyPlayingObjects();
+    }
+
+    private IEnumerator OnGameStartCoroutine()
+    {
+        _isGame = false;
+        CreatePlayingObjects();
+        StartSceneObjects.SetActive(false);
+        AudioManager.Instance.PlayBGM(GameEnum.BGM.battle);
+        SystemCanvas.gameObject.SetActive(true);
+
+        yield return new WaitUntil(() => SystemCanvas.isPlayingGame);
+
+        SystemCanvas.GameStart();
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.start);
+        _isPause = false;
+        _isGame = true;
+        Presenter.Init();
+
+        yield break;
     }
 
     private void BackTitle()
