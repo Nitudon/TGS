@@ -51,10 +51,6 @@ public class SystemPresenter : MonoBehaviour {
 
     }
 
-    private void OnTimerChanged()
-    {
-
-    }
 
     private void OnTimerEnded()
     {

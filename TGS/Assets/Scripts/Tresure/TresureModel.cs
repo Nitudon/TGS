@@ -98,6 +98,9 @@ public class TresureModel : ColorModel{
 
     private void BreakTresure()
     {
-        ParticleManager.Instance.GetParticleEvent(0).NumEmit(position);
+        if (SystemManager.Instance.IsGame)
+        {
+            ParticleManager.Instance.GetParticleEvent(0).NumEmit(position);
+        }
     }
 }

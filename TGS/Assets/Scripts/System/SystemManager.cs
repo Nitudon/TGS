@@ -23,12 +23,6 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     [SerializeField]
     private SceneController SystemCanvas;
 
-    [SerializeField]
-    private GameObject StartSceneObjects;
-
-    [SerializeField]
-    private GameObject EndSceneObjects;
-
     private GameObject ParticleManagerObject;
 
     private GameObject PlayingGameObject;
@@ -55,6 +49,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         }
     }
 
+    protected override void Start()
+    {
+        AudioManager.Instance.PlayBGM(GameEnum.BGM.title);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -62,10 +61,6 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
             GameStart();
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            BackTitle();
-        }
     }
 
     public void GameStart()
@@ -75,23 +70,22 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     public void GameEnd()
     {
-        EndSceneObjects.SetActive(true);
-        SystemCanvas.gameObject.SetActive(false);
-        _isGame = false;
-        DestroyPlayingObjects();
+        StartCoroutine(OnGameEndCoroutine());
+    }
+
+    public void BackTitle()
+    {
+        StartCoroutine(OnBackTitleCoroutine());
     }
 
     private IEnumerator OnGameStartCoroutine()
     {
         _isGame = false;
-        CreatePlayingObjects();
-        StartSceneObjects.SetActive(false);
-        AudioManager.Instance.PlayBGM(GameEnum.BGM.battle);
-        SystemCanvas.gameObject.SetActive(true);
+        SystemCanvas.GameSceneTranslate(() => CreatePlayingObjects());
 
         yield return new WaitUntil(() => SystemCanvas.isPlayingGame);
 
-        SystemCanvas.GameStart();
+        SystemCanvas.BattleStart();
         AudioManager.Instance.PlaySystemSE(GameEnum.SE.start);
         _isPause = false;
         _isGame = true;
@@ -100,10 +94,25 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         yield break;
     }
 
-    private void BackTitle()
+    private IEnumerator OnGameEndCoroutine()
     {
-        StartSceneObjects.SetActive(true);
-        EndSceneObjects.SetActive(false);
+        _isGame = false;
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.end);
+        SystemCanvas.BattleEnd();
+
+        yield return new WaitUntil(() => SystemCanvas.isEndingGame);
+        yield return new WaitWhile(() => SystemCanvas.isEndingGame);
+
+        SystemCanvas.ResultSceneTranslate(() => DestroyPlayingObjects());
+
+        yield break;
+    }
+
+    private IEnumerator OnBackTitleCoroutine()
+    {
+        SystemCanvas.TitleSceneTranslate();
+
+        yield break;
     }
 
     private void CreatePlayingObjects()
@@ -114,7 +123,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     }
 
     private void DestroyPlayingObjects()
-    {
+    {        
         Destroy(PlayingGameObject);
         Destroy(StageManagerObject);
     }

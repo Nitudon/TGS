@@ -95,6 +95,12 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
         else
         {
+            if (_BGMSource.isPlaying)
+            {
+                _BGMSource.Stop();
+                _BGMSource.time = 0;
+            }
+
             _BGMSource.clip = clip;
             _BGMSource.Play();
         }
