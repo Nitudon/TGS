@@ -216,12 +216,6 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - m_assetDatabaseId: 53d2203ad3a4ad54bae4694123a17305
-    m_importFrom: Assets/Resources/Materials/RedFace.mat
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_assetDatabaseId: 3139b8aa9ad0f15489f7084db7e1bfda
     m_importFrom: Assets/Resources/Materials/RedHead.mat
     m_exportTo: 
