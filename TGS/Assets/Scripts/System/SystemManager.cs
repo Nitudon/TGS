@@ -39,6 +39,8 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private IDisposable CancelController;
 
+    private bool _createdGame;
+    private bool _finishedGame;
     private bool _isGame;
 
     public bool IsGame
@@ -66,7 +68,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     public void GameStart()
     {
-        StartCoroutine(OnGameStartCoroutine());
+        if (_createdGame == false)
+        {
+            StartCoroutine(OnGameStartCoroutine());
+        }
     }
 
     public void GameEnd()
@@ -76,12 +81,17 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     public void BackTitle()
     {
-        StartCoroutine(OnBackTitleCoroutine());
+        if (_finishedGame == false)
+        {
+            StartCoroutine(OnBackTitleCoroutine());
+        }
     }
 
     private IEnumerator OnGameStartCoroutine()
     {
+        _createdGame = true;
         _isGame = false;
+        _finishedGame = false;
         SystemCanvas.GameSceneTranslate(() => CreatePlayingObjects());
 
         yield return new WaitUntil(() => SystemCanvas.isPlayingGame);
@@ -98,6 +108,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private IEnumerator OnGameEndCoroutine()
     {
         _isGame = false;
+        _createdGame = false;
         AudioManager.Instance.PlaySystemSE(GameEnum.SE.end);
         SystemCanvas.BattleEnd();
 
@@ -111,6 +122,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private IEnumerator OnBackTitleCoroutine()
     {
+        _finishedGame = true;
         SystemCanvas.TitleSceneTranslate(() => DestroyResultObjects());
 
         yield break;

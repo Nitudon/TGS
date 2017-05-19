@@ -69,12 +69,16 @@ public class TitleController{
             _tintTransform.DOKill();
             _tintTransform.DOLocalMoveX(VIEW_TINT_X,0.4f);
             _viewMenu = true;
+            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.slide);
         }
         else
         {
             if (_mode == titleCommand.game)
             {
+                _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f);
+                _viewMenu = false;
                 SystemManager.Instance.GameStart();
+                AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.decide);
             }
         }
     }
@@ -95,12 +99,14 @@ public class TitleController{
         {
             _arrowTransform.localPosition = DOWN_POSITION;
             _mode = titleCommand.explain;
+            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.cursor);
         }
 
         else if (vert < -0.7f && _mode == titleCommand.explain)
         {
             _arrowTransform.localPosition = UP_POSITION;
             _mode = titleCommand.game;
+            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.cursor);
         }
     }
 
