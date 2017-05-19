@@ -20,10 +20,10 @@ public class SceneController : MonoBehaviour{
     private GameObject GameEndUI;
 
     [SerializeField]
-    private GameObject StartSceneObjects;
+    private GameObject TitleUI;
 
     [SerializeField]
-    private GameObject EndSceneObjects;
+    private GameObject ResultUI;
 
     [SerializeField]
     private CanvasGroup SceneFadeTint;
@@ -105,13 +105,14 @@ public class SceneController : MonoBehaviour{
         yield return null;
     }
 
-    public void TitleSceneTranslate()
+    public void TitleSceneTranslate(Action systemTask)
     {
         SceneFade(GameEnum.BGM.title
             ,() =>
         {
-            EndSceneObjects.SetActive(false);
-            StartSceneObjects.SetActive(true);
+            systemTask();
+            ResultUI.SetActive(false);
+            TitleUI.SetActive(true);
         }
         );
     }
@@ -126,7 +127,7 @@ public class SceneController : MonoBehaviour{
                 _titleController.Dispose();
             }
             systemTask();
-            StartSceneObjects.SetActive(false);
+            TitleUI.SetActive(false);
             GameStartUI.SetActive(true);
         },
             () => SetAnimationTrigger(SceneTrigger.GameStart)
@@ -155,7 +156,7 @@ public class SceneController : MonoBehaviour{
             ,() => {
             systemTask();
             SystemCanvas.SetActive(false);
-            EndSceneObjects.SetActive(true);
+            ResultUI.SetActive(true);
             GameEndUI.SetActive(false);
         });
 

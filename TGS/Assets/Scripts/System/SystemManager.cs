@@ -19,6 +19,9 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private GameObject ParticleManagerPrefab;
 
     [SerializeField]
+    private GameObject ResultScenePrefab;
+
+    [SerializeField]
     private SystemPresenter Presenter;
 
     [SerializeField]
@@ -27,6 +30,8 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private GameObject ParticleManagerObject;
 
     private GameObject PlayingGameObject;
+
+    private GameObject ResultGameObject;
 
     private GameObject StageManagerObject;
 
@@ -99,14 +104,14 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         yield return new WaitUntil(() => SystemCanvas.isEndingGame);
         yield return new WaitWhile(() => SystemCanvas.isEndingGame);
 
-        SystemCanvas.ResultSceneTranslate(() => DestroyPlayingObjects());
+        SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateResultPlayingObject(); });
 
         yield break;
     }
 
     private IEnumerator OnBackTitleCoroutine()
     {
-        SystemCanvas.TitleSceneTranslate();
+        SystemCanvas.TitleSceneTranslate(() => DestroyResultObjects());
 
         yield break;
     }
@@ -122,6 +127,16 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     {        
         Destroy(PlayingGameObject);
         Destroy(StageManagerObject);
+    }
+
+    private void CreateResultPlayingObject()
+    {
+        ResultGameObject = Instantiate(ResultScenePrefab, transform);
+    }
+
+    private void DestroyResultObjects()
+    {
+        Destroy(ResultGameObject);
     }
 
     public void SubmitConnect(IDisposable controller)

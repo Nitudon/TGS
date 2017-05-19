@@ -84,12 +84,6 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - m_assetDatabaseId: 496935d775ea7ff41927e34685321fe1
-    m_importFrom: Assets/Prefabs/Models/player.prefab
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_assetDatabaseId: c44e70f15063ecd419681e71bfb9ac55
     m_importFrom: Assets/Prefabs/System/Main Camera.prefab
     m_exportTo: 
