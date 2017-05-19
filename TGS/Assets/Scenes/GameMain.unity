@@ -1675,6 +1675,12 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 005851ef4a8203d42b9219c2b024f8fa, type: 3}
     - Key: 3
       Value: {fileID: 8300000, guid: 3945e9a9c3f912543b8bd87981678c9b, type: 3}
+    - Key: 4
+      Value: {fileID: 8300000, guid: 0db48e378c2977d489702cfc2d7bde42, type: 3}
+    - Key: 5
+      Value: {fileID: 8300000, guid: ee48ecc72956c2f4b9d06786eba5a980, type: 3}
+    - Key: 6
+      Value: {fileID: 8300000, guid: 936eb907c799b04469797f7e4af83b56, type: 3}
   _BGMSource: {fileID: 962344176}
 --- !u!82 &962344176
 AudioSource:
