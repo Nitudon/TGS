@@ -84,12 +84,6 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - m_assetDatabaseId: 2c2dd9a6b6148504e9f96b014dd5f731
-    m_importFrom: Assets/Prefabs/GameModels/StageManager 1.prefab
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_assetDatabaseId: 496935d775ea7ff41927e34685321fe1
     m_importFrom: Assets/Prefabs/Models/player.prefab
     m_exportTo: 
@@ -3387,6 +3381,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - m_assetDatabaseId: b6318b2e85f9cef4c8159667b7d350de
     m_importFrom: Assets/Resources/Sprites/checker.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 146a64d0855197e4a83b0ccb5870cae6
+    m_importFrom: Assets/Resources/Sprites/arrow.png
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,

@@ -22,7 +22,7 @@ public class TresureGenerator :  UdonBehaviour{
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         _hasTresure = false;
         Init();

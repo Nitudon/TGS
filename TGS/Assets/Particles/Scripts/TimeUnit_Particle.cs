@@ -5,7 +5,6 @@ using ParticlePlayground;
 using System.Linq;
 using UniRx;
 using UnityEngine;
-using UnityEditor;
 
 [System.Serializable]
 public abstract class ParticleEvent {
@@ -91,8 +90,6 @@ public class Emit_Particle : ParticleEvent
     private float time = 0f;    
     [SerializeField]
     private float giveLifeTime = 0f;
-    [SerializeField]
-    private bool IsScale = false;
     [SerializeField]
     private AnimationCurve lifetimeSize = AnimationCurve.Linear(0,0,1f,1f);
     [SerializeField]

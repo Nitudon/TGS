@@ -28,6 +28,14 @@ public class SceneController : MonoBehaviour{
     [SerializeField]
     private CanvasGroup SceneFadeTint;
 
+    [SerializeField]
+    private RectTransform TitleArrow;
+
+    [SerializeField]
+    private RectTransform TitleTint;
+
+    private TitleController _titleController;
+
     private enum BattleState{StartAnimation,PlayingGame,EndAnimation}
     private enum SceneTrigger { GameStart,GameEnd}
 
@@ -53,6 +61,21 @@ public class SceneController : MonoBehaviour{
         {
             return SceneUIAnimator.GetCurrentAnimatorStateInfo(0).IsName(BattleState.EndAnimation.ToString());
         }
+    }
+
+    private void Awake()
+    {
+        TitleConnect();
+    }
+
+    private void TitleConnect()
+    {
+        if (_titleController == null)
+        {
+            _titleController = new TitleController(TitleArrow,TitleTint);
+        }
+
+        _titleController.ControllConnect();
     }
 
     private Tweener Fadein()
@@ -98,6 +121,10 @@ public class SceneController : MonoBehaviour{
         SceneFade(GameEnum.BGM.battle
             ,() => 
         {
+            if(_titleController != null)
+            {
+                _titleController.Dispose();
+            }
             systemTask();
             StartSceneObjects.SetActive(false);
             GameStartUI.SetActive(true);
@@ -128,6 +155,7 @@ public class SceneController : MonoBehaviour{
             ,() => {
             systemTask();
             SystemCanvas.SetActive(false);
+            EndSceneObjects.SetActive(true);
             GameEndUI.SetActive(false);
         });
 

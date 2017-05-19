@@ -17,7 +17,7 @@ public class CollisionPresenter : UdonBehaviour {
     [SerializeField]
     private CollisionView _view;
 
-    private void Start()
+    protected override void Start()
     {
         SetEvents();
         ObserveCollision();

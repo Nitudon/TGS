@@ -11,7 +11,7 @@ public class TresureModel : ColorModel{
 
     private TresureGenerator _tresureGenerator;
 
-    private void Awake()
+    protected override void Awake()
     {
         SetColor(Color);
         StartCoroutine(TresureMoveCoroutine());

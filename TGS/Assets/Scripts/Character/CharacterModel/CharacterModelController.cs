@@ -25,6 +25,7 @@ public class CharacterModelController{
         speedScale = GameValue.SPEED_BASE_SCALE;
 
         ControllConnecter = ControllConnect();
+
     }
 
     public IDisposable ControllConnect()
@@ -34,6 +35,16 @@ public class CharacterModelController{
             .Where(_ => SystemManager.Instance.IsGame)
             .Subscribe(x => CharacterMove(x))
             .AddTo(_characterModel);
+    }
+
+    public void ControllDisconnect()
+    {
+        if(ControllConnecter == null)
+        {
+            return;
+        }
+
+        ControllConnecter.Dispose();
     }
 
     public void SetAnimTrigger(GameEnum.animTrigger trigger)

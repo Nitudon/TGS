@@ -4955,7 +4955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrontCollider: {fileID: 65941569068455638}
-  CharacterAnimator: {fileID: 0}
+  CharacterAnimator: {fileID: 95589054879912676}
   Player: 2
   ScoreSuscription: {fileID: 114380724234380422}
   SEPlayer: {fileID: 82018641615762794}
@@ -5289,7 +5289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrontCollider: {fileID: 65808482827512270}
-  CharacterAnimator: {fileID: 0}
+  CharacterAnimator: {fileID: 95415783222263876}
   Player: 4
   ScoreSuscription: {fileID: 114143581800464544}
   SEPlayer: {fileID: 82270558301241362}
@@ -5722,7 +5722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrontCollider: {fileID: 65358424085432222}
-  CharacterAnimator: {fileID: 0}
+  CharacterAnimator: {fileID: 95003252564053416}
   Player: 3
   ScoreSuscription: {fileID: 114483667223424614}
   SEPlayer: {fileID: 82197979397551074}
@@ -5764,7 +5764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrontCollider: {fileID: 65144563233954440}
-  CharacterAnimator: {fileID: 0}
+  CharacterAnimator: {fileID: 95620865909069498}
   Player: 1
   ScoreSuscription: {fileID: 114408401559139558}
   SEPlayer: {fileID: 82183694844157404}

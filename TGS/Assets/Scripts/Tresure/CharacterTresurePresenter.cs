@@ -14,7 +14,7 @@ public class CharacterTresurePresenter : UdonBehaviour
     [SerializeField]
     private CharacterTresureView _view;
 
-    private void Start()
+    protected override void Start()
     {
         SetEvents();
         ObserveCharacterTresure();

@@ -10,7 +10,7 @@ using DG.Tweening;
 
 public class CharacterModel : ColorModel {
 
-    private void Awake()
+    protected override void Awake()
     {
         _tresureColor = (GameEnum.tresureColor)Player;
         _score = new ReactiveProperty<int>(0);
@@ -110,7 +110,6 @@ public class CharacterModel : ColorModel {
     private void JudgeTresure()
     {
         int score;
-        var tresurelist = _tresures.ToList();
 
         if (TresureJudgeHelper.JudgeTresures(this, out score))
         {
@@ -126,7 +125,6 @@ public class CharacterModel : ColorModel {
     private void JudgeCharacter(CharacterModel model)
     {
         int score;
-        var tresurelist = _tresures.ToList();
 
         if (TresureJudgeHelper.JudgeCharacter(this, model, out score))
         {

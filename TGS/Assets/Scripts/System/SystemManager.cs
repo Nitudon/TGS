@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -29,6 +30,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private GameObject StageManagerObject;
 
+    private IDisposable SubmitController;
+
+    private IDisposable CancelController;
+
     private bool _isGame;
 
     public bool IsGame
@@ -52,15 +57,6 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     protected override void Start()
     {
         AudioManager.Instance.PlayBGM(GameEnum.BGM.title);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            GameStart();
-        }
-
     }
 
     public void GameStart()
@@ -126,6 +122,26 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     {        
         Destroy(PlayingGameObject);
         Destroy(StageManagerObject);
+    }
+
+    public void SubmitConnect(IDisposable controller)
+    {
+        SubmitController = controller;
+    }
+
+    public void CancelConnect(IDisposable controller)
+    {
+        CancelController = controller;
+    }
+
+    public void SubmitDispose()
+    {
+        SubmitController.Dispose();
+    }
+
+    public void CancelDispose()
+    {
+        CancelController.Dispose();
     }
 
     public class SystemModel
