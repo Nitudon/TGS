@@ -64,21 +64,24 @@ public class TitleController{
 
     private void Submit()
     {
-        if(_viewMenu == false)
+        if (SystemManager.Instance.CreateGame == false)
         {
-            _tintTransform.DOKill();
-            _tintTransform.DOLocalMoveX(VIEW_TINT_X,0.4f);
-            _viewMenu = true;
-            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.slide);
-        }
-        else
-        {
-            if (_mode == titleCommand.game)
+            if (_viewMenu == false)
             {
-                _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f);
-                _viewMenu = false;
-                SystemManager.Instance.GameStart();
-                AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.decide);
+                _tintTransform.DOKill();
+                _tintTransform.DOLocalMoveX(VIEW_TINT_X, 0.4f);
+                _viewMenu = true;
+                AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.slide);
+            }
+            else
+            {
+                if (_mode == titleCommand.game)
+                {
+                    _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f);
+                    _viewMenu = false;
+                    SystemManager.Instance.GameStart();
+                    AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.decide);
+                }
             }
         }
     }

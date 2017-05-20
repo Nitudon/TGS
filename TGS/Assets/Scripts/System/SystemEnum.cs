@@ -35,9 +35,9 @@ namespace SystemParameter
 
         public static readonly int OWN_TRESURE_MAX = 5;
 
-        public static readonly int BATTLE_TIME = 3;
+        public static readonly int BATTLE_TIME = 120;
 
-        public static readonly float SPEED_BASE = 1.0f;
+        public static readonly float SPEED_BASE = 0.7f;
 
         public static readonly float SPEED_BASE_SCALE = 1.0f;
 

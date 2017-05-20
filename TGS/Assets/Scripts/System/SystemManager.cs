@@ -61,6 +61,14 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         }
     }
 
+    public bool CreateGame
+    {
+        get
+        {
+            return _createdGame;
+        }
+    }
+
     protected override void Start()
     {
         AudioManager.Instance.PlayBGM(GameEnum.BGM.title);
@@ -136,9 +144,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     }
 
     private void DestroyPlayingObjects()
-    {        
+    {
         Destroy(PlayingGameObject);
         Destroy(StageManagerObject);
+        Destroy(ParticleManagerObject);
     }
 
     private void CreateResultPlayingObject()

@@ -19,7 +19,7 @@ public class SystemView : UdonBehaviour{
     public void OnTimerChanged(int time)
     {
         var minute = (time / 60).ToString();
-        var second = time > 10 ? (time%60).ToString() : "0" + (time % 60).ToString();
+        var second = time % 60 >= 10 ? (time%60).ToString() : "0" + (time % 60).ToString();
         TimeText.text = minute + ":" + second;
     }
 

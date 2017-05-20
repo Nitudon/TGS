@@ -31,6 +31,7 @@ public class TresureGenerator :  UdonBehaviour{
     public void Init()
     {
         SetGenerator();
+        Generate();
     }
 
     private void SetGenerator()
@@ -41,8 +42,9 @@ public class TresureGenerator :  UdonBehaviour{
     private IDisposable TresureGenerateObservable()
     {
         return Observable.Interval(TimeSpan.FromSeconds(GameValue.GENERATE_TIME_SPAN))
-            .Where(_ => _hasTresure == false && SystemManager.Instance.IsPause == false /*&& SystemManager.Instance.IsGame*/)
-            .Subscribe(_ => Generate());
+            .Where(_ => _hasTresure == false && SystemManager.Instance.IsPause == false && SystemManager.Instance.IsGame)
+            .Subscribe(_ => Generate())
+            .AddTo(gameObject);
     }
 
     private void Generate(int index, Vector3 position)
@@ -50,7 +52,7 @@ public class TresureGenerator :  UdonBehaviour{
         var tresure = Tresures[index];
 
         tresure = Instantiate(tresure, transform,true);
-        tresure.transform.localPosition = position;
+        tresure.transform.position = position;
         tresure.SetGenerator(this);
         _hasTresure = true;
     }
@@ -91,6 +93,7 @@ public class TresureGenerator :  UdonBehaviour{
         var tresure = Tresures[rand];
 
         tresure = Instantiate(tresure, transform);
+        tresure.transform.position = position;
         tresure.SetGenerator(this);
         _hasTresure = true;
     }

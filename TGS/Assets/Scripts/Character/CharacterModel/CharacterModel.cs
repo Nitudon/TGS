@@ -180,8 +180,10 @@ public class CharacterModel : ColorModel {
     {
         if(_tresures.ElementAt(index) is CharacterModel == false)
         {
+            var tresure = _tresures.ElementAt(index) as TresureModel;
             AudioManager.Instance.PlayPlayerSE(Player,GameEnum.SE.crash);
-            _tresures.ElementAt(index).Destroy();
+            tresure.BreakTresure();
+            tresure.Destroy();
         }
         _tresures.RemoveAt(index);
     }

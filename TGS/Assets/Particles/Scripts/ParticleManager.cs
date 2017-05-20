@@ -45,4 +45,5 @@ public class ParticleManager : UdonBehaviourSingleton<ParticleManager> {
             return ParticleEvents.ElementAt(layer).GetParticle;
         }
     }
+
 }

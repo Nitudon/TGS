@@ -125,44 +125,25 @@ public static class TresureJudgeHelper{
                     if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
                     {
                         int start = indexList.First();
-                        int count = indexList.Last() - start;
-                        player.RemoveTresureRange(start, count);
+                        int count = indexList.Last() - start + 1;
+                        if(list.Last() is CharacterModel)
+                        {
+                            count--;
+                        }
+                        player.RemoveTresureRange(start, count);  
                         score = CalculateScore(list.GetRange(start, count));
                         return true;
                     }
                 }
             }
         }
-        else
+        else if (list.Last().EqualColor(player.Tresures.Last()))
         {
-            int playerIndex = list.FindLastIndex(x => x is CharacterModel);
-            for (int col = 1; col < GameValue.COLOR_LIST_COUNT + 1; ++col)
-            {
-                GameEnum.tresureColor color = (GameEnum.tresureColor)col;
-                var colorList = list.Where(x => x.TresureColor == color);
-                var isSame = colorList.Count();
-                if (isSame < 2)
-                {
-                    continue;
-                }
-                var indexList = colorList.Select(x => x.ListNumber);
-                CharacterModel interPlayer = list.ElementAt(playerIndex) as CharacterModel;
-                for (int j = 0; j < indexList.Count() - 1; ++j)
-                {
-                    if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
-                    {
-                        int start = indexList.First();
-                        int count = indexList.Last() - start;
-                        int frontCount = playerIndex - start;
-                        int backCount = indexList.Last() - playerIndex;
-                        player.RemoveTresureRange(start, frontCount);
-                        interPlayer.RemoveTresureRange(0,backCount);
-                        score = CalculateScore(list.GetRange(start, count));
-                        return true;
-                    }
-                }
-            }
-
+                var frontPlayer = list.FindLast(x => x is CharacterModel) as CharacterModel;
+                frontPlayer.RemoveTresureAll();
+                player.RemoveTresureAll();
+                score = CalculateScore(list);
+                return true;
         }
         return false;
     }

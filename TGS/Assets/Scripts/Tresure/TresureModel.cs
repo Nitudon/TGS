@@ -15,7 +15,6 @@ public class TresureModel : ColorModel{
     {
         SetColor(Color);
         StartCoroutine(TresureMoveCoroutine());
-        SetOnDestroy(BreakTresure);
     }
 
     public CharacterModel Owner
@@ -91,12 +90,12 @@ public class TresureModel : ColorModel{
     {
         while (SystemManager.Instance.IsPause | _owner != null == false)
         {
-            RotY += GameValue.SPIN_SPEED;
+            RotZ += GameValue.SPIN_SPEED;
             yield return null;
         }
     }
 
-    private void BreakTresure()
+    public void BreakTresure()
     {
         if (SystemManager.Instance.IsGame)
         {

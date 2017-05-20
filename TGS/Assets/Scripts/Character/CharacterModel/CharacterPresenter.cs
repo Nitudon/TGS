@@ -27,17 +27,12 @@ public class CharacterPresenter : MonoBehaviour {
             .Subscribe(_ => _view.OnFrontColorChanged())
             .AddTo(gameObject);
 
-        _model.BackColor
-            .Subscribe(_ => _view.OnBackColorChanged())
-            .AddTo(gameObject);
-
     }
 
     private void SetEvents()
     {
         _view.OnScoreChangedListener = OnScoreChanged;
         _view.OnFrontColorChangedListener = OnFrontColorChanged;
-        _view.OnBackColorChangedListener = OnBackColorChanged;
     }
 
     private void OnScoreChanged()
