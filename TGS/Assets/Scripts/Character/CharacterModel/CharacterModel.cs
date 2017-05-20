@@ -134,18 +134,21 @@ public class CharacterModel : ColorModel {
 
     public void AddColor(ColorModel model)
     {
-        if(model is TresureModel)
+        if (SystemManager.Instance.IsGame)
         {
-            var tresure = model as TresureModel;
-            if (tresure.HasOwner == false)
+            if (model is TresureModel)
             {
-                AddTresure(tresure);
+                var tresure = model as TresureModel;
+                if (tresure.HasOwner == false)
+                {
+                    AddTresure(tresure);
+                }
             }
-        }
-        else if(model is CharacterModel)
-        {
-            var character = model as CharacterModel;
-            AddCharacter(character);
+            else if (model is CharacterModel)
+            {
+                var character = model as CharacterModel;
+                AddCharacter(character);
+            }
         }
     }
 
@@ -207,5 +210,10 @@ public class CharacterModel : ColorModel {
         _score.Value += score;
         ScoreSuscription.gameObject.SetActive(true);
         ScoreSuscription.Play(score);
+    }
+
+    public void StopMove()
+    {
+        _controller.StopMove();
     }
 }

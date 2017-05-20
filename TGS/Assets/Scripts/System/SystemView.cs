@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class SystemView : UdonBehaviour{
 
     [SerializeField]
-    private FilledSprite TimeBar;
+    private Text TimeText;
 
     public Action OnTimerStartedListener;
 
@@ -18,7 +18,9 @@ public class SystemView : UdonBehaviour{
 
     public void OnTimerChanged(int time)
     {
-        TimeBar.SetFill(((float)time/(float)GameValue.BATTLE_TIME));
+        var minute = (time / 60).ToString();
+        var second = time > 10 ? (time%60).ToString() : "0" + (time % 60).ToString();
+        TimeText.text = minute + ":" + second;
     }
 
     public void OnTimerStarted()

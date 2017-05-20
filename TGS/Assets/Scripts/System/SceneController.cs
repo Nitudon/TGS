@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using SystemParameter;
 using DG.Tweening;
@@ -33,6 +34,9 @@ public class SceneController : MonoBehaviour{
 
     [SerializeField]
     private RectTransform TitleTint;
+
+    [SerializeField]
+    private Text TimeText;
 
     private TitleController _titleController;
     private ResultController _resultController;
@@ -89,6 +93,11 @@ public class SceneController : MonoBehaviour{
         _resultController.ControllConnect();
     }
 
+    private void TimerReset()
+    {
+        TimeText.text = "2:00";
+    }
+
     private Tweener Fadein()
     {
         return
@@ -142,6 +151,8 @@ public class SceneController : MonoBehaviour{
             {
                 _titleController.Dispose();
             }
+            TimerReset();
+            SystemCanvas.SetActive(true);
             systemTask();
             TitleUI.SetActive(false);
             GameStartUI.SetActive(true);
@@ -162,6 +173,7 @@ public class SceneController : MonoBehaviour{
 
     public void BattleEnd()
     {
+        CharacterManager.Instance.AllCharacterStop();
         GameEndUI.SetActive(true);
         SetAnimationTrigger(SceneTrigger.GameEnd);
     }

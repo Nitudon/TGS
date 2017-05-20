@@ -64,7 +64,7 @@ public class CharacterModelController{
         info.RotatePosition(_characterModel.transform);
     }
 
-    private void StopMove()
+    public void StopMove()
     {
         _characterModel.rigitbody.velocity = new Vector3();
     }

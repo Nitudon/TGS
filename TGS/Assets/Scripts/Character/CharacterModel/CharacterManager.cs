@@ -80,4 +80,20 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
         return _characterModels.OrderBy(x => x.Score.Value).ToList();
     }
 
+    public void AllCharacterStop()
+    {
+        if (_characterModels == null)
+        {
+            InstantLog.StringLogError("characterModels is null");
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < _characterModels.Count; ++i)
+            {
+                _characterModels.ElementAt(i).StopMove();
+            }
+        }
+    }
+
 }
