@@ -3385,4 +3385,34 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - m_assetDatabaseId: 5cc5e27a2ea0ac6438b0281772eee9dd
+    m_importFrom: Assets/Resources/Sprites/timepanel.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 5d1fbbaf9d489b049b9df67a17806df6
+    m_importFrom: Assets/Resources/Sprites/1st.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 7b5bdd0ea8036a44588755d3eaf06ffe
+    m_importFrom: Assets/Resources/Sprites/2nd.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 4ce0b4442c4826347b9e7759d82092a8
+    m_importFrom: Assets/Resources/Sprites/3rd.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 073cf1bb02c2c8f40905ec63ef4a881b
+    m_importFrom: Assets/Resources/Sprites/4th.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   m_version: 1

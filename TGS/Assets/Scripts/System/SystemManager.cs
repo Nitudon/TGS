@@ -100,6 +100,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         _createdGame = true;
         _isGame = false;
         _finishedGame = false;
+        CharacterManager.Instance.InitCharacterList();
         SystemCanvas.GameSceneTranslate(() => CreatePlayingObjects());
 
         yield return new WaitUntil(() => SystemCanvas.isPlayingGame);

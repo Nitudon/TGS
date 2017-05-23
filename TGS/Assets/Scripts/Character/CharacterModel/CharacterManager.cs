@@ -75,9 +75,16 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
         }
     }
 
-    public List<CharacterModel> GetCharacterRankList()
+    public List<int> GetCharacterRankList()
     {
-        return _characterModels.OrderBy(x => x.Score.Value).ToList();
+        return _characterModels.GroupBy(x => x.Score.Value)
+                               .Select(x => _characterModels.Count(y => y.Score.Value > x.Key) +1)
+                               .ToList();
+    }
+
+    public void InitCharacterList()
+    {
+        _characterModels = new List<CharacterModel>();
     }
 
     public void AllCharacterStop()

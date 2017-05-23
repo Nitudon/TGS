@@ -27,6 +27,12 @@ public class SceneController : MonoBehaviour{
     private GameObject ResultUI;
 
     [SerializeField]
+    private List<Image> ResultRankImage;
+
+    [SerializeField]
+    private List<Sprite> RankImageResources;
+
+    [SerializeField]
     private CanvasGroup SceneFadeTint;
 
     [SerializeField]
@@ -90,6 +96,7 @@ public class SceneController : MonoBehaviour{
             _resultController = new ResultController();
         }
 
+        _resultController.SetRankUI(ResultRankImage,RankImageResources);
         _resultController.ControllConnect();
     }
 

@@ -12,6 +12,8 @@ namespace SystemParameter
 
         public enum animTrigger { walk,stop,tresure}
 
+        public enum resultAnimPose { win, lose}
+
         public enum BGM { title, battle, end}
 
         public enum SE { get, crash, start, end, cursor,decide,slide}

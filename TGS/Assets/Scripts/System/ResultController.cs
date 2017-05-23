@@ -11,7 +11,7 @@ using UdonObservable.InputRx.GamePad;
 using DG.Tweening;
 
 public class ResultController
-{
+{ 
     public void ControllConnect()
     {
         SystemManager.Instance.SubmitConnect(
@@ -25,6 +25,15 @@ public class ResultController
                .Where(_ => SystemManager.Instance.IsGame == false)
                .Subscribe(x => Cancel())
            );
+    }
+
+    public void SetRankUI(List<Image> images,List<Sprite> sprites)
+    {
+        var ranking = CharacterManager.Instance.GetCharacterRankList();
+        for (int i = 0; i < ranking.Count(); ++i)
+        {
+            images.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i));
+        }
     }
 
     public void Dispose()
@@ -42,5 +51,7 @@ public class ResultController
     {
 
     }
+
+
 
 }
