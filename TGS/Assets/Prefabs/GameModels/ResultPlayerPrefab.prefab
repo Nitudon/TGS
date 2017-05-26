@@ -378,6 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4203111707515430}
   - component: {fileID: 95443756107077430}
+  - component: {fileID: 114503290314611048}
   m_Layer: 0
   m_Name: player_base
   m_TagString: Untagged
@@ -551,6 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4625220314874138}
   - component: {fileID: 95235190363149478}
+  - component: {fileID: 114890596185552348}
   m_Layer: 0
   m_Name: player_base 3
   m_TagString: Untagged
@@ -674,6 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4887723537373376}
   - component: {fileID: 95021921655244606}
+  - component: {fileID: 114232710960682888}
   m_Layer: 0
   m_Name: player_base 1
   m_TagString: Untagged
@@ -986,6 +989,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4518941913818814}
   - component: {fileID: 95297350199395836}
+  - component: {fileID: 114631606142612276}
   m_Layer: 0
   m_Name: player_base 2
   m_TagString: Untagged
@@ -2655,6 +2659,74 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114232710960682888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1560689955298922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameModel: 0
+  FrontCollider: {fileID: 0}
+  CharacterAnimator: {fileID: 95021921655244606}
+  ScoreSuscription: {fileID: 0}
+  Player: 0
+  SEPlayer: {fileID: 0}
+--- !u!114 &114503290314611048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1261230895073650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameModel: 0
+  FrontCollider: {fileID: 0}
+  CharacterAnimator: {fileID: 95443756107077430}
+  ScoreSuscription: {fileID: 0}
+  Player: 0
+  SEPlayer: {fileID: 0}
+--- !u!114 &114631606142612276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842573386609484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameModel: 0
+  FrontCollider: {fileID: 0}
+  CharacterAnimator: {fileID: 95297350199395836}
+  ScoreSuscription: {fileID: 0}
+  Player: 0
+  SEPlayer: {fileID: 0}
+--- !u!114 &114890596185552348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1370783389884242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameModel: 0
+  FrontCollider: {fileID: 0}
+  CharacterAnimator: {fileID: 95235190363149478}
+  ScoreSuscription: {fileID: 0}
+  Player: 0
+  SEPlayer: {fileID: 0}
 --- !u!137 &137013069362201300
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

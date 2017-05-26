@@ -75,6 +75,11 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         _playerSources.Add(player,source);
     }
 
+    public void ResetPlayerSource()
+    {
+        _playerSources = new Dictionary<GamePadObservable.Player, AudioSource>();
+    }
+
     protected override void Init()
     {
         _playerSources = new Dictionary<GamePadObservable.Player, AudioSource>();

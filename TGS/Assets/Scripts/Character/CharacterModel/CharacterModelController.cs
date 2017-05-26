@@ -57,6 +57,11 @@ public class CharacterModelController{
         speedScale = scale;
     }
 
+    public void SetResultPose(GameEnum.resultAnimPose pose)
+    {
+        _animator.Play(pose.ToString());
+    }
+
     private void CharacterMove(GamepadStickInput.StickInfo info)
     {
         var tresureHeavy = Mathf.Pow(GameValue.SPEED_RATE, _characterModel.Tresures.Count);

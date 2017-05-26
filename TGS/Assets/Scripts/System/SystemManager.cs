@@ -124,6 +124,8 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         yield return new WaitWhile(() => SystemCanvas.isEndingGame);
 
         SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateResultPlayingObject(); });
+        CharacterManager.Instance.InitCharacterList();
+        AudioManager.Instance.ResetPlayerSource();
 
         yield break;
     }
@@ -132,7 +134,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     {
         _finishedGame = true;
         SystemCanvas.TitleSceneTranslate(() => DestroyResultObjects());
-
+        
         yield break;
     }
 

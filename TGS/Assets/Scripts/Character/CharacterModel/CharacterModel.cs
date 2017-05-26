@@ -7,18 +7,22 @@ using SystemParameter;
 using UdonCommons;
 using UdonObservable.InputRx.GamePad;
 using DG.Tweening;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class CharacterModel : ColorModel {
 
     protected override void Awake()
     {
-        _tresureColor = (GameEnum.tresureColor)Player;
-        _score = new ReactiveProperty<int>(0);
         _controller = new CharacterModelController(this,CharacterAnimator);
-        _tresures = new ReactiveCollection<ColorModel>();
-        _frontColor = new ReactiveProperty<ColorModel>();
-        _backColor = new ReactiveProperty<ColorModel>();
-        AudioManager.Instance.SetPlayerSource(Player,SEPlayer);
+        if (isGameModel)
+        {
+            _tresures = new ReactiveCollection<ColorModel>();
+            AudioManager.Instance.SetPlayerSource(Player, SEPlayer);
+            _tresureColor = (GameEnum.tresureColor)Player;
+            _score = new ReactiveProperty<int>(0);
+        }
     }
 
     protected override void Start()
@@ -27,16 +31,19 @@ public class CharacterModel : ColorModel {
     }
 
     [SerializeField]
+    private bool isGameModel;
+
+    [SerializeField]
     private Collider FrontCollider;
 
     [SerializeField]
     private Animator CharacterAnimator;
 
     [SerializeField]
-    private GamePadObservable.Player Player;
+    private AnimationScoreText ScoreSuscription;
 
     [SerializeField]
-    private AnimationScoreText ScoreSuscription;
+    private GamePadObservable.Player Player;
 
     [SerializeField]
     private AudioSource SEPlayer;
@@ -78,36 +85,6 @@ public class CharacterModel : ColorModel {
             }
 
             return _tresures;
-        }
-    }
-
-    private ReactiveProperty<ColorModel>_frontColor;
-    public IReadOnlyReactiveProperty<ColorModel> FrontColor
-    {
-        get
-        {
-            if (_frontColor == null)
-            {
-                InstantLog.StringLogError("frontColor property is null");
-                _frontColor = new ReactiveProperty<ColorModel>();
-            }
-
-            return _frontColor;
-        }
-    }
-
-    private ReactiveProperty<ColorModel> _backColor;
-    public IReadOnlyReactiveProperty<ColorModel> BackColor
-    {
-        get
-        {
-            if (_backColor == null)
-            {
-                InstantLog.StringLogError("backColor property is null");
-                _backColor = new ReactiveProperty<ColorModel>();
-            }
-
-            return _backColor;
         }
     }
 
@@ -218,8 +195,63 @@ public class CharacterModel : ColorModel {
         ScoreSuscription.Play(score);
     }
 
+    public void SetResultPose(GameEnum.resultAnimPose pose)
+    {
+        if(_controller == null)
+        {
+            InstantLog.StringLogError("animator is missing");
+            return;
+        }
+
+        _controller.SetResultPose(pose);
+    }
+
     public void StopMove()
     {
+        if (_controller == null)
+        {
+            InstantLog.StringLogError("animator is missing");
+            return;
+        }
+
         _controller.StopMove();
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(CharacterModel))]
+[CanEditMultipleObjects]
+public class CharacterEditor : Editor
+{
+    private bool _isGameModel = true;
+
+    public override void OnInspectorGUI()
+    {
+        var character = target as CharacterModel;
+
+        serializedObject.Update();
+
+        var isGameModel = serializedObject.FindProperty("isGameModel");
+        var frontCollider = serializedObject.FindProperty("FrontCollider");
+        var characterAnimator = serializedObject.FindProperty("CharacterAnimator");
+        var scoreSubscription = serializedObject.FindProperty("ScoreSubscription");
+        var player = serializedObject.FindProperty("Player");
+        var SEPlayer = serializedObject.FindProperty("SEPlayer");
+
+        _isGameModel = isGameModel.boolValue;
+
+
+        if (_isGameModel)
+        {
+            base.OnInspectorGUI();
+        }
+        else
+        {
+            isGameModel.boolValue = EditorGUILayout.Toggle("isGameModel", isGameModel.boolValue);
+            characterAnimator.objectReferenceValue = EditorGUILayout.ObjectField("CharacterAnimator", characterAnimator.objectReferenceValue, typeof(Animator), true) as Animator;
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UniRx;
 using UdonCommons;
+using SystemParameter;
 using UdonObservable.InputRx.GamePad;
 using DG.Tweening;
 
@@ -27,12 +28,14 @@ public class ResultController
            );
     }
 
-    public void SetRankUI(List<Image> images,List<Sprite> sprites)
+    public void SetRank(List<Image> images,List<Sprite> sprites)
     {
         var ranking = CharacterManager.Instance.GetCharacterRankList();
-
+        GameEnum.resultAnimPose pose;
         for (int i = 0; i < ranking.Count(); ++i)
         {
+            pose = ranking.ElementAt(i) == 1 ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.lose;
+            CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
             images.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i)-1);
         }
     }

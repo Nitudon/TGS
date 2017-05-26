@@ -96,7 +96,7 @@ public class SceneController : MonoBehaviour{
             _resultController = new ResultController();
         }
 
-        _resultController.SetRankUI(ResultRankImage,RankImageResources);
+        _resultController.SetRank(ResultRankImage,RankImageResources);
         _resultController.ControllConnect();
     }
 

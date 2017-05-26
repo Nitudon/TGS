@@ -12,23 +12,9 @@ public class CharacterView : MonoBehaviour {
 
     public Action OnScoreChangedListener;
 
-    public Action OnFrontColorChangedListener;
-
     public void OnScoreChanged(int score)
     {
         Score.text = score.ToString();
-    }
-
-    public void OnFrontColorChanged()
-    {
-        if (OnFrontColorChangedListener == null)
-        {
-            return;
-        }
-        else
-        {
-            OnFrontColorChangedListener();
-        }
     }
 
 }
