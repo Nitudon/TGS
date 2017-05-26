@@ -30,9 +30,10 @@ public class ResultController
     public void SetRankUI(List<Image> images,List<Sprite> sprites)
     {
         var ranking = CharacterManager.Instance.GetCharacterRankList();
+
         for (int i = 0; i < ranking.Count(); ++i)
         {
-            images.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i));
+            images.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i)-1);
         }
     }
 

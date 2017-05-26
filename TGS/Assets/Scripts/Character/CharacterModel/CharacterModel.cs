@@ -18,8 +18,12 @@ public class CharacterModel : ColorModel {
         _tresures = new ReactiveCollection<ColorModel>();
         _frontColor = new ReactiveProperty<ColorModel>();
         _backColor = new ReactiveProperty<ColorModel>();
-        CharacterManager.Instance.AddCharacterModel(this);
         AudioManager.Instance.SetPlayerSource(Player,SEPlayer);
+    }
+
+    protected override void Start()
+    {
+        CharacterManager.Instance.AddCharacterModel(this);
     }
 
     [SerializeField]

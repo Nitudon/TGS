@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: c6efb30d3b33b7b4baf8b5d883b96660
+timeCreated: 1495804458
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Bone
+    100004: Bone.001_L
+    100006: Bone.001_L_end
+    100008: Bone.001_R
+    100010: Bone.001_R_end
+    100012: Bone.002
+    100014: Bone.003
+    100016: Bone.004
+    100018: Bone.004_end
+    100020: Bone_end
+    100022: Camera
+    100024: Circle
+    100026: Cylinder.003
+    100028: Mball
+    100030: //RootNode
+    100032: Sphere
+    100034: Sphere.001
+    100036: Sphere.002
+    100038: Sphere.003
+    100040: Sphere.004
+    100042: Sphere.005
+    100044: Star.001
+    100046: Torus
+    400000: Armature
+    400002: Bone
+    400004: Bone.001_L
+    400006: Bone.001_L_end
+    400008: Bone.001_R
+    400010: Bone.001_R_end
+    400012: Bone.002
+    400014: Bone.003
+    400016: Bone.004
+    400018: Bone.004_end
+    400020: Bone_end
+    400022: Camera
+    400024: Circle
+    400026: Cylinder.003
+    400028: Mball
+    400030: //RootNode
+    400032: Sphere
+    400034: Sphere.001
+    400036: Sphere.002
+    400038: Sphere.003
+    400040: Sphere.004
+    400042: Sphere.005
+    400044: Star.001
+    400046: Torus
+    2300000: Circle
+    2300002: Mball
+    2300004: Sphere
+    2300006: Sphere.002
+    2300008: Sphere.004
+    2300010: Sphere.005
+    2300012: Torus
+    3300000: Circle
+    3300002: Mball
+    3300004: Sphere
+    3300006: Sphere.002
+    3300008: Sphere.004
+    3300010: Sphere.005
+    3300012: Torus
+    4300000: Sphere.003
+    4300002: Cylinder.003
+    4300004: Star.001
+    4300006: Sphere.001
+    4300008: Mball
+    4300010: Sphere
+    4300012: Sphere.004
+    4300014: Sphere.002
+    4300016: Sphere.005
+    4300018: Torus
+    4300020: Circle
+    7400000: Armature|Action
+    7400002: Armature|Action.001
+    7400004: Armature|idle
+    7400006: Armature|spinstar
+    7400008: Armature|tresure
+    7400010: Armature|walk
+    7400012: Sphere.003|Action
+    7400014: Sphere.003|Action.001
+    7400016: Sphere.001|Action
+    7400018: Sphere.001|Action.001
+    9500000: //RootNode
+    13700000: Cylinder.003
+    13700002: Sphere.001
+    13700004: Sphere.003
+    13700006: Star.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

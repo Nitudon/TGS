@@ -366,12 +366,6 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - m_assetDatabaseId: e1e043e706e432a48bab2769f5912b02
-    m_importFrom: Assets/Resources/Textures/redbody.png
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_assetDatabaseId: 192b38bc68becc34291eaed012d59aea
     m_importFrom: Assets/Resources/Textures/redface.png
     m_exportTo: 

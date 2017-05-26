@@ -189,8 +189,8 @@ public class SceneController : MonoBehaviour{
     {
         SceneFade(GameEnum.BGM.end
             ,() => {
-            systemTask();
             ResultConnect();
+            systemTask();
             SystemCanvas.SetActive(false);
             ResultUI.SetActive(true);
             GameEndUI.SetActive(false);

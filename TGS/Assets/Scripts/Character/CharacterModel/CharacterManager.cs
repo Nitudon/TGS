@@ -77,8 +77,7 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
 
     public List<int> GetCharacterRankList()
     {
-        return _characterModels.GroupBy(x => x.Score.Value)
-                               .Select(x => _characterModels.Count(y => y.Score.Value > x.Key) +1)
+        return _characterModels.Select(x => _characterModels.Count(y => y.Score.Value > x.Score.Value) +1)
                                .ToList();
     }
 
