@@ -33,6 +33,11 @@ public class SystemView : UdonBehaviour{
         OnTimerStartedListener();
     }
 
+    public void OnTimerDecreased()
+    {
+        TimeText.color = Color.red;
+    }
+
     public void OnTimerEnded()
     {
         if (OnTimerEndedListener == null)

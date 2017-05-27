@@ -16,15 +16,15 @@ public class CharacterModelController{
 
     private IDisposable ControllConnecter;
 
-    private float speedScale;
-
     public CharacterModelController(CharacterModel model,Animator animator)
     {
         _characterModel = model;
         _animator = animator;
-        speedScale = GameValue.SPEED_BASE_SCALE;
 
-        ControllConnecter = ControllConnect();
+        if (model.IsGameModel)
+        {
+            ControllConnecter = ControllConnect();
+        }
 
     }
 
@@ -50,11 +50,6 @@ public class CharacterModelController{
     public void SetAnimTrigger(GameEnum.animTrigger trigger)
     {
         _animator.SetTrigger(trigger.ToString());
-    }
-
-    public void SetSpeedScale(float scale)
-    {
-        speedScale = scale;
     }
 
     public void SetResultPose(GameEnum.resultAnimPose pose)

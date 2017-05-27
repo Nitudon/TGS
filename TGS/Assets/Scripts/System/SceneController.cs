@@ -33,6 +33,15 @@ public class SceneController : MonoBehaviour{
     private List<Sprite> RankImageResources;
 
     [SerializeField]
+    private GameObject ResultModeObject;
+
+    [SerializeField]
+    private RectTransform ResultArrow;
+
+    [SerializeField]
+    private RectTransform ResultPanel;
+
+    [SerializeField]
     private CanvasGroup SceneFadeTint;
 
     [SerializeField]
@@ -89,20 +98,21 @@ public class SceneController : MonoBehaviour{
         _titleController.ControllConnect();
     }
 
-    private void ResultConnect()
+    private void ResultConnect(List<int> ranking)
     {
         if (_resultController == null)
         {
-            _resultController = new ResultController();
+            _resultController = new ResultController(ResultArrow,ResultModeObject,ResultPanel);
         }
 
-        _resultController.SetRank(ResultRankImage,RankImageResources);
+        _resultController.SetRank(ResultRankImage,RankImageResources,ranking);
         _resultController.ControllConnect();
     }
 
     private void TimerReset()
     {
         TimeText.text = "2:00";
+        TimeText.color = Color.white;
     }
 
     private Tweener Fadein()
@@ -159,6 +169,7 @@ public class SceneController : MonoBehaviour{
                 _titleController.Dispose();
             }
             TimerReset();
+            ResultUI.SetActive(false);
             SystemCanvas.SetActive(true);
             systemTask();
             TitleUI.SetActive(false);
@@ -189,12 +200,14 @@ public class SceneController : MonoBehaviour{
     {
         SceneFade(GameEnum.BGM.end
             ,() => {
-            ResultConnect();
-            systemTask();
-            SystemCanvas.SetActive(false);
-            ResultUI.SetActive(true);
-            GameEndUI.SetActive(false);
-        });
+                var ranking = CharacterManager.Instance.GetCharacterRankList();
+                systemTask();
+                ResultConnect(ranking);
+                SystemCanvas.SetActive(false);
+                ResultUI.SetActive(true);
+                GameEndUI.SetActive(false);
+            }
+       );
 
     }
 }

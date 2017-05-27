@@ -10,7 +10,7 @@ using UdonCommons;
 using UdonObservable.InputRx.GamePad;
 using DG.Tweening;
 
-public class TitleController{
+public class TitleController : ModeSceneController{
 
     private enum titleCommand { game,explain }
 
@@ -35,34 +35,23 @@ public class TitleController{
         _viewMenu = false;
     }
 
-    public void ControllConnect()
+    public override void ControllConnect()
     {
         ControllConnecter =
             GamePadObservable.GetAxisVerticalObservable()
                 .Where(_ => SystemManager.Instance.IsGame == false && _viewMenu)
                 .Subscribe(x => TitleModeSelect(x));
 
-        SystemManager.Instance.SubmitConnect(
-            GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.START)
-                .Where(_ => SystemManager.Instance.IsGame == false)
-                .Subscribe(x => Submit())
-            );
-
-        SystemManager.Instance.CancelConnect(
-           GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.B)
-               .Where(_ => SystemManager.Instance.IsGame == false)
-               .Subscribe(x => Cancel())
-           );
+        base.ControllConnect();
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         ControllConnecter.Dispose();
-        SystemManager.Instance.SubmitDispose();
-        SystemManager.Instance.CancelDispose();
+        base.Dispose();
     }
 
-    private void Submit()
+    protected override void Submit()
     {
         if (SystemManager.Instance.CreateGame == false)
         {
@@ -86,7 +75,7 @@ public class TitleController{
         }
     }
 
-    private void Cancel()
+    protected override void Cancel()
     {
         if(_viewMenu == true)
         {

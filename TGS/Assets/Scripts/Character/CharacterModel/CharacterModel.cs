@@ -16,6 +16,7 @@ public class CharacterModel : ColorModel {
     protected override void Awake()
     {
         _controller = new CharacterModelController(this,CharacterAnimator);
+        CharacterManager.Instance.AddCharacterModel(this);
         if (isGameModel)
         {
             _tresures = new ReactiveCollection<ColorModel>();
@@ -25,13 +26,8 @@ public class CharacterModel : ColorModel {
         }
     }
 
-    protected override void Start()
-    {
-        CharacterManager.Instance.AddCharacterModel(this);
-    }
-
     [SerializeField]
-    private bool isGameModel;
+    private bool isGameModel = true;
 
     [SerializeField]
     private Collider FrontCollider;
@@ -47,6 +43,14 @@ public class CharacterModel : ColorModel {
 
     [SerializeField]
     private AudioSource SEPlayer;
+
+    public bool IsGameModel
+    {
+        get
+        {
+            return isGameModel;
+        }
+    }
 
     public GamePadObservable.Player GetPlayerID
     {
@@ -227,16 +231,10 @@ public class CharacterEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        var character = target as CharacterModel;
-
         serializedObject.Update();
 
         var isGameModel = serializedObject.FindProperty("isGameModel");
-        var frontCollider = serializedObject.FindProperty("FrontCollider");
         var characterAnimator = serializedObject.FindProperty("CharacterAnimator");
-        var scoreSubscription = serializedObject.FindProperty("ScoreSubscription");
-        var player = serializedObject.FindProperty("Player");
-        var SEPlayer = serializedObject.FindProperty("SEPlayer");
 
         _isGameModel = isGameModel.boolValue;
 
