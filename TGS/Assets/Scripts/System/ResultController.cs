@@ -62,7 +62,7 @@ public class ResultController : ModeSceneController
                 _tint.SetActive(true);
                 _panelTransform.DOScaleY(1,0.3f);
                 _viewMenu = true;
-                AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide);
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide,2.2f);
             }
             else
             {
@@ -89,6 +89,7 @@ public class ResultController : ModeSceneController
             _panelTransform.DOScaleY(0, 0.3f)
                          .OnComplete(() => _tint.SetActive(false));
             _viewMenu = false;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel,2.2f);
         }
     }
 
@@ -98,14 +99,14 @@ public class ResultController : ModeSceneController
         {
             _arrowTransform.localPosition = DOWN_POSITION;
             _mode = ResultCommand.title;
-            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.cursor);
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
         }
 
         else if (vert < -0.7f && _mode == ResultCommand.title)
         {
             _arrowTransform.localPosition = UP_POSITION;
             _mode = ResultCommand.game;
-            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.cursor);
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
         }
     }
 

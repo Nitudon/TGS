@@ -29,14 +29,14 @@ Platform assembly: C:\Users\住田直樹\Documents\TGSpro\TGS\宝石大作戦_Da
 Loading C:\Users\住田直樹\Documents\TGSpro\TGS\宝石大作戦_Data\Managed\DOTween50.dll into Unity Child Domain
 Platform assembly: C:\Users\住田直樹\Documents\TGSpro\TGS\宝石大作戦_Data\Managed\TextMeshPro.dll (this message is harmless)
 Loading C:\Users\住田直樹\Documents\TGSpro\TGS\宝石大作戦_Data\Managed\TextMeshPro.dll into Unity Child Domain
-- Completed reload, in  0.058 seconds
+- Completed reload, in  0.043 seconds
 Platform assembly: C:\Users\住田直樹\Documents\TGSpro\TGS\宝石大作戦_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\住田直樹\Documents\TGSpro\TGS\宝石大作戦_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.483455 ms
+UnloadTime: 1.609085 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3eb0 -> priority: 1 
-  Thread -> id: 3394 -> priority: 1 
+  Thread -> id: 41cc -> priority: 1 
+  Thread -> id: 5f6c -> priority: 1 

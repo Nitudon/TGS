@@ -14,7 +14,7 @@ namespace SystemParameter
 
         public enum BGM { title, battle, end}
 
-        public enum SE { get, crash, start, end, cursor,decide,slide}
+        public enum SE { get, crash, start, end, cursor, decide, slide, cancel}
     }
 
     public static class GameValue

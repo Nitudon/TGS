@@ -51,6 +51,9 @@ public class SceneController : MonoBehaviour{
     private RectTransform TitleTint;
 
     [SerializeField]
+    private GameObject TitleStartSubscription;
+
+    [SerializeField]
     private Text TimeText;
 
     private TitleController _titleController;
@@ -92,7 +95,7 @@ public class SceneController : MonoBehaviour{
     {
         if (_titleController == null)
         {
-            _titleController = new TitleController(TitleArrow,TitleTint);
+            _titleController = new TitleController(TitleArrow,TitleTint,TitleStartSubscription);
         }
 
         _titleController.ControllConnect();
@@ -147,7 +150,7 @@ public class SceneController : MonoBehaviour{
         SceneFade(GameEnum.BGM.title
             ,() =>
         {
-            if (_titleController != null)
+            if (_resultController != null)
             {
                 _resultController.Dispose();
             }
@@ -167,6 +170,10 @@ public class SceneController : MonoBehaviour{
             if(_titleController != null)
             {
                 _titleController.Dispose();
+            }
+            if (_resultController != null)
+            {
+                _resultController.Dispose();
             }
             TimerReset();
             ResultUI.SetActive(false);

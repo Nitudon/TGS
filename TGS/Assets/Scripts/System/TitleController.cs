@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UniRx;
+using SystemParameter;
 using UdonCommons;
 using UdonObservable.InputRx.GamePad;
 using DG.Tweening;
@@ -16,6 +17,7 @@ public class TitleController : ModeSceneController{
 
     private RectTransform _arrowTransform;
     private RectTransform _tintTransform;
+    private GameObject _startsubscription;
 
     private static readonly float HIDE_TINT_X = -1500f;
     private static readonly float VIEW_TINT_X = -630f;
@@ -27,16 +29,19 @@ public class TitleController : ModeSceneController{
 
     private IDisposable ControllConnecter;
 
-    public TitleController(RectTransform arrow,RectTransform tint)
+    public TitleController(RectTransform arrow,RectTransform tint, GameObject subscription)
     {
         _arrowTransform = arrow;
         _tintTransform = tint;
         _mode = titleCommand.game;
         _viewMenu = false;
+        _startsubscription = subscription;
     }
 
     public override void ControllConnect()
     {
+        _startsubscription.SetActive(true);
+
         ControllConnecter =
             GamePadObservable.GetAxisVerticalObservable()
                 .Where(_ => SystemManager.Instance.IsGame == false && _viewMenu)
@@ -57,10 +62,11 @@ public class TitleController : ModeSceneController{
         {
             if (_viewMenu == false)
             {
+                _startsubscription.SetActive(false);
                 _tintTransform.DOKill();
                 _tintTransform.DOLocalMoveX(VIEW_TINT_X, 0.4f);
                 _viewMenu = true;
-                AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.slide);
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide,2.2f);
             }
             else
             {
@@ -69,7 +75,16 @@ public class TitleController : ModeSceneController{
                     _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f);
                     _viewMenu = false;
                     SystemManager.Instance.GameStart();
-                    AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.decide);
+                    AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+                }
+                else
+                {
+                    AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+                    Application.Quit();
+#endif
                 }
             }
         }
@@ -80,8 +95,10 @@ public class TitleController : ModeSceneController{
         if(_viewMenu == true)
         {
             _tintTransform.DOKill();
-            _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f);
+            _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f)
+                .OnComplete(() => _startsubscription.SetActive(true));
             _viewMenu = false;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel,2.2f);
         }
     }
 
@@ -91,14 +108,14 @@ public class TitleController : ModeSceneController{
         {
             _arrowTransform.localPosition = DOWN_POSITION;
             _mode = titleCommand.explain;
-            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.cursor);
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
         }
 
         else if (vert < -0.7f && _mode == titleCommand.explain)
         {
             _arrowTransform.localPosition = UP_POSITION;
             _mode = titleCommand.game;
-            AudioManager.Instance.PlaySystemSE(SystemParameter.GameEnum.SE.cursor);
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
         }
     }
 

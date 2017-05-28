@@ -3409,4 +3409,34 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - m_assetDatabaseId: c5a271bdcb2dede45ba5569473612c3c
+    m_importFrom: Assets/Resources/Sprites/logo.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: f718ef7094afbef4aa4aca6a99b62a1a
+    m_importFrom: Assets/Resources/Sprites/title_im.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 872e0448f36a88740abf73cc3ef84bf9
+    m_importFrom: Assets/Resources/Sprites/img_effect.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: a0b998cecd8576f468b8aaf4050e9f25
+    m_importFrom: Assets/Resources/Sprites/push_start.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: f5abf7f1d0199da478dc297019db4db7
+    m_importFrom: Assets/Resources/Sprites/lightlogo.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   m_version: 1

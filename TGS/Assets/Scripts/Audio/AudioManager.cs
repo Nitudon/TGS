@@ -111,7 +111,7 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
     }
 
-    public void PlaySystemSE(GameEnum.SE value)
+    public void PlaySystemSE(GameEnum.SE value,float scale = 1.0f)
     {
         AudioClip clip;
 
@@ -127,11 +127,11 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
         else
         {
-            _BGMSource.PlayOneShot(clip);
+            _BGMSource.PlayOneShot(clip,scale);
         }
     }
 
-    public void PlayPlayerSE(GamePadObservable.Player player,GameEnum.SE value)
+    public void PlayPlayerSE(GamePadObservable.Player player,GameEnum.SE value, float scale = 1.0f)
     {
         AudioSource source;
         AudioClip clip;
@@ -147,7 +147,7 @@ public class AudioManager : UdonBehaviourSingleton<AudioManager>{
         }
         else
         {
-            source.PlayOneShot(clip);
+            source.PlayOneShot(clip,scale);
         }
     }
 

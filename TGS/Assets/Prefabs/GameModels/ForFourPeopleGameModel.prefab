@@ -49,7 +49,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4231250947965986}
-  - component: {fileID: 114779980739680788}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -4954,10 +4953,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameModel: 1
   FrontCollider: {fileID: 65941569068455638}
   CharacterAnimator: {fileID: 95589054879912676}
-  Player: 2
   ScoreSuscription: {fileID: 114380724234380422}
+  Player: 2
   SEPlayer: {fileID: 82018641615762794}
 --- !u!114 &114519946480103492
 MonoBehaviour:
@@ -5288,10 +5288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameModel: 1
   FrontCollider: {fileID: 65808482827512270}
   CharacterAnimator: {fileID: 95415783222263876}
-  Player: 4
   ScoreSuscription: {fileID: 114143581800464544}
+  Player: 4
   SEPlayer: {fileID: 82270558301241362}
 --- !u!114 &114749839906222562
 MonoBehaviour:
@@ -5530,17 +5531,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 114506258873680988}
   _view: {fileID: 114948059902625578}
---- !u!114 &114779980739680788
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009865867821248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c61e829e7d7cefa4fa9f824f0c7b88cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114790416090255998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5721,10 +5711,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameModel: 1
   FrontCollider: {fileID: 65358424085432222}
   CharacterAnimator: {fileID: 95003252564053416}
-  Player: 3
   ScoreSuscription: {fileID: 114483667223424614}
+  Player: 3
   SEPlayer: {fileID: 82197979397551074}
 --- !u!114 &114896227855719986
 MonoBehaviour:
@@ -5763,10 +5754,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameModel: 1
   FrontCollider: {fileID: 65144563233954440}
   CharacterAnimator: {fileID: 95620865909069498}
-  Player: 1
   ScoreSuscription: {fileID: 114408401559139558}
+  Player: 1
   SEPlayer: {fileID: 82183694844157404}
 --- !u!114 &114924115327215314
 MonoBehaviour:
@@ -6936,7 +6928,7 @@ Canvas:
   m_GameObject: {fileID: 1085340396064724}
   m_Enabled: 1
   serializedVersion: 2
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
