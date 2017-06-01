@@ -6,6 +6,8 @@ namespace SystemParameter
 {
     public static class GameEnum
     {
+        public enum gameType { team, battle}
+
         public enum tresureColor { nothing, red, blue, yellow, green }
 
         public enum animTrigger { walk,stop,tresure}
@@ -14,7 +16,7 @@ namespace SystemParameter
 
         public enum BGM { title, battle, end}
 
-        public enum SE { get, crash, start, end, cursor, decide, slide, cancel}
+        public enum SE { get, crash, start, end, cursor, decide, slide, cancel, submit}
     }
 
     public static class GameValue
@@ -29,7 +31,7 @@ namespace SystemParameter
 
         public static readonly int SCORE_RATE_COLOR = 400;
 
-        public static readonly int SCORE_RATE_PLAYER = 1000;
+        public static readonly int SCORE_RATE_PLAYER = 700;
 
         public static readonly float SCORE_RATE_CALCULATE = 1.5f;
 
@@ -41,7 +43,11 @@ namespace SystemParameter
 
         #region[Battle]
 
-        public static readonly int BATTLE_TIME = 20;
+        public static readonly int MIN_PLAYER_NUM = 2;
+
+        public static readonly int MAX_PLAYER_NUM = 4;
+
+        public static readonly int BATTLE_TIME = 120;
 
         public static readonly float SPEED_BASE = 0.7f;
 

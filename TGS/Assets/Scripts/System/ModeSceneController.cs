@@ -11,30 +11,26 @@ using SystemParameter;
 using UdonObservable.InputRx.GamePad;
 using DG.Tweening;
 
-public class ModeSceneController
+public class ModeSceneController : UdonBehaviour
 {
-    public virtual void ControllConnect()
-    {
-        SystemManager.Instance.SubmitConnect(
-            GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.START)
-                .Where(_ => SystemManager.Instance.IsGame == false)
-                .Subscribe(x => Submit())
-            );
+    private IDisposable OnSubmitButtonDownedObservable;
+    private IDisposable OnCancelButtonDownedObservable;
+    private IDisposable GamePadStickObservable;
 
-        SystemManager.Instance.CancelConnect(
-           GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.B)
-               .Where(_ => SystemManager.Instance.IsGame == false)
-               .Subscribe(x => Cancel())
-           );
+    public void ControllConnect(IDisposable submit, IDisposable cancel, IDisposable stick)
+    {
+        OnSubmitButtonDownedObservable = submit;
+        OnCancelButtonDownedObservable = cancel;
+        GamePadStickObservable = stick;
     }
 
     public virtual void Dispose()
     {
-        SystemManager.Instance.SubmitDispose();
-        SystemManager.Instance.CancelDispose();
+        OnSubmitButtonDownedObservable.Dispose();
+        OnCancelButtonDownedObservable.Dispose();
+        GamePadStickObservable.Dispose();
     }
 
     protected virtual void Submit() { }
     protected virtual void Cancel() { }
-
 }

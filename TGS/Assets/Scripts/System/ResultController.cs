@@ -13,111 +13,130 @@ using DG.Tweening;
 
 public class ResultController : ModeSceneController
 {
+    [SerializeField]
+    private List<GameObject> BattleResultUIPrefabs;
+    private GameObject ResultUIObject;
 
-    private enum ResultCommand { game, title }
+    private ReactiveProperty<bool> _viewMenu;
+    private ReactiveProperty<bool> _retryGame;
 
-    private RectTransform _arrowTransform;
-    private GameObject _tint;
-    private RectTransform _panelTransform;
+    private IDisposable FirstStartButtonObservable;
 
-    private static readonly Vector3 UP_POSITION = new Vector3(-338.3f,138.6f,0f);
-    private static readonly Vector3 DOWN_POSITION = new Vector3(-338.3f,-133.1f,0f);
+    private bool _isConnected = false;
 
-    private ResultCommand _mode;
-    private bool _viewMenu;
-
-    private IDisposable ControllConnecter;
-
-    public ResultController(RectTransform arrow, GameObject tint, RectTransform panel)
+    public IReadOnlyReactiveProperty<bool> ViewMenu
     {
-        _arrowTransform = arrow;
-        _tint = tint;
-        _mode = ResultCommand.game;
-        _panelTransform = panel;
-        _viewMenu = false;
+        get
+        {
+            return _viewMenu;
+        }
     }
-
-    public override void ControllConnect()
+    public IReadOnlyReactiveProperty<bool> RetryGame
     {
-        ControllConnecter =
-            GamePadObservable.GetAxisVerticalObservable()
-                .Where(_ => SystemManager.Instance.IsGame == false && _viewMenu)
-                .Subscribe(x => ResultModeSelect(x));
+        get
+        {
+            return _retryGame;
+        }
+    } 
 
-        base.ControllConnect();
+    public void Init()
+    {
+        _isConnected = true;
+
+        _viewMenu = new ReactiveProperty<bool>(false);
+        _retryGame = new ReactiveProperty<bool>(true);
+
+        ControllConnect(
+            GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.A)
+                .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+                .Subscribe(x => Submit())
+            ,
+            GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.B)
+              .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+              .Subscribe(x => Cancel())
+            ,
+             GamePadObservable.GetAxisVerticalObservable()
+              .Where(x => SystemManager.Instance.IsGame == false && _viewMenu.Value &&  Mathf.Abs(x) > 0.7f && SystemManager.Instance.CreateGame == false)
+              .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
+              .Subscribe(x => ResultModeSelect(x))
+       );
+
+        FirstStartButtonObservable = GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.START)
+                .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+                .Subscribe(x => ViewPanel());
     }
 
     public override void Dispose()
     {
-        ControllConnecter.Dispose();
-        base.Dispose();
+        if (_isConnected)
+        {
+            FirstStartButtonObservable.Dispose();
+            _viewMenu.Dispose();
+            _retryGame.Dispose();
+            base.Dispose();
+            _isConnected = false;
+        }
+    }
+
+    private void ViewPanel()
+    {
+        if (_viewMenu.Value == false)
+        {
+            _viewMenu.Value = true;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide, 2.2f);
+        }
     }
 
     protected override void Submit()
     {
-        if (SystemManager.Instance.CreateGame == false)
+        if (_viewMenu.Value)
         {
-            if (_viewMenu == false)
+            if (_retryGame.Value)
             {
-                _tint.SetActive(true);
-                _panelTransform.DOScaleY(1,0.3f);
-                _viewMenu = true;
-                AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide,2.2f);
+                SystemManager.Instance.GameStart();
             }
             else
             {
-                if (_mode == ResultCommand.game)
-                {   
-                    SystemManager.Instance.GameStart();
-                }
-                else
-                {
-                    SystemManager.Instance.BackTitle();
-                }
-                _panelTransform.DOScaleY(0, 0.3f)
-                        .OnComplete(() => _tint.SetActive(false));
-                _viewMenu = false;
-                AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+                SystemManager.Instance.BackTitle();
             }
+
+            _viewMenu.Value = false;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
         }
     }
 
     protected override void Cancel()
     {
-        if (_viewMenu == true)
+        if (_viewMenu.Value)
         {
-            _panelTransform.DOScaleY(0, 0.3f)
-                         .OnComplete(() => _tint.SetActive(false));
-            _viewMenu = false;
+            _viewMenu.Value = false;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel,2.2f);
         }
     }
 
     private void ResultModeSelect(float vert)
     {
-        if (vert > 0.7f && _mode == ResultCommand.game)
+        if (Mathf.Abs(vert) > 0.7f)
         {
-            _arrowTransform.localPosition = DOWN_POSITION;
-            _mode = ResultCommand.title;
-            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
-        }
-
-        else if (vert < -0.7f && _mode == ResultCommand.title)
-        {
-            _arrowTransform.localPosition = UP_POSITION;
-            _mode = ResultCommand.game;
+            _retryGame.Value = !_retryGame.Value;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
         }
     }
 
-    public void SetRank(List<Image> images, List<Sprite> sprites, List<int> ranking)
+    public void SetRank(List<Sprite> sprites, List<int> ranking)
     {
+        var prefab = BattleResultUIPrefabs.ElementAt(GameValue.MAX_PLAYER_NUM - SystemManager.Instance.PlayerNum);
+
+        ResultUIObject = Instantiate(prefab,transform);
+
+        var RankImages = ResultUIObject.GetComponentsInChildren<Image>();
+
         GameEnum.resultAnimPose pose;
-        for (int i = 0; i < ranking.Count(); ++i)
+        for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
         {
             pose = ranking.ElementAt(i) == 1 ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.lose;
             CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
-            images.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i) - 1);
+            RankImages.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i) - 1);
         }
     }
 }

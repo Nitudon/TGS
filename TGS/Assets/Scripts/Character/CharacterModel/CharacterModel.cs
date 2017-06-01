@@ -196,6 +196,7 @@ public class CharacterModel : ColorModel {
     {
         _score.Value += score;
         ScoreSuscription.gameObject.SetActive(true);
+        ScoreSuscription.SetPosition(RectTransformUtility.WorldToScreenPoint(Camera.main, position) + new Vector2(0f,45f));
         ScoreSuscription.Play(score);
     }
 

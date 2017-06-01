@@ -8,6 +8,8 @@ using DG.Tweening;
 
 public class SceneController : MonoBehaviour{
 
+    private static readonly float FADE_TIME = 1.4f;
+
     [SerializeField]
     private Animator SceneUIAnimator;
 
@@ -27,37 +29,16 @@ public class SceneController : MonoBehaviour{
     private GameObject ResultUI;
 
     [SerializeField]
-    private List<Image> ResultRankImage;
-
-    [SerializeField]
-    private List<Sprite> RankImageResources;
-
-    [SerializeField]
-    private GameObject ResultModeObject;
-
-    [SerializeField]
-    private RectTransform ResultArrow;
-
-    [SerializeField]
-    private RectTransform ResultPanel;
-
-    [SerializeField]
     private CanvasGroup SceneFadeTint;
-
-    [SerializeField]
-    private RectTransform TitleArrow;
-
-    [SerializeField]
-    private RectTransform TitleTint;
-
-    [SerializeField]
-    private GameObject TitleStartSubscription;
 
     [SerializeField]
     private Text TimeText;
 
-    private TitleController _titleController;
-    private ResultController _resultController;
+    [SerializeField]
+    private TitlePresenter TitleController;
+
+    [SerializeField]
+    private ResultPresenter ResultController;
 
     private enum BattleState{StartAnimation,PlayingGame,EndAnimation}
     private enum SceneTrigger { GameStart,GameEnd}
@@ -93,23 +74,12 @@ public class SceneController : MonoBehaviour{
 
     private void TitleConnect()
     {
-        if (_titleController == null)
-        {
-            _titleController = new TitleController(TitleArrow,TitleTint,TitleStartSubscription);
-        }
-
-        _titleController.ControllConnect();
+        TitleController.Init();
     }
 
     private void ResultConnect(List<int> ranking)
     {
-        if (_resultController == null)
-        {
-            _resultController = new ResultController(ResultArrow,ResultModeObject,ResultPanel);
-        }
-
-        _resultController.SetRank(ResultRankImage,RankImageResources,ranking);
-        _resultController.ControllConnect();
+        ResultController.Init(ranking);
     }
 
     private void TimerReset()
@@ -121,13 +91,13 @@ public class SceneController : MonoBehaviour{
     private Tweener Fadein()
     {
         return
-        SceneFadeTint.DOFade(1, 1.4f);
+        SceneFadeTint.DOFade(1, FADE_TIME);
     }
 
     private Tweener FadeOut()
     {
         return
-        SceneFadeTint.DOFade(0, 1.4f);
+        SceneFadeTint.DOFade(0, FADE_TIME);
     }
 
     private void SceneFade(GameEnum.BGM bgm, Action inTask = null,Action outTask = null)
@@ -150,9 +120,9 @@ public class SceneController : MonoBehaviour{
         SceneFade(GameEnum.BGM.title
             ,() =>
         {
-            if (_resultController != null)
+            if (ResultController != null)
             {
-                _resultController.Dispose();
+                ResultController.Dispose();
             }
             systemTask();
             TitleConnect();
@@ -167,13 +137,13 @@ public class SceneController : MonoBehaviour{
         SceneFade(GameEnum.BGM.battle
             ,() => 
         {
-            if(_titleController != null)
+            if(TitleController != null)
             {
-                _titleController.Dispose();
+                TitleController.Dispose();
             }
-            if (_resultController != null)
+            if (ResultController != null)
             {
-                _resultController.Dispose();
+                ResultController.Dispose();
             }
             TimerReset();
             ResultUI.SetActive(false);
@@ -205,9 +175,11 @@ public class SceneController : MonoBehaviour{
 
     public void ResultSceneTranslate(Action systemTask)
     {
+        var ranking = CharacterManager.Instance.GetCharacterRankList();
+
         SceneFade(GameEnum.BGM.end
             ,() => {
-                var ranking = CharacterManager.Instance.GetCharacterRankList();
+                CharacterManager.Instance.InitCharacterList();
                 systemTask();
                 ResultConnect(ranking);
                 SystemCanvas.SetActive(false);

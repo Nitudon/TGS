@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using UdonCommons;
@@ -10,7 +11,7 @@ using UdonObservable.Commons;
 public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     [SerializeField]
-    private GameObject PlayingGamePrefab;
+    private List<GameObject> PlayingGamePrefab;
 
     [SerializeField]
     private GameObject StageManagerPrefab;
@@ -19,7 +20,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private GameObject ParticleManagerPrefab;
 
     [SerializeField]
-    private GameObject ResultScenePrefab;
+    private List<GameObject> BattleResultScenePrefabs;
 
     [SerializeField]
     private SystemPresenter Presenter;
@@ -35,9 +36,34 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private GameObject StageManagerObject;
 
-    private IDisposable SubmitController;
+    private int _playerNum = 0;
 
-    private IDisposable CancelController;
+    private GameEnum.gameType _gameType = GameEnum.gameType.team;
+
+    public GameEnum.gameType GameType
+    {
+        get{
+            return _gameType;
+        }
+    }
+
+    public int PlayerNum
+    {
+        get
+        {
+            return _playerNum;
+        }
+    }
+
+    public void SetPlayerNum(int num)
+    {
+        _playerNum = num;
+    }
+
+    public void SetGameType(GameEnum.gameType type)
+    {
+        _gameType = type;
+    }
 
     private bool _createdGame;
     private bool _finishedGame;
@@ -124,7 +150,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         yield return new WaitUntil(() => SystemCanvas.isEndingGame);
         yield return new WaitWhile(() => SystemCanvas.isEndingGame);
 
-        SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateResultPlayingObject(); });
+        SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateBattleResultPlayingObject(); });
         AudioManager.Instance.ResetPlayerSource();
 
         yield break;
@@ -139,7 +165,8 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private void CreatePlayingObjects()
     {
-        PlayingGameObject = Instantiate(PlayingGamePrefab, transform);
+        var playObjectIndex = _playerNum == 0 ? _playerNum : GameValue.MAX_PLAYER_NUM - _playerNum;
+        PlayingGameObject = Instantiate(PlayingGamePrefab.ElementAt(playObjectIndex), transform);
         StageManagerObject = Instantiate(StageManagerPrefab, transform);
         ParticleManagerObject = Instantiate(ParticleManagerPrefab, transform);
     }
@@ -151,34 +178,14 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         Destroy(ParticleManagerObject);
     }
 
-    private void CreateResultPlayingObject()
+    private void CreateBattleResultPlayingObject()
     {
-        ResultGameObject = Instantiate(ResultScenePrefab, transform);
+        ResultGameObject = Instantiate(BattleResultScenePrefabs.ElementAt(GameValue.MAX_PLAYER_NUM - PlayerNum), transform);
     }
 
     private void DestroyResultObjects()
     {
         Destroy(ResultGameObject);
-    }
-
-    public void SubmitConnect(IDisposable controller)
-    {
-        SubmitController = controller;
-    }
-
-    public void CancelConnect(IDisposable controller)
-    {
-        CancelController = controller;
-    }
-
-    public void SubmitDispose()
-    {
-        SubmitController.Dispose();
-    }
-
-    public void CancelDispose()
-    {
-        CancelController.Dispose();
     }
 
     public class SystemModel

@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: LiberationSans SDF Material
-  m_Shader: {fileID: 4800000, guid: 3c2ea7753c1425145a74d106ec1cd852, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8e6b9842dbb1a5a4887378afab854e63, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -30,7 +30,7 @@ Material:
     - first:
         name: _FaceTex
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 40d7f27f614cc1043a1f7e19074f461c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -42,7 +42,7 @@ Material:
     - first:
         name: _OutlineTex
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 81b50d9cb6f3104448ec54c00a80101a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -80,6 +80,9 @@ Material:
         name: _FaceDilate
       second: 0
     - first:
+        name: _FaceShininess
+      second: 0
+    - first:
         name: _FaceUVSpeedX
       second: 0
     - first:
@@ -108,6 +111,9 @@ Material:
       second: 0
     - first:
         name: _MaskSoftnessY
+      second: 0
+    - first:
+        name: _OutlineShininess
       second: 0
     - first:
         name: _OutlineSoftness
@@ -217,6 +223,9 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _ReflectOutlineColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _SpecColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _SpecularColor

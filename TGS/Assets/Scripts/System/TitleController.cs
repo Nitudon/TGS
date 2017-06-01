@@ -13,109 +13,197 @@ using DG.Tweening;
 
 public class TitleController : ModeSceneController{
 
-    private enum titleCommand { game,explain }
+    private static float INPUT_STICK_VALUE = 0.7f;
 
-    private RectTransform _arrowTransform;
-    private RectTransform _tintTransform;
-    private GameObject _startsubscription;
+    public enum panelMode { hidden, view, battle, play}
 
-    private static readonly float HIDE_TINT_X = -1500f;
-    private static readonly float VIEW_TINT_X = -630f;
-    private static readonly Vector3 UP_POSITION = new Vector3(8.6f, 17.31f,0f);
-    private static readonly Vector3 DOWN_POSITION = new Vector3(-0.95f, 8.06f, 0f);
+    private bool _isConnected = false;
 
-    private titleCommand _mode;
-    private bool _viewMenu;
+    private IDisposable FirstStartButtonObservable;
 
-    private IDisposable ControllConnecter;
+    private ReactiveProperty<panelMode> _mode;
+    private ReactiveProperty<int> _playerNum;
+    private ReactiveProperty<int> _stageIndex;
+    private ReactiveProperty<int> _arrowPos;
 
-    public TitleController(RectTransform arrow,RectTransform tint, GameObject subscription)
+    public IReadOnlyReactiveProperty<panelMode> Mode
     {
-        _arrowTransform = arrow;
-        _tintTransform = tint;
-        _mode = titleCommand.game;
-        _viewMenu = false;
-        _startsubscription = subscription;
+        get
+        {
+            return _mode;
+        }
+    }
+    public IReadOnlyReactiveProperty<int> PlayerNum
+    {
+        get
+        {
+            return _playerNum;
+        }
+    }
+    public IReadOnlyReactiveProperty<int> StageIndex
+    {
+        get
+        {
+            return _stageIndex;
+        }
+    }
+    public IReadOnlyReactiveProperty<int> ArrowPos
+    {
+        get
+        {
+            return _arrowPos;
+        }
     }
 
-    public override void ControllConnect()
+    public void Init()
     {
-        _startsubscription.SetActive(true);
+        _isConnected = true;
 
-        ControllConnecter =
-            GamePadObservable.GetAxisVerticalObservable()
-                .Where(_ => SystemManager.Instance.IsGame == false && _viewMenu)
-                .Subscribe(x => TitleModeSelect(x));
+        _playerNum = new ReactiveProperty<int>(4);
+        _stageIndex = new ReactiveProperty<int>(1);
+        _mode = new ReactiveProperty<panelMode>(panelMode.hidden);
+        _arrowPos = new ReactiveProperty<int>(0);
 
-        base.ControllConnect();
+        ControllConnect(
+             GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.A)
+                 .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+                 .Subscribe(x => Submit())
+             ,
+             GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.B)
+               .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+               .Subscribe(x =>  Cancel())
+             ,
+              GamePadObservable.GetAxisStickObservable()
+               .Where(x => SystemManager.Instance.IsGame == false && _mode.Value != TitleController.panelMode.hidden && (Mathf.Abs(x.hori) > 0.7f || Mathf.Abs(x.vert) > 0.7f) && SystemManager.Instance.CreateGame == false)
+               .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
+               .Subscribe(x => TitleModeSelect(x))
+        );
+
+        FirstStartButtonObservable = GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.START)
+                 .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+                 .Subscribe(x => ViewPanel());
     }
 
     public override void Dispose()
     {
-        ControllConnecter.Dispose();
-        base.Dispose();
+        if (_isConnected)
+        {
+            base.Dispose();
+            _mode.Dispose();
+            _playerNum.Dispose();
+            _stageIndex.Dispose();
+            _arrowPos.Dispose();
+            FirstStartButtonObservable.Dispose();
+            _isConnected = false;
+        }
+    }
+
+    private void ViewPanel()
+    {
+        if (_mode.Value == panelMode.hidden)
+        {
+            _mode.Value = panelMode.view;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide, 2.2f);
+        }
     }
 
     protected override void Submit()
     {
-        if (SystemManager.Instance.CreateGame == false)
+        if (_mode.Value == panelMode.view)
         {
-            if (_viewMenu == false)
+            if (_arrowPos.Value == 0)
             {
-                _startsubscription.SetActive(false);
-                _tintTransform.DOKill();
-                _tintTransform.DOLocalMoveX(VIEW_TINT_X, 0.4f);
-                _viewMenu = true;
-                AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide,2.2f);
+                _mode.Value = panelMode.battle;
+                SystemManager.Instance.SetGameType(GameEnum.gameType.team);
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.submit);
+            }
+            else if (_arrowPos.Value == 1)
+            {
+                _mode.Value = panelMode.battle;
+                SystemManager.Instance.SetGameType(GameEnum.gameType.battle);
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.submit);
             }
             else
             {
-                if (_mode == titleCommand.game)
-                {
-                    _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f);
-                    _viewMenu = false;
-                    SystemManager.Instance.GameStart();
-                    AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
-                }
-                else
-                {
-                    AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
 #if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.isPlaying = false;
 #else
                     Application.Quit();
 #endif
-                }
+            }
+        }
+        else if(_mode.Value == panelMode.battle)
+        {
+            if(_arrowPos.Value == 2)
+            {
+                _mode.Value = panelMode.play;
+                SystemManager.Instance.SetPlayerNum(_playerNum.Value);
+                SystemManager.Instance.GameStart();
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
             }
         }
     }
 
+
     protected override void Cancel()
     {
-        if(_viewMenu == true)
+        if (_mode.Value == panelMode.view)
         {
-            _tintTransform.DOKill();
-            _tintTransform.DOLocalMoveX(HIDE_TINT_X, 0.4f)
-                .OnComplete(() => _startsubscription.SetActive(true));
-            _viewMenu = false;
-            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel,2.2f);
+            _mode.Value = panelMode.hidden;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel);
+        }
+        else if(_mode.Value == panelMode.battle)
+        {
+            _mode.Value = panelMode.view;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel);
+            
         }
     }
 
-    private void TitleModeSelect(float vert)
+    private void TitleModeSelect(GamepadStickInput.StickInfo info)
     {
-        if(vert > 0.7f && _mode == titleCommand.game)
+        var vert = info.vert;
+        var hori = info.hori;
+
+        if(vert > INPUT_STICK_VALUE)
         {
-            _arrowTransform.localPosition = DOWN_POSITION;
-            _mode = titleCommand.explain;
-            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
+            if(_arrowPos.Value < 2)
+            {
+                _arrowPos.Value++;
+            }
+        }
+        else if(vert < -INPUT_STICK_VALUE)
+        {
+            if (_arrowPos.Value > 0)
+            {
+                _arrowPos.Value--;
+            }
         }
 
-        else if (vert < -0.7f && _mode == titleCommand.explain)
+        if (_mode.Value == panelMode.battle)
         {
-            _arrowTransform.localPosition = UP_POSITION;
-            _mode = titleCommand.game;
-            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
+            if (hori > INPUT_STICK_VALUE)
+            {
+                if (_arrowPos.Value == 0 && _playerNum.Value < GameValue.MAX_PLAYER_NUM)
+                {
+                    _playerNum.Value++;
+                }
+                else if (_arrowPos.Value == 1)
+                {
+                    _stageIndex.Value++;
+                }
+            }else if(hori < -INPUT_STICK_VALUE)
+            {
+                if (_arrowPos.Value == 0 && _playerNum.Value > GameValue.MIN_PLAYER_NUM)
+                {
+                    _playerNum.Value--;
+                }
+                else if (_arrowPos.Value == 1 && _stageIndex.Value > 1)
+                {
+                    _stageIndex.Value--;
+                }
+            }
         }
     }
 
