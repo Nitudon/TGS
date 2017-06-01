@@ -23,6 +23,10 @@ public class CharacterPresenter : MonoBehaviour {
             .Subscribe(_ => _view.OnScoreChanged(_model.Score.Value))
             .AddTo(gameObject);
 
+        _model.SubscriotionPosition
+            .Subscribe(x => _view.OnPlayerPositionChanged(x))
+            .AddTo(gameObject);
+
     }
 
     private void SetEvents()

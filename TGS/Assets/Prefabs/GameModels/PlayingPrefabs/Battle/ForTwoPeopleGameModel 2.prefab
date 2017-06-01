@@ -2232,6 +2232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114510128446747184}
+  PlayerSubscription: {fileID: 1360078854270546}
 --- !u!114 &114244648946604510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2243,11 +2244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 2
   isGameModel: 1
   FrontCollider: {fileID: 65595380871569782}
   CharacterAnimator: {fileID: 95360819231851578}
   ScoreSuscription: {fileID: 114765004151160596}
-  Player: 2
   SEPlayer: {fileID: 82867401681336934}
 --- !u!114 &114252825517514178
 MonoBehaviour:
@@ -2824,11 +2825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 1
   isGameModel: 1
   FrontCollider: {fileID: 65107797514337474}
   CharacterAnimator: {fileID: 95444274416854298}
   ScoreSuscription: {fileID: 114543403126193038}
-  Player: 1
   SEPlayer: {fileID: 82163116335644146}
 --- !u!114 &114903212344844064
 MonoBehaviour:
@@ -2855,6 +2856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114252825517514178}
+  PlayerSubscription: {fileID: 1646452187827782}
 --- !u!114 &114968353457105534
 MonoBehaviour:
   m_ObjectHideFlags: 1

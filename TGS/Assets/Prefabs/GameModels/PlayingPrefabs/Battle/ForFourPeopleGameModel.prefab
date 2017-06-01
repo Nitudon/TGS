@@ -4689,6 +4689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114888616560327502}
+  PlayerSubscription: {fileID: 1339412820151324}
 --- !u!114 &114246500194662428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5029,6 +5030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114291970623690512}
+  PlayerSubscription: {fileID: 1433723772101672}
 --- !u!114 &114575976028680966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5054,6 +5056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114589610724530516}
+  PlayerSubscription: {fileID: 1558530533845078}
 --- !u!114 &114589610724530516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5112,6 +5115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114179399605748736}
+  PlayerSubscription: {fileID: 1631433409056420}
 --- !u!114 &114629398435668552
 MonoBehaviour:
   m_ObjectHideFlags: 1

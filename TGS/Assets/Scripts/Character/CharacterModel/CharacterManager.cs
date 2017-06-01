@@ -50,7 +50,7 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
         }
        
             _characterModels.Add(model);
-            _characterModels = _characterModels.OrderBy(x => x.GetPlayerID).ToList();
+            _characterModels = _characterModels.OrderBy(x => x.Player).ToList();
 
     }
 

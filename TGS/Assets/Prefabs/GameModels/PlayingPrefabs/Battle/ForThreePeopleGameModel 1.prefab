@@ -3198,6 +3198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114148686221267004}
+  PlayerSubscription: {fileID: 1028940396789640}
 --- !u!114 &114023321434847806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3222,6 +3223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114615965029589810}
+  PlayerSubscription: {fileID: 1880903053200168}
 --- !u!114 &114060459267917910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3895,11 +3897,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 2
   isGameModel: 1
   FrontCollider: {fileID: 65145641112894046}
   CharacterAnimator: {fileID: 95843859575492150}
   ScoreSuscription: {fileID: 114023321434847806}
-  Player: 2
   SEPlayer: {fileID: 82513923354387668}
 --- !u!114 &114630021749185784
 MonoBehaviour:
@@ -3912,11 +3914,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 1
   isGameModel: 1
   FrontCollider: {fileID: 65999622228339816}
   CharacterAnimator: {fileID: 95217641424270352}
   ScoreSuscription: {fileID: 114107809349240044}
-  Player: 1
   SEPlayer: {fileID: 82461826176936216}
 --- !u!114 &114673648038952954
 MonoBehaviour:
@@ -4004,11 +4006,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 3
   isGameModel: 1
   FrontCollider: {fileID: 65873619309028602}
   CharacterAnimator: {fileID: 95289949719818894}
   ScoreSuscription: {fileID: 114479057717020630}
-  Player: 3
   SEPlayer: {fileID: 82517494572918800}
 --- !u!114 &114819973360857658
 MonoBehaviour:
@@ -4174,6 +4176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114748046574879006}
+  PlayerSubscription: {fileID: 1800290001053608}
 --- !u!114 &114941602277431712
 MonoBehaviour:
   m_ObjectHideFlags: 1

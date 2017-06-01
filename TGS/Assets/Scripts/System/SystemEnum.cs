@@ -47,7 +47,7 @@ namespace SystemParameter
 
         public static readonly int MAX_PLAYER_NUM = 4;
 
-        public static readonly int BATTLE_TIME = 120;
+        public static readonly int BATTLE_TIME = 5;
 
         public static readonly float SPEED_BASE = 0.7f;
 

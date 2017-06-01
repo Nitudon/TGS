@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -16,15 +17,17 @@ public class CharacterModel : ColorModel {
     protected override void Awake()
     {
         _controller = new CharacterModelController(this,CharacterAnimator);
+        _tresureColor = (GameEnum.tresureColor)Player;
         CharacterManager.Instance.AddCharacterModel(this);
         if (isGameModel)
         {
             _tresures = new ReactiveCollection<ColorModel>();
             AudioManager.Instance.SetPlayerSource(Player, SEPlayer);
-            _tresureColor = (GameEnum.tresureColor)Player;
             _score = new ReactiveProperty<int>(0);
         }
     }
+
+    public GamePadObservable.Player Player;
 
     [SerializeField]
     private bool isGameModel = true;
@@ -39,9 +42,6 @@ public class CharacterModel : ColorModel {
     private AnimationScoreText ScoreSuscription;
 
     [SerializeField]
-    private GamePadObservable.Player Player;
-
-    [SerializeField]
     private AudioSource SEPlayer;
 
     public bool IsGameModel
@@ -49,14 +49,6 @@ public class CharacterModel : ColorModel {
         get
         {
             return isGameModel;
-        }
-    }
-
-    public GamePadObservable.Player GetPlayerID
-    {
-        get
-        {
-            return Player;
         }
     }
 
@@ -89,6 +81,20 @@ public class CharacterModel : ColorModel {
             }
 
             return _tresures;
+        }
+    }
+
+    private ReactiveProperty<Vector3> _subscriptionPosition;
+    public IReadOnlyReactiveProperty<Vector3> SubscriotionPosition
+    {
+        get
+        {
+            if(_subscriptionPosition == null)
+            {
+                _subscriptionPosition = transform.ObserveEveryValueChanged(x => x.position).ToReactiveProperty();
+            }
+
+            return _subscriptionPosition;
         }
     }
 
@@ -232,6 +238,8 @@ public class CharacterEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        CharacterModel model = target as CharacterModel;
+
         serializedObject.Update();
 
         var isGameModel = serializedObject.FindProperty("isGameModel");
@@ -247,6 +255,7 @@ public class CharacterEditor : Editor
         else
         {
             isGameModel.boolValue = EditorGUILayout.Toggle("isGameModel", isGameModel.boolValue);
+            model.Player = (GamePadObservable.Player)EditorGUILayout.EnumPopup("Player",model.Player);
             characterAnimator.objectReferenceValue = EditorGUILayout.ObjectField("CharacterAnimator", characterAnimator.objectReferenceValue, typeof(Animator), true) as Animator;
         }
 

@@ -5722,11 +5722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 3
   isGameModel: 0
   FrontCollider: {fileID: 0}
-  CharacterAnimator: {fileID: 95443756107077430}
+  CharacterAnimator: {fileID: 95021921655244606}
   ScoreSuscription: {fileID: 0}
-  Player: 0
   SEPlayer: {fileID: 0}
 --- !u!114 &114503290314611048
 MonoBehaviour:
@@ -5739,11 +5739,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 4
   isGameModel: 0
   FrontCollider: {fileID: 0}
   CharacterAnimator: {fileID: 95443756107077430}
   ScoreSuscription: {fileID: 0}
-  Player: 0
   SEPlayer: {fileID: 0}
 --- !u!114 &114631606142612276
 MonoBehaviour:
@@ -5756,11 +5756,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 2
   isGameModel: 0
   FrontCollider: {fileID: 0}
-  CharacterAnimator: {fileID: 95443756107077430}
+  CharacterAnimator: {fileID: 95297350199395836}
   ScoreSuscription: {fileID: 0}
-  Player: 0
   SEPlayer: {fileID: 0}
 --- !u!114 &114890596185552348
 MonoBehaviour:
@@ -5773,11 +5773,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 1
   isGameModel: 0
   FrontCollider: {fileID: 0}
-  CharacterAnimator: {fileID: 95443756107077430}
+  CharacterAnimator: {fileID: 95235190363149478}
   ScoreSuscription: {fileID: 0}
-  Player: 0
   SEPlayer: {fileID: 0}
 --- !u!137 &137013069362201300
 SkinnedMeshRenderer:

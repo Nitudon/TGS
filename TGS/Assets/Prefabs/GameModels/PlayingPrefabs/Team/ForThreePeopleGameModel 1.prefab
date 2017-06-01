@@ -933,7 +933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4960494099476650}
   m_Layer: 0
-  m_Name: ForFourPeopleGameModel 1
+  m_Name: ForThreePeopleGameModel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3454,6 +3454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114077413860824966}
+  PlayerSubscription: {fileID: 0}
 --- !u!114 &114238593705752332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3823,6 +3824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114077413860824966}
+  PlayerSubscription: {fileID: 0}
 --- !u!114 &114733655504859502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3965,6 +3967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114077413860824966}
+  PlayerSubscription: {fileID: 0}
 --- !u!114 &114950325081245294
 MonoBehaviour:
   m_ObjectHideFlags: 1

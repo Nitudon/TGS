@@ -127,7 +127,8 @@ public class ResultController : ModeSceneController
     {
         var prefab = BattleResultUIPrefabs.ElementAt(GameValue.MAX_PLAYER_NUM - SystemManager.Instance.PlayerNum);
 
-        ResultUIObject = Instantiate(prefab,transform);
+        ResultUIObject = Instantiate(prefab,transform, false);
+        ResultUIObject.transform.SetAsFirstSibling();
 
         var RankImages = ResultUIObject.GetComponentsInChildren<Image>();
 
@@ -135,6 +136,7 @@ public class ResultController : ModeSceneController
         for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
         {
             pose = ranking.ElementAt(i) == 1 ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.lose;
+            Debug.Log(CharacterManager.Instance.GetCharacterModel(i).name);
             CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
             RankImages.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i) - 1);
         }

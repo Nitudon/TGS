@@ -79,7 +79,7 @@ MonoBehaviour:
     m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - m_assetDatabaseId: 20c8091519d04e945b5430e2170c4067
-    m_importFrom: Assets/Prefabs/GameModels/PlayingPrefabs/ForFourPeopleGameModel.prefab
+    m_importFrom: Assets/Prefabs/GameModels/PlayingPrefabs/Battle/ForFourPeopleGameModel.prefab
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
@@ -175,7 +175,7 @@ MonoBehaviour:
     m_assetTypeString: UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - m_assetDatabaseId: 40c84eecff7379a47bdd8ec7e9df025b
-    m_importFrom: Assets/Resources/Materials/Material.011.mat
+    m_importFrom: Assets/Resources/Materials/AttackWall.mat
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral,
@@ -3435,6 +3435,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - m_assetDatabaseId: f5abf7f1d0199da478dc297019db4db7
     m_importFrom: Assets/Resources/Sprites/lightlogo.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 8ea8c42e46be65a48bf6673c74e7ce9f
+    m_importFrom: Assets/Resources/Sprites/team_panel.png
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
