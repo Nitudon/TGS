@@ -25,6 +25,7 @@ public class CharacterModel : ColorModel {
             AudioManager.Instance.SetPlayerSource(Player, SEPlayer);
             _score = new ReactiveProperty<int>(0);
         }
+        Enable();
     }
 
     public GamePadObservable.Player Player;

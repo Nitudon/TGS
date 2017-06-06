@@ -10,6 +10,8 @@ using UdonObservable.InputRx.GamePad;
 
 public class CharacterModelController{
 
+    private float _speedScale = 1.0f;
+
     private CharacterModel _characterModel;
 
     private Animator _animator;
@@ -60,12 +62,18 @@ public class CharacterModelController{
     private void CharacterMove(GamepadStickInput.StickInfo info)
     {
         var tresureHeavy = Mathf.Pow(GameValue.SPEED_RATE, _characterModel.Tresures.Count);
-        _characterModel.rigitbody.velocity = info.movePosition * GameValue.SPEED_BASE * tresureHeavy;
+        _characterModel.rigitbody.velocity = info.movePosition * GameValue.SPEED_BASE * tresureHeavy * _speedScale;
         info.RotatePosition(_characterModel.transform);
+    }
+
+    public void SetSpeedScale(float scale)
+    {
+        _speedScale = scale;
     }
 
     public void StopMove()
     {
         _characterModel.rigitbody.velocity = new Vector3();
+        SetSpeedScale(0f);
     }
 }

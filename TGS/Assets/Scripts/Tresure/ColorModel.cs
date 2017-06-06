@@ -16,9 +16,21 @@ public class ColorModel : UdonBehaviour {
         _tresureColor = color;
     }
 
-    public void SetColor(GameEnum.tresureColor color)
+    
+
+    private bool _isEnable = false;
+
+    public bool IsEnable
     {
-        _tresureColor = color;
+        get
+        {
+            return _isEnable;
+        }
+    }
+
+    public virtual void Enable()
+    {
+        _isEnable = true;
     }
 
     protected GameEnum.tresureColor _tresureColor;
@@ -28,6 +40,11 @@ public class ColorModel : UdonBehaviour {
         {
             return _tresureColor;
         }
+    }
+
+    public void SetColor(GameEnum.tresureColor color)
+    {
+        _tresureColor = color;
     }
 
     private int _listNumber;

@@ -102,4 +102,5 @@ public class TresureModel : ColorModel{
             ParticleManager.Instance.GetParticleEvent(0).NumEmit(position);
         }
     }
+
 }

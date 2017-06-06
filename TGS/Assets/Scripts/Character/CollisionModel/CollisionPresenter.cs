@@ -46,18 +46,24 @@ public class CollisionPresenter : UdonBehaviour {
     {
         ColorModel model = go.GetComponent<ColorModel>();
 
-        Character.AddColor(model);
+        if (model.IsEnable)
+        {
+            Character.AddColor(model);
 
-        posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
+            posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
+        }
     }
 
     private void OnCollisionExited(GameObject go)
     {
-        if(ExtensionGameObject.HasComponent<CharacterModel>(go) && Character.Tresures.Count > 0)
+        ColorModel model = go.GetComponent<ColorModel>();
+
+        if (model is CharacterModel && Character.Tresures.Count > 0)
         {
             Character.RemoveTresure(Character.Tresures.Count-1);
-            posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
         }
+
+        posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
     }
 
 }

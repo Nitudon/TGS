@@ -112,8 +112,12 @@ public class TitleView : MonoBehaviour {
             case TitleController.panelMode.play:
                 StartSubscription.SetActive(true);
                 MenuPanel.DOKill();
-                MenuPanel.DOLocalMoveX(HIDE_TINT_X, PANEL_SLIDE_TIME);
-                MenuArrow.localPosition = POSITIONS[0];
+                MenuPanel.DOLocalMoveX(HIDE_TINT_X, PANEL_SLIDE_TIME)
+                    .OnComplete(() => {
+                        MenuArrow.localPosition = POSITIONS[0];
+                        ViewMenu.SetActive(true);
+                        BattleMenu.SetActive(false);
+                    } );
                 break;
         }
     }

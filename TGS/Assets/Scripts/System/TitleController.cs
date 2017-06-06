@@ -89,11 +89,6 @@ public class TitleController : ModeSceneController{
         if (_isConnected)
         {
             base.Dispose();
-            _mode.Dispose();
-            _playerNum.Dispose();
-            _stageIndex.Dispose();
-            _arrowPos.Dispose();
-            FirstStartButtonObservable.Dispose();
             _isConnected = false;
         }
     }
@@ -139,6 +134,7 @@ public class TitleController : ModeSceneController{
             {
                 _mode.Value = panelMode.play;
                 SystemManager.Instance.SetPlayerNum(_playerNum.Value);
+                SystemManager.Instance.SetStageNum(_stageIndex.Value);
                 SystemManager.Instance.GameStart();
                 AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
             }

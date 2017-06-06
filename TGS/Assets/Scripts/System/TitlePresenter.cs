@@ -30,19 +30,23 @@ public class TitlePresenter : MonoBehaviour
     {
         _model.PlayerNum
             .Skip(1)
-            .Subscribe(x => _view.OnPlayerNumChanged(x));
+            .Subscribe(x => _view.OnPlayerNumChanged(x))
+            .AddTo(gameObject);
 
         _model.StageIndex
             .Skip(1)
-            .Subscribe(x => _view.OnStageIndexChanged(x));
+            .Subscribe(x => _view.OnStageIndexChanged(x))
+            .AddTo(gameObject);
 
         _model.ArrowPos
             .Skip(1)
-            .Subscribe(x => _view.OnArrowPosChanged(x));
+            .Subscribe(x => _view.OnArrowPosChanged(x))
+            .AddTo(gameObject);
 
         _model.Mode
             .Skip(1)
-            .Subscribe(x => _view.OnModeChanged(x));
+            .Subscribe(x => _view.OnModeChanged(x))
+            .AddTo(gameObject);
     }
 
     private void SetEvents()

@@ -3575,7 +3575,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!54 &54387338612377376
 Rigidbody:
@@ -3590,7 +3590,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!54 &54771731346640190
 Rigidbody:
@@ -3605,7 +3605,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!54 &54924920240780174
 Rigidbody:
@@ -3620,7 +3620,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &65144563233954440
 BoxCollider:
@@ -4954,11 +4954,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 2
   isGameModel: 1
   FrontCollider: {fileID: 65941569068455638}
   CharacterAnimator: {fileID: 95589054879912676}
   ScoreSuscription: {fileID: 114380724234380422}
-  Player: 2
   SEPlayer: {fileID: 82018641615762794}
 --- !u!114 &114519946480103492
 MonoBehaviour:
@@ -5292,11 +5292,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 4
   isGameModel: 1
   FrontCollider: {fileID: 65808482827512270}
   CharacterAnimator: {fileID: 95415783222263876}
   ScoreSuscription: {fileID: 114143581800464544}
-  Player: 4
   SEPlayer: {fileID: 82270558301241362}
 --- !u!114 &114749839906222562
 MonoBehaviour:
@@ -5715,11 +5715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 3
   isGameModel: 1
   FrontCollider: {fileID: 65358424085432222}
   CharacterAnimator: {fileID: 95003252564053416}
   ScoreSuscription: {fileID: 114483667223424614}
-  Player: 3
   SEPlayer: {fileID: 82197979397551074}
 --- !u!114 &114896227855719986
 MonoBehaviour:
@@ -5758,11 +5758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 1
   isGameModel: 1
   FrontCollider: {fileID: 65144563233954440}
   CharacterAnimator: {fileID: 95620865909069498}
   ScoreSuscription: {fileID: 114408401559139558}
-  Player: 1
   SEPlayer: {fileID: 82183694844157404}
 --- !u!114 &114924115327215314
 MonoBehaviour:

@@ -824,12 +824,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739a6f23b01f4b645a159618176d4819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayingGamePrefab:
+  BattlePlayingGamePrefab:
   - {fileID: 1560693927422836, guid: 20c8091519d04e945b5430e2170c4067, type: 2}
   - {fileID: 1512097146860768, guid: 370eb4e692e56c44c98ecd2644437527, type: 2}
   - {fileID: 1196935629538870, guid: ede0a2dd3238eb842998018b1d6a2349, type: 2}
-  StageManagerPrefab: {fileID: 1217665421429582, guid: a419060481f261445a5c42a4acfeb5e4,
-    type: 2}
+  TeamPlayingGamePrefab:
+  - {fileID: 1861778119889174, guid: 625d2bfe78ccae541a6f162569ac779a, type: 2}
+  - {fileID: 1674854317450100, guid: fc8bb7a5755cc5e43a567b5fe4240f3d, type: 2}
+  - {fileID: 1142638975586156, guid: 1b4971f0fbf9fcb4898ffd9a2d47f147, type: 2}
+  StageManagerPrefab:
+  - {fileID: 1217665421429582, guid: a419060481f261445a5c42a4acfeb5e4, type: 2}
+  - {fileID: 1184516307850652, guid: b7cd57c192598e74388512ff951ffa83, type: 2}
   ParticleManagerPrefab: {fileID: 1798144423950670, guid: 6c6106d8e9406d64bb6cbe2be4259ef6,
     type: 2}
   BattleResultScenePrefabs:

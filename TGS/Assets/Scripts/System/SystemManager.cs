@@ -11,10 +11,13 @@ using UdonObservable.Commons;
 public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     [SerializeField]
-    private List<GameObject> PlayingGamePrefab;
+    private List<GameObject> BattlePlayingGamePrefab;
 
     [SerializeField]
-    private GameObject StageManagerPrefab;
+    private List<GameObject> TeamPlayingGamePrefab;
+
+    [SerializeField]
+    private List<GameObject> StageManagerPrefab;
 
     [SerializeField]
     private GameObject ParticleManagerPrefab;
@@ -38,6 +41,14 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private int _playerNum = 0;
 
+    public int PlayerNum
+        {
+            get
+            {
+                return _playerNum;
+            }
+        }
+
     private GameEnum.gameType _gameType = GameEnum.gameType.team;
 
     public GameEnum.gameType GameType
@@ -47,11 +58,13 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         }
     }
 
-    public int PlayerNum
+    private int _stageNum = 1;
+
+    public int StageNum
     {
         get
         {
-            return _playerNum;
+            return _stageNum;
         }
     }
 
@@ -63,6 +76,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     public void SetGameType(GameEnum.gameType type)
     {
         _gameType = type;
+    }
+
+    public void SetStageNum(int num)
+    {
+        _stageNum = num;
     }
 
     private bool _createdGame;
@@ -165,9 +183,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     private void CreatePlayingObjects()
     {
+        var playObjectList = _gameType == GameEnum.gameType.team ? TeamPlayingGamePrefab : BattlePlayingGamePrefab;
         var playObjectIndex = _playerNum == 0 ? _playerNum : GameValue.MAX_PLAYER_NUM - _playerNum;
-        PlayingGameObject = Instantiate(PlayingGamePrefab.ElementAt(playObjectIndex), transform);
-        StageManagerObject = Instantiate(StageManagerPrefab, transform);
+        PlayingGameObject = Instantiate(playObjectList.ElementAt(playObjectIndex), transform);
+        StageManagerObject = Instantiate(StageManagerPrefab.ElementAt(_stageNum - 1), transform);
         ParticleManagerObject = Instantiate(ParticleManagerPrefab, transform);
     }
 

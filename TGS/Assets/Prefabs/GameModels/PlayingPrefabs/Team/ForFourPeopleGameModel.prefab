@@ -4058,11 +4058,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 3
   isGameModel: 1
   FrontCollider: {fileID: 65262560753882448}
   CharacterAnimator: {fileID: 95972823448392396}
   ScoreSuscription: {fileID: 114319472861364872}
-  Player: 3
   SEPlayer: {fileID: 82629204414848450}
 --- !u!114 &114164817557447638
 MonoBehaviour:
@@ -4260,6 +4260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114768240678366538}
+  PlayerSubscription: {fileID: 1561938004699832}
 --- !u!114 &114485117208894464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4384,6 +4385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114768240678366538}
+  PlayerSubscription: {fileID: 1076784499687126}
 --- !u!114 &114511615836667716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4519,6 +4521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114768240678366538}
+  PlayerSubscription: {fileID: 1582211088750514}
 --- !u!114 &114601864325436396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4655,11 +4658,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 1
   isGameModel: 1
   FrontCollider: {fileID: 65326224003917872}
   CharacterAnimator: {fileID: 95387435072653086}
   ScoreSuscription: {fileID: 114238178079229200}
-  Player: 1
   SEPlayer: {fileID: 82495030735094638}
 --- !u!114 &114657045143863812
 MonoBehaviour:
@@ -4858,11 +4861,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 2
   isGameModel: 1
   FrontCollider: {fileID: 65917383437300274}
   CharacterAnimator: {fileID: 95919548053220034}
   ScoreSuscription: {fileID: 114053789568562748}
-  Player: 2
   SEPlayer: {fileID: 82887227117853190}
 --- !u!114 &114768240678366538
 MonoBehaviour:
@@ -4933,6 +4936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: {fileID: 114768240678366538}
+  PlayerSubscription: {fileID: 1457682952119106}
 --- !u!114 &114855682191029002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4944,11 +4948,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817695fce9e3fb3478d9ab88700ff7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 4
   isGameModel: 1
   FrontCollider: {fileID: 65203005731794328}
   CharacterAnimator: {fileID: 95137857697181430}
   ScoreSuscription: {fileID: 114207760847478314}
-  Player: 4
   SEPlayer: {fileID: 82379546384870514}
 --- !u!114 &114870459864316622
 MonoBehaviour:
