@@ -64,6 +64,8 @@ public class TresureModel : ColorModel{
             return;
         }
 
+        var trail = GetComponent<TrailRenderer>();
+        trail.enabled = false;
         _owner = model;
         _ownIndex = model.Tresures.Count-1;
     }
@@ -101,6 +103,12 @@ public class TresureModel : ColorModel{
         {
             ParticleManager.Instance.GetParticleEvent(0).NumEmit(position);
         }
+    }
+
+    public override void Enable()
+    {
+        GetComponent<Collider>().isTrigger = false;
+        base.Enable();
     }
 
 }

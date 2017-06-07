@@ -7,7 +7,7 @@ using UniRx;
 
 public class CharacterView : MonoBehaviour {
 
-    private static readonly Vector2 SUBSCRIPTION_POSITION_OFFSET = new Vector3(20f,60f);
+    private static readonly Vector2 SUBSCRIPTION_POSITION_OFFSET = new Vector3(20f,30f);
 
     [SerializeField]
     private Text Score;

@@ -150,10 +150,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         yield return new WaitUntil(() => SystemCanvas.isPlayingGame);
 
         SystemCanvas.BattleStart();
+        Presenter.Init();
         AudioManager.Instance.PlaySystemSE(GameEnum.SE.start);
         _isPause = false;
         _isGame = true;
-        Presenter.Init();
 
         yield break;
     }
@@ -249,6 +249,27 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     }
 
     private SystemModel _model;
+
+    public SystemModel InitModel()
+    {
+       return _model = new SystemModel(GameValue.BATTLE_TIME);
+    }
+
+    public int Time
+    {
+        get
+        {
+            if(_model == null)
+            {
+                _model = new SystemModel(0);
+                return 0;
+            }
+            else
+            {
+                return _model.Timer.Value;
+            }
+        }
+    }
 
     public void SetPause(bool pause)
     {

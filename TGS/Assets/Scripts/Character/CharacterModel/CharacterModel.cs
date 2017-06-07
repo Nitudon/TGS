@@ -99,6 +99,16 @@ public class CharacterModel : ColorModel {
         }
     }
 
+    private bool _isJudge = false;
+
+    public bool IsJudge
+    {
+        get
+        {
+            return _isJudge;
+        }
+    }
+
     private void JudgeTresure()
     {
         int score;
@@ -126,8 +136,9 @@ public class CharacterModel : ColorModel {
 
     public void AddColor(ColorModel model)
     {
-        if (SystemManager.Instance.IsGame)
+        if (SystemManager.Instance.IsGame && _isJudge == false)
         {
+            _isJudge = true;
             if (model is TresureModel)
             {
                 var tresure = model as TresureModel;
@@ -141,6 +152,7 @@ public class CharacterModel : ColorModel {
                 var character = model as CharacterModel;
                 AddCharacter(character);
             }
+            _isJudge = false;
         }
     }
 
@@ -170,14 +182,17 @@ public class CharacterModel : ColorModel {
 
     public void RemoveTresure(int index)
     {
-        if(_tresures.ElementAt(index) is CharacterModel == false)
+        if (_tresures.ElementAt(index) != null && index < _tresures.Count)
         {
-            var tresure = _tresures.ElementAt(index) as TresureModel;
-            AudioManager.Instance.PlayPlayerSE(Player,GameEnum.SE.crash);
-            tresure.BreakTresure();
-            tresure.Destroy();
+            if (_tresures.ElementAt(index) is CharacterModel == false)
+            {
+                var tresure = _tresures.ElementAt(index) as TresureModel;
+                AudioManager.Instance.PlayPlayerSE(Player, GameEnum.SE.crash);
+                tresure.BreakTresure();
+                tresure.Destroy();
+            }
+            _tresures.RemoveAt(index);
         }
-        _tresures.RemoveAt(index);
     }
 
     public void RemoveTresureAll()
@@ -203,7 +218,7 @@ public class CharacterModel : ColorModel {
     {
         _score.Value += score;
         ScoreSuscription.gameObject.SetActive(true);
-        ScoreSuscription.SetPosition(RectTransformUtility.WorldToScreenPoint(Camera.main, position) + new Vector2(0f,45f));
+        ScoreSuscription.SetPosition(RectTransformUtility.WorldToScreenPoint(Camera.main, position) + new Vector2(0f,15f));
         ScoreSuscription.Play(score);
     }
 

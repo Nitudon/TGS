@@ -1,34 +1,27 @@
 fileFormatVersion: 2
-guid: 5850d11c9c19f404b9cb930eeec181a8
-timeCreated: 1496670773
+guid: cc026df4e5d039f46b00d0e78f8c5aad
+timeCreated: 1496735275
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Icosphere
     100002: Icosphere.001
-    100004: Point
-    100006: //RootNode
-    100008: Torus
-    100010: Torus.001
+    100004: //RootNode
+    100006: Torus.003
     400000: Icosphere
     400002: Icosphere.001
-    400004: Point
-    400006: //RootNode
-    400008: Torus
-    400010: Torus.001
+    400004: //RootNode
+    400006: Torus.003
     2300000: Icosphere
     2300002: Icosphere.001
-    2300004: Torus
-    2300006: Torus.001
+    2300004: Torus.003
     3300000: Icosphere
     3300002: Icosphere.001
-    3300004: Torus
-    3300006: Torus.001
-    4300000: Icosphere.001
-    4300002: Torus
-    4300004: Torus.001
-    4300006: Icosphere
+    3300004: Torus.003
+    4300000: Torus.003
+    4300002: Icosphere.001
+    4300004: Icosphere
   materials:
     importMaterials: 1
     materialName: 0

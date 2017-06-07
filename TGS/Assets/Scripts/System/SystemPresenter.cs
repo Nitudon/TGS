@@ -17,7 +17,7 @@ public class SystemPresenter : MonoBehaviour {
 
     public void Init()
     {
-        _model = new SystemManager.SystemModel(GameValue.BATTLE_TIME);
+        _model = _system.InitModel();
         SetEvents();
         ObserveSystem();
     }

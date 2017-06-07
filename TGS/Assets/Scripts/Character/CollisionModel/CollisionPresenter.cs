@@ -58,7 +58,7 @@ public class CollisionPresenter : UdonBehaviour {
     {
         ColorModel model = go.GetComponent<ColorModel>();
 
-        if (model is CharacterModel && Character.Tresures.Count > 0)
+        if (model is CharacterModel && Character.Tresures.Count > 0) 
         {
             Character.RemoveTresure(Character.Tresures.Count-1);
         }
