@@ -15,6 +15,7 @@ public class ResultController : ModeSceneController
 {
     [SerializeField]
     private List<GameObject> BattleResultUIPrefabs;
+
     private GameObject ResultUIObject;
 
     private ReactiveProperty<bool> _viewMenu;

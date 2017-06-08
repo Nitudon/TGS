@@ -73,7 +73,7 @@ public class CharacterModelController{
 
     public void StopMove()
     {
-        _characterModel.rigitbody.velocity = new Vector3();
+        _characterModel.rigitbody.isKinematic = true;
         SetSpeedScale(0f);
     }
 }

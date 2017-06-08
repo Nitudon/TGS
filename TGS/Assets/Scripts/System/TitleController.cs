@@ -59,8 +59,14 @@ public class TitleController : ModeSceneController{
     {
         _isConnected = true;
 
-        _playerNum = new ReactiveProperty<int>(4);
-        _stageIndex = new ReactiveProperty<int>(1);
+        if (_playerNum == null)
+        {
+            _playerNum = new ReactiveProperty<int>(4);
+        }
+        if (_stageIndex == null)
+        {
+            _stageIndex = new ReactiveProperty<int>(1);
+        }
         _mode = new ReactiveProperty<panelMode>(panelMode.hidden);
         _arrowPos = new ReactiveProperty<int>(0);
 

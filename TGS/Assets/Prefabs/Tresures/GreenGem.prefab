@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 33048292151915908}
   - component: {fileID: 23968694367694936}
   - component: {fileID: 114481079389327936}
-  - component: {fileID: 65574295181826180}
   - component: {fileID: 96687893310806916}
-  m_Layer: 0
+  - component: {fileID: 135976020249383202}
+  m_Layer: 8
   m_Name: GreenGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,18 +82,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1460616629318382}
   m_Mesh: {fileID: 4300004, guid: 8ee673bb2d0a6f24a94f95fa57318a9f, type: 3}
---- !u!65 &65574295181826180
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1460616629318382}
-  m_Material: {fileID: 13400000, guid: 37e716d1915569f4ab8db49df191bd15, type: 2}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.016, y: 0.016, z: 0.011500003}
-  m_Center: {x: 0, y: 3.197443e-17, z: -0.0022500008}
 --- !u!96 &96687893310806916
 TrailRenderer:
   serializedVersion: 2
@@ -204,3 +192,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: 4
+--- !u!135 &135976020249383202
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1460616629318382}
+  m_Material: {fileID: 13400000, guid: 37e716d1915569f4ab8db49df191bd15, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.009
+  m_Center: {x: 0, y: 0, z: 0.001}

@@ -66,7 +66,7 @@ public class ResultView : MonoBehaviour {
         {
             StartSubscription.SetActive(true);
             MenuPanel.DOScaleY(0, PANEL_SCALE_TIME)
-                        .OnComplete(() => { MenuTint.SetActive(false); MenuArrow.localPosition = UP_POSITION; });
+                        .OnComplete(() => { MenuTint.SetActive(false); });
         }
     }
 }

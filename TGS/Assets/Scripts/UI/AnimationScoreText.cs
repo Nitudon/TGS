@@ -9,8 +9,8 @@ public class AnimationScoreText : UdonBehaviour{
     [SerializeField]
     private TMP_Text subscription;
 
-    private const float SPEED = 4f;
-    private const float UP_BORDER = 150f;
+    private const float SPEED = 3.5f;
+    private const float UP_BORDER = 165f;
 
     protected override void OnEnable()
     {

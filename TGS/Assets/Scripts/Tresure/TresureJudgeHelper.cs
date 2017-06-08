@@ -57,8 +57,10 @@ public static class TresureJudgeHelper{
 
         score = 0;
 
-        var backList = backPlayer.Tresures.ToList();
         var frontList = frontPlayer.Tresures.ToList();
+        var backList = backPlayer.Tresures.ToList();
+        var frontCount = frontList.Where(x => x is TresureModel).Count();
+        var backCount = backList.Where(x => x is TresureModel).Count();
 
         if (frontList == null || backList == null)
         {
@@ -66,36 +68,14 @@ public static class TresureJudgeHelper{
             return false;
         }
 
-        if(frontList.Count < 1 && backList.Count < 2)
+        if(frontCount < 1 && backCount < 2)
         {
             return false;
-        }
-        else if (backList.Count < 2)
-        {
-            if (frontList.Where(x => x.TresureColor == backPlayer.TresureColor).Any())
-            {
-                var index = frontList.FindLastIndex(x => x.TresureColor == backPlayer.TresureColor);
-                frontPlayer.RemoveTresureRange(0,index+1);
-                score += GameValue.SCORE_RATE_PLAYER;
-                return true;
-            }
-
-            return false;
-        }
-        else if (frontList.Count < 1)
-        {
-            judge = JudgeColorList(backPlayer, backList, ref score);
-            if (judge)
-            {
-                score += GameValue.SCORE_RATE_PLAYER;
-            }
-            return judge;
         }
         else
         {
             frontList.Insert(0,frontPlayer);
             backList.AddRange(frontList);
-            backList.Insert(0,backPlayer);
             judge = JudgeColorList(backPlayer,backList,ref score);
             if (judge)
             {
@@ -108,7 +88,7 @@ public static class TresureJudgeHelper{
 
     private static bool JudgeColorList(CharacterModel player,List<ColorModel> list, ref int score)
     {
-        if (list.Where(x => x is CharacterModel).Any() == false || list.Last() is CharacterModel)
+        if (list.Where(x => x is CharacterModel).Any() == false)
         {
             for (int col = 1; col < GameValue.COLOR_LIST_COUNT + 1; ++col)
             {
@@ -150,10 +130,29 @@ public static class TresureJudgeHelper{
             }
             else if (player.Tresures.Where(x => x.EqualColor(frontPlayer)).Any())
             {
-                var playerRemoveIndex = player.Tresures.ToList().FindLastIndex(x => x.EqualColor(list.Last()) && !(x is CharacterModel));
-                player.RemoveTresureRange(playerRemoveIndex,player.Tresures.Count - playerRemoveIndex);
-                score = CalculateScore(list.GetRange(playerRemoveIndex, list.Count - playerRemoveIndex));
-                return true;
+                GameEnum.tresureColor color = frontPlayer.TresureColor;
+                var colorList = player.Tresures.Where(x => x.TresureColor == color);
+                var isSame = colorList.Count();
+                if(isSame < 3)
+                {
+                    return false;
+                }
+                var indexList = colorList.Select(x => x.ListNumber);
+                for (int j = 0; j < indexList.Count() - 1; ++j)
+                {
+                    if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
+                    {
+                        int start = indexList.First();
+                        int count = indexList.Last() - start + 1;
+                        if (list.Last() is CharacterModel)
+                        {
+                            count--;
+                        }
+                        player.RemoveTresureRange(start, count);
+                        score = CalculateScore(list.GetRange(start, count));
+                        return true;
+                    }
+                }
             }
 
         }
