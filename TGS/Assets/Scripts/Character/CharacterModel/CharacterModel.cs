@@ -109,18 +109,24 @@ public class CharacterModel : ColorModel {
         }
     }
 
-    private void JudgeTresure()
+    private void JudgeTresure(TresureModel tresure)
     {
         int score;
 
         if (TresureJudgeHelper.JudgeTresures(this, out score))
         {
+            tresure.GetTresure(this);
             AddScore(score);
+        }
+        else if(Tresures.Count <= GameValue.OWN_TRESURE_MAX)
+        {
+            tresure.GetTresure(this);
+            AudioManager.Instance.PlayPlayerSE(Player, GameEnum.SE.get);
+            _controller.SetAnimTrigger(GameEnum.animTrigger.tresure);
         }
         else
         {
-            AudioManager.Instance.PlayPlayerSE(Player, GameEnum.SE.get);
-            _controller.SetAnimTrigger(GameEnum.animTrigger.tresure);
+            _tresures.RemoveAt(_tresures.Count-1);
         }
     }
 
@@ -165,26 +171,28 @@ public class CharacterModel : ColorModel {
 
     private void AddTresure(TresureModel tresure)
     {
-        tresure.GetTresure(this);
-        _tresures.Add(tresure);
-        #region[Debug]
-        string ans = "";
-        for (int i=0;i<Tresures.Count;++i)
+        if (Tresures.Count <= GameValue.OWN_TRESURE_MAX)
         {
-            ans += Tresures.ElementAt(i).TresureColor.ToString() + " : ";
-        }
+            _tresures.Add(tresure);
+            #region[Debug]
+            string ans = "";
+            for (int i = 0; i < Tresures.Count; ++i)
+            {
+                ans += Tresures.ElementAt(i).TresureColor.ToString() + " : ";
+            }
 
-        Debug.Log(ans);
-        #endregion
-        tresure.SetListNumber(_tresures.Count - 1);
-        JudgeTresure();
+            Debug.Log(ans);
+            #endregion
+            tresure.SetListNumber(_tresures.Count - 1);
+            JudgeTresure(tresure);
+        }
     }
 
-    public void RemoveTresure(int index)
+    public void RemoveTresure(int index,bool crash = true)
     {
         if (_tresures.ElementAt(index) != null && index < _tresures.Count)
         {
-            if (_tresures.ElementAt(index) is CharacterModel == false)
+            if (_tresures.ElementAt(index) is CharacterModel == false && crash)
             {
                 var tresure = _tresures.ElementAt(index) as TresureModel;
                 AudioManager.Instance.PlayPlayerSE(Player, GameEnum.SE.crash);

@@ -133,7 +133,7 @@ public static class TresureJudgeHelper{
                 GameEnum.tresureColor color = frontPlayer.TresureColor;
                 var colorList = player.Tresures.Where(x => x.TresureColor == color);
                 var isSame = colorList.Count();
-                if(isSame < 3)
+                if(isSame < 2)
                 {
                     return false;
                 }

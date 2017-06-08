@@ -42,9 +42,9 @@ public class CharacterTresurePresenter : UdonBehaviour
 
     private void OnTresuresAdded()
     {
-        var addTresure = _model.Tresures.Last();
-        if (addTresure is TresureModel)
+        if (_model.Tresures.Count <= GameValue.OWN_TRESURE_MAX && _model.Tresures.Last() is TresureModel)
         {
+            var addTresure = _model.Tresures.Last();
             addTresure.transform.SetParent(transform);
             addTresure.SetLocalPosition(0, 0, GameValue.OWN_TRESURE_POSITION_OFFSET * _model.Tresures.Count - 1);
         }

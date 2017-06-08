@@ -60,8 +60,9 @@ public class CollisionPresenter : UdonBehaviour {
 
         if (model is CharacterModel && Character.Tresures.Count > 0) 
         {
-            Character.RemoveTresure(Character.Tresures.Count-1);
+            Character.RemoveTresure(Character.Tresures.Count-1,false);
         }
+
 
         posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
     }
