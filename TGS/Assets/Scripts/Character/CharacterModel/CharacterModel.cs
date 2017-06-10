@@ -251,6 +251,11 @@ public class CharacterModel : ColorModel {
 
         _controller.StopMove();
     }
+
+    public void SetCatcherPosition()
+    {
+        FrontCollider.transform.localPosition = new Vector3(0,0,GameValue.OWN_TRESURE_POSITION_OFFSET * Tresures.Count);
+    }
 }
 
 #if UNITY_EDITOR

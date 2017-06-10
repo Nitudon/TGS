@@ -52,7 +52,7 @@ public class CharacterTresurePresenter : UdonBehaviour
 
     private void OnTresuresRemoved()
     {
-
+        _model.SetCatcherPosition();
     }
 
 }

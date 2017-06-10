@@ -49,8 +49,7 @@ public class CollisionPresenter : UdonBehaviour {
         if (model.IsEnable)
         {
             Character.AddColor(model);
-
-            posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
+            Character.SetCatcherPosition();
         }
     }
 
@@ -63,8 +62,7 @@ public class CollisionPresenter : UdonBehaviour {
             Character.RemoveTresure(Character.Tresures.Count-1,false);
         }
 
-
-        posZ = GameValue.OWN_TRESURE_POSITION_OFFSET * Character.Tresures.Count;
+        Character.SetCatcherPosition();
     }
 
 }
