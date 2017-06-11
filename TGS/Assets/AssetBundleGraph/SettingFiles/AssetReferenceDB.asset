@@ -3445,4 +3445,46 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - m_assetDatabaseId: a1b79a0115b1b5446877e77861cdab81
+    m_importFrom: Assets/Resources/Sprites/Arank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 636399c2c61e1ce4198b793439dbf729
+    m_importFrom: Assets/Resources/Sprites/Brank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 5cdbdd3043311fb4492d4162b5b8809a
+    m_importFrom: Assets/Resources/Sprites/Crank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: c31f510daf42fde4ba6151bbded7f252
+    m_importFrom: Assets/Resources/Sprites/rainbowpanel.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: b185f1f283a8058438167a8bd5016ae6
+    m_importFrom: Assets/Resources/Sprites/rank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: ad79df1f012ee924881bd4ffe40ffc5d
+    m_importFrom: Assets/Resources/Sprites/Srank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 63c432a3c6bc750499787973cb9f292a
+    m_importFrom: Assets/Resources/Sprites/SSSrank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   m_version: 1

@@ -26,6 +26,9 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private List<GameObject> BattleResultScenePrefabs;
 
     [SerializeField]
+    private List<GameObject> TeamResultScenePrefabs;
+
+    [SerializeField]
     private SystemPresenter Presenter;
 
     [SerializeField]
@@ -168,7 +171,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         yield return new WaitUntil(() => SystemCanvas.isEndingGame);
         yield return new WaitWhile(() => SystemCanvas.isEndingGame);
 
-        SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateBattleResultPlayingObject(); });
+        SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateResultPlayingObject(); });
         AudioManager.Instance.ResetPlayerSource();
 
         yield break;
@@ -197,9 +200,10 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         Destroy(ParticleManagerObject);
     }
 
-    private void CreateBattleResultPlayingObject()
+    private void CreateResultPlayingObject()
     {
-        ResultGameObject = Instantiate(BattleResultScenePrefabs.ElementAt(GameValue.MAX_PLAYER_NUM - PlayerNum), transform);
+        var resultObjectList = _gameType == GameEnum.gameType.team ? TeamResultScenePrefabs : BattleResultScenePrefabs;
+        ResultGameObject = Instantiate(resultObjectList.ElementAt(GameValue.MAX_PLAYER_NUM - PlayerNum), transform);
     }
 
     private void DestroyResultObjects()

@@ -18,10 +18,10 @@ public class ResultPresenter : MonoBehaviour {
     [SerializeField]
     private List<Sprite> RankImageResources;
 
-    public void Init(List<int> ranking)
+    public void Init(List<int> ranking,int score)
     {
         _model.Init();
-        _model.SetRank(RankImageResources,ranking);
+        _model.SetRank(RankImageResources,ranking,score);
         SetEvents();
         ObserveTitleScene();
     }

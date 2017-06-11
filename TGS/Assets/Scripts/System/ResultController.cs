@@ -16,6 +16,18 @@ public class ResultController : ModeSceneController
     [SerializeField]
     private List<GameObject> BattleResultUIPrefabs;
 
+    [SerializeField]
+    private GameObject TeamResultUI;
+
+    [SerializeField]
+    private Image TeamRankImage;
+
+    [SerializeField]
+    private Text TeamScore;
+
+    [SerializeField]
+    private List<Sprite> TeamRankSprites;
+
     private GameObject ResultUIObject;
 
     private ReactiveProperty<bool> _viewMenu;
@@ -124,22 +136,58 @@ public class ResultController : ModeSceneController
         }
     }
 
-    public void SetRank(List<Sprite> sprites, List<int> ranking)
+    public void SetRank(List<Sprite> sprites, List<int> ranking, int score)
     {
-        var prefab = BattleResultUIPrefabs.ElementAt(GameValue.MAX_PLAYER_NUM - SystemManager.Instance.PlayerNum);
-
-        ResultUIObject = Instantiate(prefab,transform, false);
-        ResultUIObject.transform.SetAsFirstSibling();
-
-        var RankImages = ResultUIObject.GetComponentsInChildren<Image>();
-
-        GameEnum.resultAnimPose pose;
-        for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
+        TeamResultUI.SetActive(SystemManager.Instance.GameType == GameEnum.gameType.team);
+        if (TeamResultUI.activeSelf)
         {
-            pose = ranking.ElementAt(i) == 1 ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.lose;
-            Debug.Log(CharacterManager.Instance.GetCharacterModel(i).name);
-            CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
-            RankImages.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i) - 1);
+            TeamScore.text = score.ToString();
+            TeamRankImage.sprite = GetTeamRankSprite(score);
+            for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
+            {
+                CharacterManager.Instance.GetCharacterModel(i).SetResultPose(GameEnum.resultAnimPose.win);
+            }
+        }
+        else
+        {
+            var prefab = BattleResultUIPrefabs.ElementAt(GameValue.MAX_PLAYER_NUM - SystemManager.Instance.PlayerNum);
+
+            ResultUIObject = Instantiate(prefab, transform, false);
+            ResultUIObject.transform.SetAsFirstSibling();
+
+            var RankImages = ResultUIObject.GetComponentsInChildren<Image>();
+
+            GameEnum.resultAnimPose pose;
+            for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
+            {
+                pose = ranking.ElementAt(i) == 1 ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.lose;
+                CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
+                RankImages.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i) - 1);
+            }
+        }
+    }
+
+    private Sprite GetTeamRankSprite(int score)
+    {
+        if(score >= GameValue.S3_SCORE)
+        {
+            return TeamRankSprites.ElementAt(0);
+        }
+        else if (score >= GameValue.S_SCORE)
+        {
+            return TeamRankSprites.ElementAt(1);
+        }
+        else if (score >= GameValue.A_SCORE)
+        {
+            return TeamRankSprites.ElementAt(2);
+        }
+        else if(score >= GameValue.B_SCORE)
+        {
+            return TeamRankSprites.ElementAt(3);
+        }
+        else
+        {
+            return TeamRankSprites.ElementAt(4);
         }
     }
 }

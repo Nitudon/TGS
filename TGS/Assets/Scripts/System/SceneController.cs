@@ -77,9 +77,9 @@ public class SceneController : MonoBehaviour{
         TitleController.Init();
     }
 
-    private void ResultConnect(List<int> ranking)
+    private void ResultConnect(List<int> ranking,int score)
     {
-        ResultController.Init(ranking);
+        ResultController.Init(ranking,score);
     }
 
     private void TimerReset()
@@ -176,12 +176,13 @@ public class SceneController : MonoBehaviour{
     public void ResultSceneTranslate(Action systemTask)
     {
         var ranking = CharacterManager.Instance.GetCharacterRankList();
+        var teamScore = CharacterManager.Instance.GetCharacterSumScore();
 
         SceneFade(GameEnum.BGM.end
             ,() => {
                 CharacterManager.Instance.InitCharacterList();
                 systemTask();
-                ResultConnect(ranking);
+                ResultConnect(ranking,teamScore);
                 SystemCanvas.SetActive(false);
                 ResultUI.SetActive(true);
                 GameEndUI.SetActive(false);

@@ -191,7 +191,7 @@ public class TitleController : ModeSceneController{
                 {
                     _playerNum.Value++;
                 }
-                else if (_arrowPos.Value == 1)
+                else if (_arrowPos.Value == 1 && _stageIndex.Value < GameValue.STAGE_NUM)
                 {
                     _stageIndex.Value++;
                 }

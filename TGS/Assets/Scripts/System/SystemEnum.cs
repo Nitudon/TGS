@@ -43,6 +43,8 @@ namespace SystemParameter
 
         #region[Battle]
 
+        public static readonly int STAGE_NUM = 3;
+
         public static readonly int MIN_PLAYER_NUM = 2;
 
         public static readonly int MAX_PLAYER_NUM = 4;
@@ -60,6 +62,14 @@ namespace SystemParameter
         public static readonly float SPEED_MAX = 0.3f;
 
         public static readonly float GENERATE_TIME_SPAN = 5f;
+
+        public static readonly int S3_SCORE = 200000;
+
+        public static readonly int S_SCORE = 150000;
+
+        public static readonly int A_SCORE = 100000;
+
+        public static readonly int B_SCORE = 70000;
 
         #endregion
 
