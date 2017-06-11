@@ -81,6 +81,11 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
                                .ToList();
     }
 
+    public int GetCharacterSumScore()
+    {
+        return _characterModels.Select(x => x.Score.Value).Sum();
+    }
+
     public void InitCharacterList()
     {
         _characterModels = new List<CharacterModel>();

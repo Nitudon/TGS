@@ -28,6 +28,16 @@ public class CharacterView : MonoBehaviour {
         Score.text = score.ToString();
     }
 
+    public void OnTeamScoreChanged()
+    {
+        if (OnScoreChangedListener != null)
+        {
+            OnScoreChangedListener();
+        }
+
+        Score.text = CharacterManager.Instance.GetCharacterSumScore().ToString();
+    }
+
     public void OnPlayerPositionChanged(Vector3 position)
     {
         if(OnPlayerPositionChangedListener != null)

@@ -29,5 +29,6 @@ public class ColorGradient : MonoBehaviour {
 
             yield return new WaitForSeconds(0.1f);
         }
+
     }
 }

@@ -1,19 +1,21 @@
 fileFormatVersion: 2
-guid: b5c89e2971e490a4f9a6161cfa4b189b
-timeCreated: 1496595941
+guid: f610ce64cd02f7248853d2cd6b8937c3
+timeCreated: 1497125914
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Icosphere
-    100002: //RootNode
-    100004: Point
-    400000: Icosphere
-    400002: //RootNode
-    400004: Point
-    2300000: Icosphere
-    3300000: Icosphere
-    4300000: Icosphere
+    100000: Camera
+    100002: Cube
+    100004: Lamp
+    100006: //RootNode
+    400000: Camera
+    400002: Cube
+    400004: Lamp
+    400006: //RootNode
+    2300000: Cube
+    3300000: Cube
+    4300000: Cube
   materials:
     importMaterials: 1
     materialName: 0

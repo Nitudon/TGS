@@ -20,7 +20,17 @@ public class CharacterPresenter : MonoBehaviour {
     private void ObserveCharacter()
     {
         _model.Score
-            .Subscribe(_ => _view.OnScoreChanged(_model.Score.Value))
+            .Subscribe(_ => 
+            {
+                if (SystemManager.Instance.GameType == SystemParameter.GameEnum.gameType.battle)
+                {
+                    _view.OnScoreChanged(_model.Score.Value);
+                }
+                else
+                {
+                    _view.OnTeamScoreChanged();
+                }
+            })
             .AddTo(gameObject);
 
         _model.SubscriotionPosition
