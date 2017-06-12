@@ -6133,7 +6133,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 17672270
+  randomSeed: 705265529
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9481,10 +9481,10 @@ ParticleSystem:
           rgba: 16777215
         key1:
           serializedVersion: 2
-          rgba: 4285988700
+          rgba: 896991068
         key2:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 16777215
         key3:
           serializedVersion: 2
           rgba: 30
@@ -9509,8 +9509,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 10601
-        atime2: 39321
+        atime1: 23708
+        atime2: 65535
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -9518,17 +9518,17 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 3
-        m_NumAlphaKeys: 4
+        m_NumAlphaKeys: 3
       minGradient:
         key0:
           serializedVersion: 2
           rgba: 16777215
         key1:
           serializedVersion: 2
-          rgba: 4284547071
+          rgba: 1801519103
         key2:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 16777215
         key3:
           serializedVersion: 2
           rgba: 0
@@ -9553,8 +9553,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6553
-        atime2: 52428
+        atime1: 25829
+        atime2: 65535
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -9562,7 +9562,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 3
-        m_NumAlphaKeys: 4
+        m_NumAlphaKeys: 3
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 3
@@ -11227,7 +11227,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1606907067
+  randomSeed: 329439117
   InitialModule:
     serializedVersion: 3
     enabled: 1
