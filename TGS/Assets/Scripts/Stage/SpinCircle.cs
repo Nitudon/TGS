@@ -7,7 +7,7 @@ using SystemParameter;
 
 public class SpinCircle : UdonBehaviour{
 
-    private static float SPIN_SPEED_COEFFICIENT = 55.0f;
+    private static float SPIN_SPEED_COEFFICIENT = 95.0f;
 
     [SerializeField]
     private float SpinSpan = 0.2f;

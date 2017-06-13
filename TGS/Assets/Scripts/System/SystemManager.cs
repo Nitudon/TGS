@@ -32,7 +32,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private SystemPresenter Presenter;
 
     [SerializeField]
-    private SceneController SystemCanvas;
+    private SceneController SceneCanvas;
 
     private GameObject ParticleManagerObject;
 
@@ -148,11 +148,11 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         _isGame = false;
         _finishedGame = false;
         CharacterManager.Instance.InitCharacterList();
-        SystemCanvas.GameSceneTranslate(() => { CreatePlayingObjects();  DestroyResultObjects();});
+        SceneCanvas.GameSceneTranslate(() => { CreatePlayingObjects();  DestroyResultObjects();});
 
-        yield return new WaitUntil(() => SystemCanvas.isPlayingGame);
+        yield return new WaitUntil(() => SceneCanvas.isPlayingGame);
 
-        SystemCanvas.BattleStart();
+        SceneCanvas.BattleStart();
         Presenter.Init();
         AudioManager.Instance.PlaySystemSE(GameEnum.SE.start);
         _isPause = false;
@@ -166,12 +166,12 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         _isGame = false;
         _createdGame = false;
         AudioManager.Instance.PlaySystemSE(GameEnum.SE.end);
-        SystemCanvas.BattleEnd();
+        SceneCanvas.BattleEnd();
 
-        yield return new WaitUntil(() => SystemCanvas.isEndingGame);
-        yield return new WaitWhile(() => SystemCanvas.isEndingGame);
+        yield return new WaitUntil(() => SceneCanvas.isEndingGame);
+        yield return new WaitWhile(() => SceneCanvas.isEndingGame);
 
-        SystemCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateResultPlayingObject(); });
+        SceneCanvas.ResultSceneTranslate(() => { DestroyPlayingObjects(); CreateResultPlayingObject(); });
         AudioManager.Instance.ResetPlayerSource();
 
         yield break;
@@ -180,7 +180,7 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private IEnumerator OnBackTitleCoroutine()
     {
         _finishedGame = true;
-        SystemCanvas.TitleSceneTranslate(() => DestroyResultObjects());
+        SceneCanvas.TitleSceneTranslate(() => DestroyResultObjects());
         yield break;
     }
 

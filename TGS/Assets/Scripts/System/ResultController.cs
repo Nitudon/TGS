@@ -36,6 +36,9 @@ public class ResultController : ModeSceneController
     private IDisposable FirstStartButtonObservable;
 
     private bool _isConnected = false;
+    private bool _isAnimation = false;
+    private int _teamScore;
+    private Tweener _scoreTweener;
 
     public IReadOnlyReactiveProperty<bool> ViewMenu
     {
@@ -61,11 +64,11 @@ public class ResultController : ModeSceneController
 
         ControllConnect(
             GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.A)
-                .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+                .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false && _isAnimation == false)
                 .Subscribe(x => Submit())
             ,
             GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.B)
-              .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+              .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false && _isAnimation == false)
               .Subscribe(x => Cancel())
             ,
              GamePadObservable.GetAxisVerticalObservable()
@@ -86,6 +89,10 @@ public class ResultController : ModeSceneController
             FirstStartButtonObservable.Dispose();
             _viewMenu.Dispose();
             _retryGame.Dispose();
+            if(ResultUIObject != null)
+            {
+                Destroy(ResultUIObject);
+            }
             base.Dispose();
             _isConnected = false;
         }
@@ -93,7 +100,11 @@ public class ResultController : ModeSceneController
 
     private void ViewPanel()
     {
-        if (_viewMenu.Value == false)
+        if (_isAnimation)
+        {
+            AnimationSkip();
+        }
+        else if (_viewMenu.Value == false)
         {
             _viewMenu.Value = true;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide, 2.2f);
@@ -138,15 +149,26 @@ public class ResultController : ModeSceneController
 
     public void SetRank(List<Sprite> sprites, List<int> ranking, int score)
     {
+        StartCoroutine(RankCoroutine(sprites,ranking,score));
+    }
+
+    private IEnumerator RankCoroutine(List<Sprite> sprites, List<int> ranking, int score)
+    {
+        _teamScore = score;
         TeamResultUI.SetActive(SystemManager.Instance.GameType == GameEnum.gameType.team);
         if (TeamResultUI.activeSelf)
         {
-            TeamScore.text = score.ToString();
+            TeamRankImage.color = new Color(255,255,255,0);
+            TeamRankImage.transform.localScale *= 5;
             TeamRankImage.sprite = GetTeamRankSprite(score);
-            for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
-            {
-                CharacterManager.Instance.GetCharacterModel(i).SetResultPose(GameEnum.resultAnimPose.win);
-            }
+            _isAnimation = true;
+            var _score = 0;
+            _scoreTweener = DOTween.To(
+                () => _score,
+                num => { _score = num; TeamScore.text = _score.ToString(); },
+                score,
+                (score>25000) ? 5 : score / 5000 
+            ).OnComplete(() => AnimationRankSequence().Play());
         }
         else
         {
@@ -165,6 +187,24 @@ public class ResultController : ModeSceneController
                 RankImages.ElementAt(i).sprite = sprites.ElementAt(ranking.ElementAt(i) - 1);
             }
         }
+        yield break;
+    }
+
+    private Sequence AnimationRankSequence()
+    {
+        return DOTween.Sequence()
+            .Append(TeamRankImage.DOFade(1.0f, 2.0f).SetEase(Ease.OutCubic))
+            .Join(TeamRankImage.transform.DOScale(1.0f, 2.0f)).SetEase(Ease.OutCubic)
+            .OnComplete(() => _isAnimation = false);
+    }
+
+    private void AnimationSkip()
+    {
+        _scoreTweener.Kill();
+        TeamScore.text = _teamScore.ToString();
+        TeamRankImage.transform.localScale = new Vector3(1,1,1);
+        TeamRankImage.color = new Color(255, 255, 255, 1);
+        _isAnimation = false;
     }
 
     private Sprite GetTeamRankSprite(int score)

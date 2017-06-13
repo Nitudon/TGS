@@ -9,6 +9,13 @@ using DG.Tweening;
 public class SceneController : MonoBehaviour{
 
     private static readonly float FADE_TIME = 1.4f;
+    private static readonly float TITLE_SCENE_CAMERA_DISTANCE = 40f;
+    private static readonly float RESULT_SCENE_CAMERA_DISTANCE = 0.02f;
+    private static readonly int TITLE_SCENE_CAMERA_SORT = -2;
+    private static readonly int RESULT_SCENE_CAMERA_SORT = 1;
+
+    [SerializeField]
+    private Canvas Canvas;
 
     [SerializeField]
     private Animator SceneUIAnimator;
@@ -74,11 +81,15 @@ public class SceneController : MonoBehaviour{
 
     private void TitleConnect()
     {
+        Canvas.planeDistance = TITLE_SCENE_CAMERA_DISTANCE;
+        Canvas.sortingOrder = TITLE_SCENE_CAMERA_SORT;
         TitleController.Init();
     }
 
     private void ResultConnect(List<int> ranking,int score)
     {
+        Canvas.planeDistance = RESULT_SCENE_CAMERA_DISTANCE;
+        Canvas.sortingOrder = RESULT_SCENE_CAMERA_SORT;
         ResultController.Init(ranking,score);
     }
 
@@ -182,9 +193,9 @@ public class SceneController : MonoBehaviour{
             ,() => {
                 CharacterManager.Instance.InitCharacterList();
                 systemTask();
+                ResultUI.SetActive(true);
                 ResultConnect(ranking,teamScore);
                 SystemCanvas.SetActive(false);
-                ResultUI.SetActive(true);
                 GameEndUI.SetActive(false);
             }
        );

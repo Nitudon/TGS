@@ -17,6 +17,8 @@ public class TitleView : MonoBehaviour {
         new Vector3(9.7f, 16.1f, -0.011f),
         new Vector3(1f, 4.31f, -0.011f)
     };
+    private static readonly float STAGE_DISPLAY_HIDE_X = 200f;
+    private static readonly float STAGE_DISPLAY_VIEW_X = 50f;
 
     [SerializeField]
     private GameObject StartSubscription;
@@ -39,6 +41,12 @@ public class TitleView : MonoBehaviour {
     [SerializeField]
     private Text StageNum;
 
+    [SerializeField]
+    private GameObject StageDisplay;
+
+    [SerializeField]
+    private GameObject[] StageDisplayObjects;
+
     public Action OnPlayerNumChangedListener;
     public Action OnStageIndexChangedListener;
     public Action OnArrowPosChangedListener;
@@ -60,6 +68,11 @@ public class TitleView : MonoBehaviour {
         if (OnStageIndexChangedListener != null)
         {
             OnStageIndexChangedListener();
+        }
+
+        for (int i=0;i < StageDisplayObjects.Length; ++i)
+        {
+            StageDisplayObjects[i].SetActive(i+1 == index);
         }
 
         StageNum.text = index.ToString();
@@ -93,8 +106,11 @@ public class TitleView : MonoBehaviour {
             case TitleController.panelMode.view:
                 if (BattleMenu.activeSelf == true)
                 {
+                    StageDisplay.transform.DOKill();
                     ViewMenu.SetActive(true);
                     BattleMenu.SetActive(false);
+                    StageDisplay.transform.DOLocalMoveX(STAGE_DISPLAY_HIDE_X, PANEL_SLIDE_TIME)
+                        .OnComplete(() => StageDisplay.SetActive(false));
                 }
                 else
                 {
@@ -105,8 +121,11 @@ public class TitleView : MonoBehaviour {
                 break;
 
             case TitleController.panelMode.battle:
+                StageDisplay.transform.DOKill();
                 ViewMenu.SetActive(false);
                 BattleMenu.SetActive(true);
+                StageDisplay.SetActive(true);
+                StageDisplay.transform.DOLocalMoveX(STAGE_DISPLAY_VIEW_X,PANEL_SLIDE_TIME);
                 break;
 
             case TitleController.panelMode.play:
@@ -118,6 +137,9 @@ public class TitleView : MonoBehaviour {
                         ViewMenu.SetActive(true);
                         BattleMenu.SetActive(false);
                     } );
+                StageDisplay.transform.DOKill();
+                StageDisplay.transform.DOLocalMoveX(STAGE_DISPLAY_HIDE_X, PANEL_SLIDE_TIME)
+                       .OnComplete(() => StageDisplay.SetActive(false));
                 break;
         }
     }
