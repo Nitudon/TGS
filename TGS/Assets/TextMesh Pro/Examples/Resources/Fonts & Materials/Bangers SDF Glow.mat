@@ -30,7 +30,7 @@ Material:
     - first:
         name: _FaceTex
       second:
-        m_Texture: {fileID: 2800000, guid: 3359915af07779e4e9a966df9eed764f, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -78,7 +78,7 @@ Material:
       second: 0.366
     - first:
         name: _FaceDilate
-      second: 0.31
+      second: 0.28
     - first:
         name: _FaceUVSpeedX
       second: 0
@@ -120,7 +120,7 @@ Material:
       second: 0
     - first:
         name: _OutlineWidth
-      second: 0.147
+      second: 1
     - first:
         name: _PerspectiveFilter
       second: 0.875
@@ -129,13 +129,13 @@ Material:
       second: 9.81
     - first:
         name: _ScaleRatioA
-      second: 0.5746466
+      second: 0.37800038
     - first:
         name: _ScaleRatioB
-      second: 0.50208837
+      second: 0.52874786
     - first:
         name: _ScaleRatioC
-      second: 0.51363635
+      second: 0.54090905
     - first:
         name: _ScaleX
       second: 1
@@ -220,7 +220,7 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _SpecularColor
-      second: {r: 0.9679513, g: 1, b: 0.41911763, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _UnderlayColor
       second: {r: 1, g: 1, b: 1, a: 0.5}

@@ -13,6 +13,8 @@ using DG.Tweening;
 
 public class ResultController : ModeSceneController
 {
+    public enum panelMode {hidden, view, battle }
+
     [SerializeField]
     private List<GameObject> BattleResultUIPrefabs;
 
@@ -30,8 +32,9 @@ public class ResultController : ModeSceneController
 
     private GameObject ResultUIObject;
 
-    private ReactiveProperty<bool> _viewMenu;
+    private ReactiveProperty<panelMode> _viewMenu;
     private ReactiveProperty<bool> _retryGame;
+    private ReactiveProperty<int> _retryStageIndex;
 
     private IDisposable FirstStartButtonObservable;
 
@@ -40,7 +43,7 @@ public class ResultController : ModeSceneController
     private int _teamScore;
     private Tweener _scoreTweener;
 
-    public IReadOnlyReactiveProperty<bool> ViewMenu
+    public IReadOnlyReactiveProperty<panelMode> ViewMenu
     {
         get
         {
@@ -54,13 +57,21 @@ public class ResultController : ModeSceneController
             return _retryGame;
         }
     } 
+    public IReadOnlyReactiveProperty<int> RetryStageIndex
+    {
+        get
+        {
+            return _retryStageIndex;
+        }
+    }
 
     public void Init()
     {
         _isConnected = true;
 
-        _viewMenu = new ReactiveProperty<bool>(false);
+        _viewMenu = new ReactiveProperty<panelMode>(panelMode.hidden);
         _retryGame = new ReactiveProperty<bool>(true);
+        _retryStageIndex = new ReactiveProperty<int>(SystemManager.Instance.StageNum);
 
         ControllConnect(
             GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.A)
@@ -71,8 +82,8 @@ public class ResultController : ModeSceneController
               .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false && _isAnimation == false)
               .Subscribe(x => Cancel())
             ,
-             GamePadObservable.GetAxisVerticalObservable()
-              .Where(x => SystemManager.Instance.IsGame == false && _viewMenu.Value &&  Mathf.Abs(x) > 0.7f && SystemManager.Instance.CreateGame == false)
+             GamePadObservable.GetAxisStickObservable()
+              .Where(x => SystemManager.Instance.IsGame == false && _viewMenu.Value != panelMode.hidden && (Mathf.Abs(x.hori) > 0.7f || Mathf.Abs(x.vert) > 0.7f) && SystemManager.Instance.CreateGame == false)
               .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
               .Subscribe(x => ResultModeSelect(x))
        );
@@ -104,46 +115,79 @@ public class ResultController : ModeSceneController
         {
             AnimationSkip();
         }
-        else if (_viewMenu.Value == false)
+        else if (_viewMenu.Value == panelMode.hidden)
         {
-            _viewMenu.Value = true;
+            _viewMenu.Value = panelMode.view;
+            _retryGame.Value = true;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide, 2.2f);
         }
     }
 
     protected override void Submit()
     {
-        if (_viewMenu.Value)
+        if (_viewMenu.Value == panelMode.view)
         {
             if (_retryGame.Value)
             {
-                SystemManager.Instance.GameStart();
+                _viewMenu.Value = panelMode.battle;
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.submit);
             }
             else
             {
                 SystemManager.Instance.BackTitle();
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+                _viewMenu.Value = panelMode.hidden;
             }
-
-            _viewMenu.Value = false;
-            AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+        }
+        else if (_viewMenu.Value == panelMode.battle)
+        {
+            if (_retryGame.Value == false)
+            {
+                SystemManager.Instance.SetStageNum(_retryStageIndex.Value);
+                SystemManager.Instance.GameStart();
+                AudioManager.Instance.PlaySystemSE(GameEnum.SE.decide);
+                _viewMenu.Value = panelMode.hidden;
+            }
         }
     }
 
     protected override void Cancel()
     {
-        if (_viewMenu.Value)
+        if (_viewMenu.Value == panelMode.view)
         {
-            _viewMenu.Value = false;
+            _viewMenu.Value = panelMode.hidden;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel,2.2f);
+        }
+        else if (_viewMenu.Value == panelMode.battle)
+        {
+            _viewMenu.Value = panelMode.view;
+            AudioManager.Instance.PlaySystemSE(GameEnum.SE.cancel, 2.2f);
         }
     }
 
-    private void ResultModeSelect(float vert)
+    private void ResultModeSelect(GamepadStickInput.StickInfo info)
     {
-        if (Mathf.Abs(vert) > 0.7f)
+        if (Mathf.Abs(info.vert) > 0.7f)
         {
             _retryGame.Value = !_retryGame.Value;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
+        }
+        if (Mathf.Abs(info.hori) > 0.7f && _viewMenu.Value == panelMode.battle && _retryGame.Value)
+        {
+            if (info.hori > INPUT_STICK_VALUE)
+            {
+                if (_retryStageIndex.Value < GameValue.STAGE_NUM)
+                {
+                    _retryStageIndex.Value++;
+                }
+            }
+            else if (info.hori < -INPUT_STICK_VALUE)
+            {
+                if (_retryStageIndex.Value > 1)
+                {
+                    _retryStageIndex.Value--;
+                }
+            }
         }
     }
 

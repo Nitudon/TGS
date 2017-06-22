@@ -13,6 +13,8 @@ using DG.Tweening;
 
 public class ModeSceneController : UdonBehaviour
 {
+    protected static float INPUT_STICK_VALUE = 0.7f;
+
     private IDisposable OnSubmitButtonDownedObservable;
     private IDisposable OnCancelButtonDownedObservable;
     private IDisposable GamePadStickObservable;

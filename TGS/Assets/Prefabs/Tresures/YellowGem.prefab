@@ -192,6 +192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: 3
+  BreakParticle: {fileID: 198153607860393842, guid: 6da658f7b79f64e4aa36a65f9f0c08b0,
+    type: 2}
 --- !u!135 &135388627364629668
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -12,72 +12,6 @@ MonoBehaviour:
   m_Name: AssetReferenceDB
   m_EditorClassIdentifier: 
   m_assets:
-  - m_assetDatabaseId: 64ae43b6b6e887545ad0a92b6b491ec8
-    m_importFrom: Assets/ChestFree/Materials/chest_simple.mat
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: ccc85add18994f0479bf8a3beded1d81
-    m_importFrom: Assets/ChestFree/Materials/gold.mat
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: 6015de6afd23724418bea7b6b206073b
-    m_importFrom: Assets/ChestFree/Textures/chest_simple.png
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: f58561e82824d4e46ab1cb3e5b0d912e
-    m_importFrom: Assets/ChestFree/Textures/coins.png
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: 5be627b8098e679478fdafa05346a88f
-    m_importFrom: Assets/ChestFree/ChestFreeScene.unity
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: 4b1205a7235860c479fc94aefe26ebf1
-    m_importFrom: Assets/ChestFree/chest_close.FBX
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: ffd3e66d4df2a554fb995d41f7ffe4c2
-    m_importFrom: Assets/ChestFree/chest_close.prefab
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: 5c509bc9e3ce92e418aac359ebdf4281
-    m_importFrom: Assets/ChestFree/chest_open.FBX
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: e097dc1b761606040a141ca558e64088
-    m_importFrom: Assets/ChestFree/chest_open.prefab
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: dd8ebbdcc572196408a6805681c6a297
-    m_importFrom: Assets/ChestFree/coins.FBX
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: c92fdeb990439954893510a31e925383
-    m_importFrom: Assets/ChestFree/coins.prefab
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_assetDatabaseId: 20c8091519d04e945b5430e2170c4067
     m_importFrom: Assets/Prefabs/GameModels/PlayingPrefabs/Battle/ForFourPeopleGameModel.prefab
     m_exportTo: 
@@ -266,12 +200,6 @@ MonoBehaviour:
       PublicKeyToken=null
   - m_assetDatabaseId: fd97f179ec1cc1c48a7c92da10d0012f
     m_importFrom: Assets/Resources/Models/player.fbx
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - m_assetDatabaseId: 6984d2ff454a48445be7abe4339f95d2
-    m_importFrom: Assets/Resources/Models/stage.fbx
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
@@ -3483,6 +3411,18 @@ MonoBehaviour:
       PublicKeyToken=null
   - m_assetDatabaseId: 63c432a3c6bc750499787973cb9f292a
     m_importFrom: Assets/Resources/Sprites/SSSrank.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 904218754c1754241a10851286d900c6
+    m_importFrom: Assets/Resources/Sprites/tresure.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: a9f3b8015c76930449969058634281b4
+    m_importFrom: Assets/Resources/Sprites/baloon.png
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,

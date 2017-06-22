@@ -69,6 +69,7 @@ public class CharacterModelController{
     public void SetSpeedScale(float scale)
     {
         _speedScale = scale;
+        _animator.speed = GameValue.BASE_MOTION_SPEED * scale;
     }
 
     public void StopMove()

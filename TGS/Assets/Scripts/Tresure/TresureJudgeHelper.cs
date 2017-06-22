@@ -17,12 +17,10 @@ public static class TresureJudgeHelper{
         }
 
         var score = 0;
-        var colorCount = models.Select(x => x.TresureColor).Distinct().Count();
         var modelCount = models.Count;
+        float bonusRate = (modelCount > 2) ? 1 + 0.25f * (modelCount - 2) : 1;
 
-        score =
-            (int)Mathf.Pow(GameValue.SCORE_RATE_CALCULATE, colorCount) * GameValue.SCORE_RATE_COLOR +
-            (int)Mathf.Pow(GameValue.SCORE_RATE_CALCULATE, modelCount) * GameValue.SCORE_RATE_NUMBER;
+        score = (int)(modelCount * GameValue.SCORE_RATE_NUMBER * bonusRate);
 
         return score;
     }
@@ -125,6 +123,7 @@ public static class TresureJudgeHelper{
             {
                 frontPlayer.RemoveTresureAll();
                 player.RemoveTresureAll();
+                frontPlayer.SetGamePose(GameEnum.animTrigger.crash);
                 score = CalculateScore(list);
                 return true;
             }
@@ -143,12 +142,10 @@ public static class TresureJudgeHelper{
                     if (indexList.ElementAt(j) + 1 != indexList.ElementAt(j + 1))
                     {
                         int start = indexList.First();
-                        int count = indexList.Last() - start + 1;
-                        if (list.Last() is CharacterModel)
-                        {
-                            count--;
-                        }
+                        int count = indexList.Last() - start;
                         player.RemoveTresureRange(start, count);
+                        var scoreList = list.GetRange(start, count);
+                        scoreList.Add(frontPlayer);
                         score = CalculateScore(list.GetRange(start, count));
                         return true;
                     }

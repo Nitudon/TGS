@@ -13,8 +13,6 @@ using DG.Tweening;
 
 public class TitleController : ModeSceneController{
 
-    private static float INPUT_STICK_VALUE = 0.7f;
-
     public enum panelMode { hidden, view, battle, play}
 
     private bool _isConnected = false;
@@ -80,7 +78,7 @@ public class TitleController : ModeSceneController{
                .Subscribe(x =>  Cancel())
              ,
               GamePadObservable.GetAxisStickObservable()
-               .Where(x => SystemManager.Instance.IsGame == false && _mode.Value != TitleController.panelMode.hidden && (Mathf.Abs(x.hori) > 0.7f || Mathf.Abs(x.vert) > 0.7f) && SystemManager.Instance.CreateGame == false)
+               .Where(x => SystemManager.Instance.IsGame == false && _mode.Value != panelMode.hidden && (Mathf.Abs(x.hori) > 0.7f || Mathf.Abs(x.vert) > 0.7f) && SystemManager.Instance.CreateGame == false)
                .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
                .Subscribe(x => TitleModeSelect(x))
         );

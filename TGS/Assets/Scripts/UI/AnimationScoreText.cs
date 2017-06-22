@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UdonCommons;
 using TMPro;
+using SystemParameter;
+using DG.Tweening;
 
 public class AnimationScoreText : UdonBehaviour{
 
     [SerializeField]
     private TMP_Text subscription;
 
-    private const float SPEED = 3.5f;
-    private const float UP_BORDER = 165f;
+    [SerializeField]
+    private GameObject Baloon;
+
+    private const float SPEED = 3.0f;
+    private const float UP_BORDER = 135f;
 
     protected override void OnEnable()
     {
@@ -22,25 +27,24 @@ public class AnimationScoreText : UdonBehaviour{
         base.OnDisable();
     }
 
-    public void Play(int score)
+    public void Play(bool player,int score)
     {
-        StartCoroutine(ScoreAnimation(score));
+        ScoreAnimation(player,score);
     }
 
-    private IEnumerator ScoreAnimation(int score)
+    private void ScoreAnimation(bool player, int score)
     {
-        var pos = 0f;
+        Baloon.SetActive(player);
 
-        subscription.SetText("+" + score.ToString());
+        var count = player ? (score - GameValue.SCORE_RATE_PLAYER) / GameValue.SCORE_RATE_NUMBER : score / GameValue.SCORE_RATE_NUMBER;
+        subscription.SetText((score - GameValue.SCORE_RATE_PLAYER).ToString());
 
-        while (pos < UP_BORDER)
-        {
-            pos += SPEED;
-            posY += SPEED;
-            yield return null;
-        }
+        var posA = localPosition + new Vector3(20f,50f,0f);
+        var posB = localPosition + new Vector3(-20f, 100f, 0f);
+        var posC = localPosition + new Vector3(0f, 150f, 0f);
 
-        gameObject.SetActive(false);
+        transform.DOLocalPath(new Vector3[] {posA, posB, posC},1.5f,PathType.CatmullRom)
+            .OnComplete(() => gameObject.SetActive(false));
     }
 
 }

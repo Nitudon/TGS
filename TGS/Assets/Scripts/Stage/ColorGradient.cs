@@ -21,7 +21,7 @@ public class ColorGradient : MonoBehaviour {
     {
         var time = 0f;
 
-        while (true)
+        while (SystemManager.Instance.StageNum == 3)
         {
             var timeColor = (int)time % 2 == 0 ? color.Evaluate(time - (int)time) : color.Evaluate(1.0f - (time - (int)time));
             renderer.sharedMaterial.SetColor("_EmissionColor",timeColor);

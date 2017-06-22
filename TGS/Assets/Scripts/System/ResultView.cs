@@ -29,8 +29,24 @@ public class ResultView : MonoBehaviour {
     [SerializeField]
     private GameObject StartSubscription;
 
+    [SerializeField]
+    private Text StageIndex;
+
+    [SerializeField]
+    private GameObject CommandUI;
+
+    [SerializeField]
+    private GameObject BattleUI;
+
     public Action OnArrowPosChangedListener;
     public Action OnViewChangedListener;
+    public Action OnStageIndexChangedListener;
+
+    public void Init()
+    {
+        StageIndex.text = SystemManager.Instance.StageNum.ToString();
+        MenuArrow.localPosition = UP_POSITION;
+    }
 
     public void OnArrowPosChanged(bool tryGame)
     {
@@ -49,18 +65,25 @@ public class ResultView : MonoBehaviour {
         }
     }
 
-    public void OnViewChanged(bool view)
+    public void OnViewChanged(ResultController.panelMode mode)
     {
         if (OnViewChangedListener != null)
         {
             OnViewChangedListener();
         }
 
-        if (view)
+        if (mode == ResultController.panelMode.view)
         {
             StartSubscription.SetActive(false);
+            CommandUI.SetActive(true);
+            BattleUI.SetActive(false);
             MenuTint.SetActive(true);
             MenuPanel.DOScaleY(1, PANEL_SCALE_TIME);
+        }
+        else if(mode == ResultController.panelMode.battle)
+        {
+            CommandUI.SetActive(false);
+            BattleUI.SetActive(true);
         }
         else
         {
@@ -68,5 +91,15 @@ public class ResultView : MonoBehaviour {
             MenuPanel.DOScaleY(0, PANEL_SCALE_TIME)
                         .OnComplete(() => { MenuTint.SetActive(false); });
         }
+    }
+
+    public void OnStageIndexChanged(int index)
+    {
+        if (OnStageIndexChangedListener != null)
+        {
+            OnStageIndexChangedListener();
+        }
+
+        StageIndex.text = index.ToString();
     }
 }

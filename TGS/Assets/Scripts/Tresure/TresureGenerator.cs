@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq;
 using UnityEngine;
 using UdonCommons;
 using SystemParameter;
@@ -21,6 +20,10 @@ public class TresureGenerator :  UdonBehaviour{
     private TresureModel[] Tresures;
 
     private bool _hasTresure;
+    private bool _setTresure;
+
+    private IDisposable _generateController;
+    private GameEnum.tresureColor _setColor;
 
     public bool HasTresure
     {
@@ -33,18 +36,29 @@ public class TresureGenerator :  UdonBehaviour{
     protected override void Awake()
     {
         _hasTresure = false;
+        _setTresure = false;
         Init();
     }
 
-    public void Init()
+    public void Init(bool gameStart = true)
     {
         SetGenerator();
-        Generate(true);
+        Generate(gameStart);
+    }
+
+    public void Insert()
+    {
+        SetGenerator();
     }
 
     private void SetGenerator()
     {
-        TresureGenerateObservable();
+        _generateController = TresureGenerateObservable();
+    }
+
+    public void Dispose()
+    {
+        _generateController.Dispose();
     }
 
     private IDisposable TresureGenerateObservable()
@@ -90,12 +104,20 @@ public class TresureGenerator :  UdonBehaviour{
         _hasTresure = true;
     }
 
-    private void Generate(bool init = false)
+    public void Generate(bool init = false)
     {
         int rand = GetIndexForRandom(SystemManager.Instance.PlayerNum);
         int c_pos = GetIndexForRandom(ChestPositions.Count);
 
-        var tresure = Tresures[rand];
+        TresureModel tresure;
+        if (_setTresure) {
+            tresure = Tresures[(int)_setColor];
+        }
+        else
+        {
+           tresure = Tresures[rand];
+        }
+
         var center = (position + ChestPositions.ElementAt(c_pos).position) / 2;
 
         tresure = Instantiate(tresure, transform);
@@ -131,4 +153,14 @@ public class TresureGenerator :  UdonBehaviour{
         _hasTresure = false;
     }
 
+    public void SetColor(GameEnum.tresureColor color)
+    {
+        _setTresure = true;
+        _setColor = color;
+    }
+
+    public void ResetColor()
+    {
+        _setTresure = false;
+    }
 }

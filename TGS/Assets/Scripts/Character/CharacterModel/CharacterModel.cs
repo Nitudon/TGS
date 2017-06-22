@@ -21,7 +21,9 @@ public class CharacterModel : ColorModel {
         CharacterManager.Instance.AddCharacterModel(this);
         if (isGameModel)
         {
+            renderers = GetComponentsInChildren<Renderer>();
             _tresures = new ReactiveCollection<ColorModel>();
+            _speedScaleList = new List<float>();
             AudioManager.Instance.SetPlayerSource(Player, SEPlayer);
             _score = new ReactiveProperty<int>(0);
         }
@@ -45,6 +47,8 @@ public class CharacterModel : ColorModel {
     [SerializeField]
     private AudioSource SEPlayer;
 
+    private Renderer[] renderers;
+
     public bool IsGameModel
     {
         get
@@ -54,6 +58,20 @@ public class CharacterModel : ColorModel {
     }
 
     private CharacterModelController _controller;
+
+    private List<float> _speedScaleList;
+    public List<float> SpeedScaleZone
+    {
+        get
+        {
+            if(_speedScaleList == null)
+            {
+                _speedScaleList = new List<float>();
+            }
+
+            return _speedScaleList;
+        }
+    }
 
     private ReactiveProperty<int> _score;
     public IReadOnlyReactiveProperty<int> Score
@@ -99,6 +117,16 @@ public class CharacterModel : ColorModel {
         }
     }
 
+    private bool _isVisible = true;
+
+    public bool IsVisible
+    {
+        get
+        {
+            return _isVisible;
+        }
+    }
+
     private bool _isJudge = false;
 
     public bool IsJudge
@@ -116,7 +144,7 @@ public class CharacterModel : ColorModel {
         if (TresureJudgeHelper.JudgeTresures(this, out score))
         {
             tresure.GetTresure(this);
-            AddScore(score);
+            AddScore(false,score);
         }
         else if(Tresures.Count <= GameValue.OWN_TRESURE_MAX)
         {
@@ -136,7 +164,7 @@ public class CharacterModel : ColorModel {
 
         if (TresureJudgeHelper.JudgeCharacter(this, model, out score))
         {
-            AddScore(score);
+            AddScore(true,score);
         }
     }
 
@@ -151,6 +179,7 @@ public class CharacterModel : ColorModel {
                 if (tresure.HasOwner == false)
                 {
                     AddTresure(tresure);
+                    SetCatcherPosition();
                 }
             }
             else if (model is CharacterModel)
@@ -192,7 +221,7 @@ public class CharacterModel : ColorModel {
     {
         if (_tresures.ElementAt(index) != null && index < _tresures.Count)
         {
-            if (_tresures.ElementAt(index) is CharacterModel == false && crash)
+            if (_tresures.ElementAt(index) is CharacterModel == false)
             {
                 var tresure = _tresures.ElementAt(index) as TresureModel;
                 AudioManager.Instance.PlayPlayerSE(Player, GameEnum.SE.crash);
@@ -212,6 +241,8 @@ public class CharacterModel : ColorModel {
     
     public void RemoveTresureRange(int index,int count)
     {
+        Debug.Log(index);
+        Debug.Log(count);
         for (int i=index+count-1; i >= index; --i) {
             RemoveTresure(i);
         }
@@ -222,12 +253,34 @@ public class CharacterModel : ColorModel {
         _score.Value = score;
     }
 
-    public void AddScore(int score)
+    public void AddScore(bool player,int score)
     {
-        _score.Value += score;
         ScoreSuscription.gameObject.SetActive(true);
-        ScoreSuscription.SetPosition(RectTransformUtility.WorldToScreenPoint(Camera.main, position) + new Vector2(0f,15f));
-        ScoreSuscription.Play(score);
+        ScoreSuscription.SetPosition(RectTransformUtility.WorldToScreenPoint(Camera.main, position) + new Vector2(0f, 15f));
+        ScoreSuscription.Play(player,score);
+        _score.Value += score;
+    }
+
+    public void SetSpeedScale(float scale)
+    {
+        if (_controller == null)
+        {
+            InstantLog.StringLogError("_controller is missing");
+            return;
+        }
+
+        _controller.SetSpeedScale(scale);
+    }
+
+    public void SetGamePose(GameEnum.animTrigger pose)
+    {
+        if (_controller == null)
+        {
+            InstantLog.StringLogError("animator is missing");
+            return;
+        }
+
+        _controller.SetAnimTrigger(pose);
     }
 
     public void SetResultPose(GameEnum.resultAnimPose pose)
@@ -255,6 +308,34 @@ public class CharacterModel : ColorModel {
     public void SetCatcherPosition()
     {
         FrontCollider.transform.localPosition = new Vector3(0,0,GameValue.OWN_TRESURE_POSITION_OFFSET * Tresures.Count);
+    }
+
+    public void EnterZone(float scale)
+    {
+        _speedScaleList.Add(scale);
+        SetSpeedScale(scale);
+    }
+
+    public void ExitZone(float scale)
+    {
+        _speedScaleList.RemoveAt(_speedScaleList.FindIndex(x => x == scale));
+        if (_speedScaleList.Count() == 0)   
+        {
+            SetSpeedScale(1f);
+        }
+        else
+        {
+            SetSpeedScale(_speedScaleList.Last());
+        }
+    }
+
+    public void SetVisible(bool value)
+    {
+        _isVisible = value;
+        for (int i = 0; i < renderers.Length; ++i)
+        {
+            renderers[i].gameObject.SetActive(value);
+        }
     }
 }
 

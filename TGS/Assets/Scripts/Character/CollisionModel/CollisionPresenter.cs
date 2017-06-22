@@ -49,7 +49,6 @@ public class CollisionPresenter : UdonBehaviour {
         if (model.IsEnable)
         {
             Character.AddColor(model);
-            Character.SetCatcherPosition();
         }
     }
 

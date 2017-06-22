@@ -20,9 +20,6 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
     private List<GameObject> StageManagerPrefab;
 
     [SerializeField]
-    private GameObject ParticleManagerPrefab;
-
-    [SerializeField]
     private List<GameObject> BattleResultScenePrefabs;
 
     [SerializeField]
@@ -33,8 +30,6 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
 
     [SerializeField]
     private SceneController SceneCanvas;
-
-    private GameObject ParticleManagerObject;
 
     private GameObject PlayingGameObject;
 
@@ -190,14 +185,12 @@ public class SystemManager : UdonBehaviourSingleton<SystemManager> {
         var playObjectIndex = _playerNum == 0 ? _playerNum : GameValue.MAX_PLAYER_NUM - _playerNum;
         PlayingGameObject = Instantiate(playObjectList.ElementAt(playObjectIndex), transform);
         StageManagerObject = Instantiate(StageManagerPrefab.ElementAt(_stageNum - 1), transform);
-        ParticleManagerObject = Instantiate(ParticleManagerPrefab, transform);
     }
 
     private void DestroyPlayingObjects()
     {
         Destroy(PlayingGameObject);
         Destroy(StageManagerObject);
-        Destroy(ParticleManagerObject);
     }
 
     private void CreateResultPlayingObject()

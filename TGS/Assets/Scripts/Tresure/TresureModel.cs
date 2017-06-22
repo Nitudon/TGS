@@ -9,6 +9,9 @@ public class TresureModel : ColorModel{
     [SerializeField]
     private GameEnum.tresureColor Color;
 
+    [SerializeField]
+    private ParticleSystem BreakParticle;
+
     private TresureGenerator _tresureGenerator;
 
     protected override void Awake()
@@ -99,10 +102,7 @@ public class TresureModel : ColorModel{
 
     public void BreakTresure()
     {
-        if (SystemManager.Instance.IsGame)
-        {
-            ParticleManager.Instance.GetParticleEvent(0).NumEmit(position);
-        }
+        Instantiate(BreakParticle,position,BreakParticle.transform.rotation);
     }
 
     public override void Enable()

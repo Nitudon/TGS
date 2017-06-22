@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,6 +92,22 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
         _characterModels = new List<CharacterModel>();
     }
 
+    public void AllCharacterSetSpeedScale(float scale)
+    {
+        if (_characterModels == null)
+        {
+            InstantLog.StringLogError("characterModels is null");
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < _characterModels.Count; ++i)
+            {
+                _characterModels.ElementAt(i).SetSpeedScale(scale);
+            }
+        }
+    }
+
     public void AllCharacterStop()
     {
         if (_characterModels == null)
@@ -103,6 +120,22 @@ public class CharacterManager : UdonBehaviourSingleton<CharacterManager> {
             for (int i = 0; i < _characterModels.Count; ++i)
             {
                 _characterModels.ElementAt(i).StopMove();
+            }
+        }
+    }
+
+    public void AllCharacterSetVisible(bool value)
+    {
+        if (_characterModels == null)
+        {
+            InstantLog.StringLogError("characterModels is null");
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < _characterModels.Count; ++i)
+            {
+                _characterModels.ElementAt(i).SetVisible(value);
             }
         }
     }

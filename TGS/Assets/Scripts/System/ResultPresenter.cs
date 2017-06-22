@@ -21,6 +21,7 @@ public class ResultPresenter : MonoBehaviour {
     public void Init(List<int> ranking,int score)
     {
         _model.Init();
+        _view.Init();
         _model.SetRank(RankImageResources,ranking,score);
         SetEvents();
         ObserveTitleScene();
@@ -40,6 +41,9 @@ public class ResultPresenter : MonoBehaviour {
         _model.RetryGame
             .Skip(1)
             .Subscribe(x => _view.OnArrowPosChanged(x));
+
+        _model.RetryStageIndex
+            .Subscribe(x => _view.OnStageIndexChanged(x));
     }
 
     private void SetEvents()
