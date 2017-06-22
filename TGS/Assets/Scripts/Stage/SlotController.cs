@@ -13,7 +13,7 @@ public class SlotController : MonoBehaviour {
     private static readonly float SPEED_DOWN_SCALE = 0.5f;
     private static readonly float SLOT_SPIN_TIME = 2.5f;
     private static readonly float SLOT_SPIN_LOT = 5f;
-    private static readonly float SLOT_SPAN = 20f;
+    private static readonly float SLOT_SPAN = 17f;
     private static readonly float SLOT_SPACE = 0.1667f;
     private static readonly int SLOT_VALUE_NUM = 6;
 

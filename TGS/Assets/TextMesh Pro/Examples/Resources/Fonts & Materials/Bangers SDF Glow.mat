@@ -30,7 +30,7 @@ Material:
     - first:
         name: _FaceTex
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 10904, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -42,43 +42,43 @@ Material:
     - first:
         name: _OutlineTex
       second:
-        m_Texture: {fileID: 2800000, guid: 93d6f74f2ef358e41989d4152b195f88, type: 3}
+        m_Texture: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _Ambient
-      second: 0.5
+      second: 0.49
     - first:
         name: _Bevel
-      second: 0.754
+      second: 1
     - first:
         name: _BevelClamp
       second: 0
     - first:
         name: _BevelOffset
-      second: -0.08
+      second: -0.005
     - first:
         name: _BevelRoundness
-      second: 0.108
+      second: 0.088
     - first:
         name: _BevelWidth
-      second: 0.5
+      second: 0.48
     - first:
         name: _BumpFace
-      second: 0.21
+      second: 0.445
     - first:
         name: _BumpOutline
-      second: 0.51
+      second: 0.65
     - first:
         name: _ColorMask
       second: 15
     - first:
         name: _Diffuse
-      second: 0.366
+      second: 0.296
     - first:
         name: _FaceDilate
-      second: 0.28
+      second: 0.1
     - first:
         name: _FaceUVSpeedX
       second: 0
@@ -87,22 +87,22 @@ Material:
       second: 0
     - first:
         name: _GlowInner
-      second: 0.387
+      second: 0.222
     - first:
         name: _GlowOffset
-      second: 0.03
+      second: -0.12
     - first:
         name: _GlowOuter
-      second: 0.993
+      second: 0.248
     - first:
         name: _GlowPower
-      second: 0.329
+      second: 0.509
     - first:
         name: _GradientScale
       second: 11
     - first:
         name: _LightAngle
-      second: 3.14
+      second: 2.48
     - first:
         name: _MaskSoftnessX
       second: 0
@@ -120,22 +120,22 @@ Material:
       second: 0
     - first:
         name: _OutlineWidth
-      second: 1
+      second: 0.14
     - first:
         name: _PerspectiveFilter
       second: 0.875
     - first:
         name: _Reflectivity
-      second: 9.81
+      second: 8.11
     - first:
         name: _ScaleRatioA
-      second: 0.37800038
+      second: 0.66600066
     - first:
         name: _ScaleRatioB
-      second: 0.52874786
+      second: 0.70454544
     - first:
         name: _ScaleRatioC
-      second: 0.54090905
+      second: 0.70454544
     - first:
         name: _ScaleX
       second: 1
@@ -147,7 +147,7 @@ Material:
       second: 0
     - first:
         name: _SpecularPower
-      second: 4
+      second: 2.22
     - first:
         name: _Stencil
       second: 0
@@ -174,7 +174,7 @@ Material:
       second: 0
     - first:
         name: _UnderlayOffsetX
-      second: 0.04
+      second: 0.62
     - first:
         name: _UnderlayOffsetY
       second: -0.04

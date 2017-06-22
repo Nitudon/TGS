@@ -23,7 +23,6 @@ public class CharacterModel : ColorModel {
         {
             renderers = GetComponentsInChildren<Renderer>();
             _tresures = new ReactiveCollection<ColorModel>();
-            _speedScaleList = new List<float>();
             AudioManager.Instance.SetPlayerSource(Player, SEPlayer);
             _score = new ReactiveProperty<int>(0);
         }
@@ -58,20 +57,6 @@ public class CharacterModel : ColorModel {
     }
 
     private CharacterModelController _controller;
-
-    private List<float> _speedScaleList;
-    public List<float> SpeedScaleZone
-    {
-        get
-        {
-            if(_speedScaleList == null)
-            {
-                _speedScaleList = new List<float>();
-            }
-
-            return _speedScaleList;
-        }
-    }
 
     private ReactiveProperty<int> _score;
     public IReadOnlyReactiveProperty<int> Score
@@ -261,6 +246,14 @@ public class CharacterModel : ColorModel {
         _score.Value += score;
     }
 
+    public float GetSpeedScale
+    {
+        get
+        {
+            return _controller.GetSpeedScale;
+        }
+    }
+
     public void SetSpeedScale(float scale)
     {
         if (_controller == null)
@@ -308,25 +301,6 @@ public class CharacterModel : ColorModel {
     public void SetCatcherPosition()
     {
         FrontCollider.transform.localPosition = new Vector3(0,0,GameValue.OWN_TRESURE_POSITION_OFFSET * Tresures.Count);
-    }
-
-    public void EnterZone(float scale)
-    {
-        _speedScaleList.Add(scale);
-        SetSpeedScale(scale);
-    }
-
-    public void ExitZone(float scale)
-    {
-        _speedScaleList.RemoveAt(_speedScaleList.FindIndex(x => x == scale));
-        if (_speedScaleList.Count() == 0)   
-        {
-            SetSpeedScale(1f);
-        }
-        else
-        {
-            SetSpeedScale(_speedScaleList.Last());
-        }
     }
 
     public void SetVisible(bool value)

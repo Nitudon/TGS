@@ -36,8 +36,11 @@ public class AnimationScoreText : UdonBehaviour{
     {
         Baloon.SetActive(player);
 
-        var count = player ? (score - GameValue.SCORE_RATE_PLAYER) / GameValue.SCORE_RATE_NUMBER : score / GameValue.SCORE_RATE_NUMBER;
-        subscription.SetText((score - GameValue.SCORE_RATE_PLAYER).ToString());
+        if (player)
+        {
+            score -= GameValue.SCORE_RATE_PLAYER;
+        }
+        subscription.SetText(score.ToString());
 
         var posA = localPosition + new Vector3(20f,50f,0f);
         var posB = localPosition + new Vector3(-20f, 100f, 0f);

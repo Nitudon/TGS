@@ -13,9 +13,9 @@ public class TitleView : MonoBehaviour {
     private static readonly float VIEW_TINT_X = -580f;
     private static readonly float PANEL_SLIDE_TIME = 0.5f;
     private static readonly Vector3[] POSITIONS = {
-        new Vector3(16.1f, 25.68f, -0.011f),
-        new Vector3(9.7f, 16.1f, -0.011f),
-        new Vector3(1f, 4.31f, -0.011f)
+        new Vector3(16.1f, 25.49f, -0.011f),
+        new Vector3(9.2f, 15.73f, -0.011f),
+        new Vector3(2.4f, 3.59f, -0.011f)
     };
     private static readonly float STAGE_DISPLAY_HIDE_X = 200f;
     private static readonly float STAGE_DISPLAY_VIEW_X = 50f;

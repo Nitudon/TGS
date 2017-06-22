@@ -66,6 +66,14 @@ public class CharacterModelController{
         info.RotatePosition(_characterModel.transform);
     }
 
+    public float GetSpeedScale
+    {
+        get
+        {
+            return _speedScale;
+        }
+    }
+
     public void SetSpeedScale(float scale)
     {
         _speedScale = scale;
