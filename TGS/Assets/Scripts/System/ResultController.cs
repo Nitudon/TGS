@@ -211,8 +211,16 @@ public class ResultController : ModeSceneController
                 () => _score,
                 num => { _score = num; TeamScore.text = _score.ToString(); },
                 score,
-                (score>25000) ? 5 : score / 5000 
-            ).OnComplete(() => AnimationRankSequence().Play());
+                (score > 25000) ? 5 : score / 5000
+            ).OnComplete(() =>
+            {
+                AnimationRankSequence().Play();
+                var pose = score > GameValue.B_SCORE ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.shock;
+                for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
+                {
+                    CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
+                }
+            });
         }
         else
         {
@@ -245,6 +253,11 @@ public class ResultController : ModeSceneController
     private void AnimationSkip()
     {
         _scoreTweener.Kill();
+        var pose = _teamScore > GameValue.B_SCORE ? GameEnum.resultAnimPose.win : GameEnum.resultAnimPose.shock;
+        for (int i = 0; i < SystemManager.Instance.PlayerNum; ++i)
+        {
+            CharacterManager.Instance.GetCharacterModel(i).SetResultPose(pose);
+        }
         TeamScore.text = _teamScore.ToString();
         TeamRankImage.transform.localScale = new Vector3(1,1,1);
         TeamRankImage.color = new Color(255, 255, 255, 1);

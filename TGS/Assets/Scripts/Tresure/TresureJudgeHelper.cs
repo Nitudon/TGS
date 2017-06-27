@@ -124,7 +124,7 @@ public static class TresureJudgeHelper{
                 frontPlayer.RemoveTresureAll();
                 player.RemoveTresureAll();
                 frontPlayer.SetGamePose(GameEnum.animTrigger.crash);
-                score = CalculateScore(list);
+                score = CalculateScore(list.GetRange(1,list.Count-1));
                 return true;
             }
             else if (player.Tresures.Where(x => x.EqualColor(frontPlayer)).Any())
@@ -146,7 +146,7 @@ public static class TresureJudgeHelper{
                         player.RemoveTresureRange(start, count);
                         var scoreList = list.GetRange(start, count);
                         scoreList.Add(frontPlayer);
-                        score = CalculateScore(list.GetRange(start, count));
+                        score = CalculateScore(scoreList);
                         return true;
                     }
                 }

@@ -40,12 +40,22 @@ public class TitlePresenter : MonoBehaviour
 
         _model.ArrowPos
             .Skip(1)
-            .Subscribe(x => _view.OnArrowPosChanged(x))
+            .Subscribe(x => _view.OnArrowPosChanged(x,_model.Guidance.Value))
             .AddTo(gameObject);
 
         _model.Mode
             .Skip(1)
             .Subscribe(x => _view.OnModeChanged(x))
+            .AddTo(gameObject);
+
+        _model.Guidance
+            .Skip(1)
+            .Subscribe(x => _view.OnGuidanceViewChanged(x))
+            .AddTo(gameObject);
+
+        _model.GuidanceIndex
+            .Skip(1)
+            .Subscribe(x => _view.OnGuidanceIndexChanged(x))
             .AddTo(gameObject);
     }
 
@@ -55,6 +65,7 @@ public class TitlePresenter : MonoBehaviour
         _view.OnStageIndexChangedListener = OnStageIndexChanged;
         _view.OnArrowPosChangedListener = OnArrowPosChanged;
         _view.OnModeChangedListener = OnModeChanged;
+        _view.OnGuidanceIndexChangedListener = OnGuidanceIndexChanged;
     }
 
     public void OnPlayerNumChanged()
@@ -75,5 +86,10 @@ public class TitlePresenter : MonoBehaviour
     public void OnModeChanged()
     {
 
+    }
+
+    public void OnGuidanceIndexChanged()
+    {
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
     }
 }

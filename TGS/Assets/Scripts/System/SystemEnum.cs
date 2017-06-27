@@ -12,11 +12,11 @@ namespace SystemParameter
 
         public enum animTrigger { walk,stop,tresure, crash}
 
-        public enum resultAnimPose { win, lose}
+        public enum resultAnimPose { win, lose, shock}
 
         public enum BGM { title, battle, end}
 
-        public enum SE { get, crash, start, end, cursor, decide, slide, cancel, submit}
+        public enum SE { get, crash, start, end, cursor, decide, slide, cancel, submit, role, slot}
     }
 
     public static class GameValue

@@ -47,10 +47,24 @@ public class TitleView : MonoBehaviour {
     [SerializeField]
     private GameObject[] StageDisplayObjects;
 
+    [SerializeField]
+    private GameObject GuidanceObject;
+
+    [SerializeField]
+    private Image GuidanceView;
+
+    [SerializeField]
+    private Text GuidanceIndex;
+
+    [SerializeField]
+    private Sprite[] GuidanceSprites;
+
     public Action OnPlayerNumChangedListener;
     public Action OnStageIndexChangedListener;
     public Action OnArrowPosChangedListener;
     public Action OnModeChangedListener;
+    public Action OnGuidanceViewChangedListener;
+    public Action OnGuidanceIndexChangedListener;
 
     public void OnPlayerNumChanged(int num)
     {
@@ -78,7 +92,8 @@ public class TitleView : MonoBehaviour {
         StageNum.text = index.ToString();
     }
 
-    public void OnArrowPosChanged(int pos)
+
+    public void OnArrowPosChanged(int pos, bool guidance)
     {
         if (OnArrowPosChangedListener != null)
         {
@@ -86,6 +101,27 @@ public class TitleView : MonoBehaviour {
         }
 
         MenuArrow.localPosition = POSITIONS[pos%3];
+    }
+
+    public void OnGuidanceViewChanged(bool view)
+    {
+        if (OnGuidanceViewChangedListener != null)
+        {
+            OnGuidanceViewChangedListener();
+        }
+        StageDisplay.SetActive(!view);
+        GuidanceObject.SetActive(view);
+    }
+
+    public void OnGuidanceIndexChanged(int index)
+    {
+        if (OnGuidanceIndexChangedListener != null)
+        {
+            OnGuidanceIndexChangedListener();
+        }
+
+        GuidanceView.sprite = GuidanceSprites[index];
+        GuidanceIndex.text = (index+1).ToString();
     }
 
     public void OnModeChanged(TitleController.panelMode mode)

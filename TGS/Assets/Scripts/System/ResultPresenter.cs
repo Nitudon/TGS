@@ -43,6 +43,7 @@ public class ResultPresenter : MonoBehaviour {
             .Subscribe(x => _view.OnArrowPosChanged(x));
 
         _model.RetryStageIndex
+            .Skip(1)
             .Subscribe(x => _view.OnStageIndexChanged(x));
     }
 
@@ -50,6 +51,7 @@ public class ResultPresenter : MonoBehaviour {
     {
         _view.OnArrowPosChangedListener = OnArrowPosChanged;
         _view.OnViewChangedListener = OnViewChanged;
+        _view.OnStageIndexChangedListener = OnSrageIndexChanged;
     }
 
     public void OnArrowPosChanged()
@@ -60,5 +62,10 @@ public class ResultPresenter : MonoBehaviour {
     public void OnViewChanged()
     {
 
+    }
+
+    public void OnSrageIndexChanged()
+    {
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.cursor);
     }
 }

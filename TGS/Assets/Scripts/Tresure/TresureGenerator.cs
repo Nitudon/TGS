@@ -19,11 +19,14 @@ public class TresureGenerator :  UdonBehaviour{
     [SerializeField]
     private TresureModel[] Tresures;
 
+    [SerializeField]
+    private bool AutoEmit = true;
+
     private bool _hasTresure;
-    private bool _setTresure;
 
     private IDisposable _generateController;
-    private GameEnum.tresureColor _setColor;
+
+    private TresureModel _tresure;
 
     public bool HasTresure
     {
@@ -36,8 +39,18 @@ public class TresureGenerator :  UdonBehaviour{
     protected override void Awake()
     {
         _hasTresure = false;
-        _setTresure = false;
-        Init();
+        if (AutoEmit)
+        {
+            Init();
+        }
+    }
+
+    public void HiddenGeneraterSet()
+    {
+        _generateController = Observable.Interval(TimeSpan.FromSeconds(GameValue.GENERATE_TIME_SPAN))
+            .Where(_ => _hasTresure == false && SystemManager.Instance.IsPause == false && SystemManager.Instance.IsGame)
+            .Subscribe(_ => Generate())
+            .AddTo(gameObject);
     }
 
     public void Init(bool gameStart = true)
@@ -59,6 +72,9 @@ public class TresureGenerator :  UdonBehaviour{
     public void Dispose()
     {
         _generateController.Dispose();
+        if (_tresure.HasOwner == false) {
+            Destroy(_tresure.gameObject);
+        }
     }
 
     private IDisposable TresureGenerateObservable()
@@ -71,11 +87,11 @@ public class TresureGenerator :  UdonBehaviour{
 
     private void Generate(int index, Vector3 position)
     {
-        var tresure = Tresures[index];
+        _tresure = Tresures[index];
 
-        tresure = Instantiate(tresure, transform,true);
-        tresure.transform.position = position;
-        tresure.SetGenerator(this);
+        _tresure = Instantiate(_tresure, transform,true);
+        _tresure.transform.position = position;
+        _tresure.SetGenerator(this);
         _hasTresure = true;
     }
 
@@ -87,20 +103,20 @@ public class TresureGenerator :  UdonBehaviour{
             rand = RandMT.GenerateNext(SystemManager.Instance.PlayerNum);
         }
 
-        var tresure = Tresures[rand];
+        _tresure = Tresures[rand];
 
-        tresure = Instantiate(tresure, transform);
-        tresure.transform.localPosition = position;
-        tresure.SetGenerator(this);
+        _tresure = Instantiate(_tresure, transform);
+        _tresure.transform.localPosition = position;
+        _tresure.SetGenerator(this);
         _hasTresure = true;
     }
 
     private void Generate(int index)
     {
-        var tresure = Tresures[index];
+        _tresure = Tresures[index];
 
-        tresure = Instantiate(tresure, transform);
-        tresure.SetGenerator(this);
+        _tresure = Instantiate(_tresure, transform);
+        _tresure.SetGenerator(this);
         _hasTresure = true;
     }
 
@@ -109,31 +125,24 @@ public class TresureGenerator :  UdonBehaviour{
         int rand = GetIndexForRandom(SystemManager.Instance.PlayerNum);
         int c_pos = GetIndexForRandom(ChestPositions.Count);
 
-        TresureModel tresure;
-        if (_setTresure) {
-            tresure = Tresures[(int)_setColor];
-        }
-        else
-        {
-           tresure = Tresures[rand];
-        }
+        _tresure = Tresures[rand];      
 
         var center = (position + ChestPositions.ElementAt(c_pos).position) / 2;
 
-        tresure = Instantiate(tresure, transform);
+        _tresure = Instantiate(_tresure, transform);
         if (init)
         {
-            tresure.transform.position = transform.position;
-            tresure.Enable();
+            _tresure.transform.position = transform.position;
+            _tresure.Enable();
         }
         else
         {
-            tresure.transform.position = ChestPositions.ElementAt(c_pos).position;
-            tresure.transform.DOPath(new Vector3[] { tresure.position, center + new Vector3(0f, 0.7f, 0f), position }, 2.5f, PathType.CatmullRom)
-                .OnComplete(() => tresure.Enable());
+            _tresure.transform.position = ChestPositions.ElementAt(c_pos).position;
+            _tresure.transform.DOPath(new Vector3[] { _tresure.position, center + new Vector3(0f, 0.7f, 0f), position }, 2.5f, PathType.CatmullRom)
+                .OnComplete(() => _tresure.Enable());
         }
 
-         tresure.SetGenerator(this);
+         _tresure.SetGenerator(this);
         _hasTresure = true;
     }
 
@@ -153,14 +162,4 @@ public class TresureGenerator :  UdonBehaviour{
         _hasTresure = false;
     }
 
-    public void SetColor(GameEnum.tresureColor color)
-    {
-        _setTresure = true;
-        _setColor = color;
-    }
-
-    public void ResetColor()
-    {
-        _setTresure = false;
-    }
 }

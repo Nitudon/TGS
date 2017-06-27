@@ -74,12 +74,21 @@ public class SlotController : MonoBehaviour {
 
     private void StartSlot()
     {
+        StartCoroutine(Slot());
+    }
+
+    private IEnumerator Slot()
+    {
         var SlotIndex = (int)RandMT.GenerateNext(6);
         var SpinOffset = SlotRenderer.sharedMaterial.mainTextureOffset.y - SLOT_SPACE * (SLOT_VALUE_NUM * SLOT_SPIN_LOT + ((SlotIndex > _slotIndex) ? SlotIndex - _slotIndex : SLOT_VALUE_NUM - _slotIndex + SlotIndex));
 
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.role, 7f);
+
+        yield return new WaitForSeconds(0.4f);
+
         DOTween.To(
             () => SlotRenderer.sharedMaterial.mainTextureOffset,
-            offset => SlotRenderer.sharedMaterial.mainTextureOffset = offset,
+            offset => { SlotRenderer.sharedMaterial.mainTextureOffset = offset; },
             new Vector2(0, SpinOffset),
             SLOT_SPIN_TIME
             ).OnComplete(() => AffectSlot(SlotIndex));
@@ -91,6 +100,7 @@ public class SlotController : MonoBehaviour {
         _slotIndex = SlotIndex;
         SlotRenderer.sharedMaterial.mainTextureOffset = new Vector2(0, -SLOT_SPACE * _slotIndex);
         SlotEffect(_slotIndex);
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.slot);
     }
 
     private void SlotEffect(int index)
@@ -133,6 +143,8 @@ public class SlotController : MonoBehaviour {
         for (int i = 0; i< HideGenerators.Length; ++i)
         {
             HideGenerators[i].gameObject.SetActive(true);
+            HideGenerators[i].HiddenGeneraterSet();
+            HideGenerators[i].Generate();
         }
     }
 

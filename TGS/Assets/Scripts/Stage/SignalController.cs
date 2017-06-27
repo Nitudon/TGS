@@ -52,32 +52,39 @@ public class SignalController : MonoBehaviour {
         yield return new WaitUntil(() => SystemManager.Instance.IsGame);
         SignalChanger =
                Observable.Interval(TimeSpan.FromSeconds(SIGNAL_TIME))
-               .Subscribe(_ => StartCoroutine(ChangeSignal()));
+               .Where(_ => SystemManager.Instance.IsGame)
+               .Subscribe(_ => StartCoroutine(ChangeSignal()))
+               .AddTo(this);
 
         gameObject.OnTriggerEnterAsObservable()
              .Where(x => x.gameObject.HasComponent<CharacterModel>())
              .Select(x => x.gameObject.GetComponent<CharacterModel>())
-             .Subscribe(x => { x.SetSpeedScale(BLUE_SPEED_SCALE); InternalModels.Add(x); });
+             .Subscribe(x => { x.SetSpeedScale(BLUE_SPEED_SCALE); InternalModels.Add(x); })
+             .AddTo(this);
 
         gameObject.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.HasComponent<CharacterModel>())
             .Select(x => x.gameObject.GetComponent<CharacterModel>())
-            .Subscribe(x => InternalModels.RemoveAt(InternalModels.FindIndex(y => x.EqualColor(y))));
+            .Subscribe(x => InternalModels.RemoveAt(InternalModels.FindIndex(y => x.EqualColor(y))))
+            .AddTo(this);
 
         VerticalColliders.OnTriggerEnterAsObservable()
              .Where(x => x.gameObject.HasComponent<CharacterModel>())
              .Select(x => x.gameObject.GetComponent<CharacterModel>())
-             .Subscribe(x => x.SetSpeedScale(_isVertBlue ? RED_SPEED_SCALE : BLUE_SPEED_SCALE));
+             .Subscribe(x => x.SetSpeedScale(_isVertBlue ? RED_SPEED_SCALE : BLUE_SPEED_SCALE))
+             .AddTo(this);
 
         HorizontalColliders.OnTriggerEnterAsObservable()
              .Where(x => x.gameObject.HasComponent<CharacterModel>())
              .Select(x => x.gameObject.GetComponent<CharacterModel>())
-             .Subscribe(x => x.SetSpeedScale(_isVertBlue ? BLUE_SPEED_SCALE : RED_SPEED_SCALE));
+             .Subscribe(x => x.SetSpeedScale(_isVertBlue ? BLUE_SPEED_SCALE : RED_SPEED_SCALE))
+             .AddTo(this);
 
-        HorizontalColliders.OnTriggerEnterAsObservable()
+        NormalColliders.OnTriggerEnterAsObservable()
              .Where(x => x.gameObject.HasComponent<CharacterModel>())
              .Select(x => x.gameObject.GetComponent<CharacterModel>())
-             .Subscribe(x => x.SetSpeedScale(1.0f));
+             .Subscribe(x => x.SetSpeedScale(1.0f))
+             .AddTo(this);
 
     }
 

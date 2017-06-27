@@ -13,16 +13,21 @@ using DG.Tweening;
 
 public class TitleController : ModeSceneController{
 
+    private static readonly int GUIDANCE_PAGE_NUM = 7;
+
     public enum panelMode { hidden, view, battle, play}
 
     private bool _isConnected = false;
 
     private IDisposable FirstStartButtonObservable;
+    private IDisposable GuidanceButtonObservable;
 
     private ReactiveProperty<panelMode> _mode;
     private ReactiveProperty<int> _playerNum;
     private ReactiveProperty<int> _stageIndex;
+    private ReactiveProperty<int> _guidanceIndex;
     private ReactiveProperty<int> _arrowPos;
+    private ReactiveProperty<bool> _guidance;
 
     public IReadOnlyReactiveProperty<panelMode> Mode
     {
@@ -45,11 +50,25 @@ public class TitleController : ModeSceneController{
             return _stageIndex;
         }
     }
+    public IReadOnlyReactiveProperty<int> GuidanceIndex
+    {
+        get
+        {
+            return _guidanceIndex;
+        }
+    }
     public IReadOnlyReactiveProperty<int> ArrowPos
     {
         get
         {
             return _arrowPos;
+        }
+    }
+    public IReadOnlyReactiveProperty<bool> Guidance
+    {
+        get
+        {
+            return _guidance;
         }
     }
 
@@ -67,25 +86,36 @@ public class TitleController : ModeSceneController{
         }
         _mode = new ReactiveProperty<panelMode>(panelMode.hidden);
         _arrowPos = new ReactiveProperty<int>(0);
+        _guidance = new ReactiveProperty<bool>(false);
+        _guidanceIndex = new ReactiveProperty<int>(0);
 
         ControllConnect(
              GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.A)
-                 .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+                 .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false && _guidance.Value == false)
                  .Subscribe(x => Submit())
+                 .AddTo(gameObject)
              ,
              GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.B)
-               .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
-               .Subscribe(x =>  Cancel())
+               .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false && _guidance.Value == false)
+               .Subscribe(x => Cancel())
+               .AddTo(gameObject)
              ,
               GamePadObservable.GetAxisStickObservable()
-               .Where(x => SystemManager.Instance.IsGame == false && _mode.Value != panelMode.hidden && (Mathf.Abs(x.hori) > 0.7f || Mathf.Abs(x.vert) > 0.7f) && SystemManager.Instance.CreateGame == false)
+               .Where(x => SystemManager.Instance.IsGame == false && (Mathf.Abs(x.hori) > INPUT_STICK_VALUE || Mathf.Abs(x.vert) > INPUT_STICK_VALUE) && SystemManager.Instance.CreateGame == false)
                .ThrottleFirst(TimeSpan.FromSeconds(0.2f))
                .Subscribe(x => TitleModeSelect(x))
+               .AddTo(gameObject)
         );
 
+        GuidanceButtonObservable = GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.SELECT)
+            .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
+            .Subscribe(_ => ViewGuidance())
+            .AddTo(gameObject);
+
         FirstStartButtonObservable = GamePadObservable.GetButtonDownObservable(GamePadObservable.ButtonCode.START)
-                 .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false)
-                 .Subscribe(x => ViewPanel());
+                 .Where(_ => SystemManager.Instance.IsGame == false && SystemManager.Instance.CreateGame == false && _guidance.Value == false)
+                 .Subscribe(x => ViewPanel())
+                 .AddTo(gameObject);
     }
 
     public override void Dispose()
@@ -93,6 +123,8 @@ public class TitleController : ModeSceneController{
         if (_isConnected)
         {
             base.Dispose();
+            FirstStartButtonObservable.Dispose();
+            GuidanceButtonObservable.Dispose();
             _isConnected = false;
         }
     }
@@ -104,6 +136,12 @@ public class TitleController : ModeSceneController{
             _mode.Value = panelMode.view;
             AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide, 2.2f);
         }
+    }
+
+    private void ViewGuidance()
+    {
+        AudioManager.Instance.PlaySystemSE(GameEnum.SE.slide, 2.2f);
+        _guidance.Value = !_guidance.Value;
     }
 
     protected override void Submit()
@@ -166,42 +204,57 @@ public class TitleController : ModeSceneController{
         var vert = info.vert;
         var hori = info.hori;
 
-        if(vert > INPUT_STICK_VALUE)
+        if (_guidance.Value)
         {
-            if(_arrowPos.Value < 2)
+            if (hori > INPUT_STICK_VALUE && _guidanceIndex.Value < GUIDANCE_PAGE_NUM - 1)
             {
-                _arrowPos.Value++;
+                _guidanceIndex.Value++;
+            }
+            else if (hori < -INPUT_STICK_VALUE && _guidanceIndex.Value > 0)
+            {
+                _guidanceIndex.Value--;
             }
         }
-        else if(vert < -INPUT_STICK_VALUE)
+        else if (_mode.Value != panelMode.hidden)
         {
-            if (_arrowPos.Value > 0)
+            if (vert > INPUT_STICK_VALUE)
             {
-                _arrowPos.Value--;
+                if (_arrowPos.Value < 2)
+                {
+                    _arrowPos.Value++;
+                }
             }
-        }
+            else if (vert < -INPUT_STICK_VALUE)
+            {
+                if (_arrowPos.Value > 0)
+                {
+                    _arrowPos.Value--;
+                }
+            }
 
-        if (_mode.Value == panelMode.battle)
-        {
-            if (hori > INPUT_STICK_VALUE)
+            if (_mode.Value == panelMode.battle)
             {
-                if (_arrowPos.Value == 0 && _playerNum.Value < GameValue.MAX_PLAYER_NUM)
+                if (hori > INPUT_STICK_VALUE)
                 {
-                    _playerNum.Value++;
+                    if (_arrowPos.Value == 0 && _playerNum.Value < GameValue.MAX_PLAYER_NUM)
+                    {
+                        _playerNum.Value++;
+                    }
+                    else if (_arrowPos.Value == 1 && _stageIndex.Value < GameValue.STAGE_NUM)
+                    {
+                        _stageIndex.Value++;
+                    }
                 }
-                else if (_arrowPos.Value == 1 && _stageIndex.Value < GameValue.STAGE_NUM)
+                else if (hori < -INPUT_STICK_VALUE)
                 {
-                    _stageIndex.Value++;
-                }
-            }else if(hori < -INPUT_STICK_VALUE)
-            {
-                if (_arrowPos.Value == 0 && _playerNum.Value > GameValue.MIN_PLAYER_NUM)
-                {
-                    _playerNum.Value--;
-                }
-                else if (_arrowPos.Value == 1 && _stageIndex.Value > 1)
-                {
-                    _stageIndex.Value--;
+                    if (_arrowPos.Value == 0 && _playerNum.Value > GameValue.MIN_PLAYER_NUM)
+                    {
+                        _playerNum.Value--;
+                    }
+                    else if (_arrowPos.Value == 1 && _stageIndex.Value > 1)
+                    {
+                        _stageIndex.Value--;
+                    }
                 }
             }
         }

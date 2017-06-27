@@ -3283,12 +3283,6 @@ MonoBehaviour:
     m_variantName: 
     m_assetTypeString: UnityEditor.MonoScript, UnityEditor, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - m_assetDatabaseId: 2efb9bf0472c52e49ab532072e961cd9
-    m_importFrom: Assets/README_SD_UnityChan.txt
-    m_exportTo: 
-    m_variantName: 
-    m_assetTypeString: UnityEngine.TextAsset, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   - m_assetDatabaseId: 1e331d01d9428cf488dd431c0d70c71d
     m_importFrom: Assets/Resources/Sprites/board.png
     m_exportTo: 
@@ -3423,6 +3417,48 @@ MonoBehaviour:
       PublicKeyToken=null
   - m_assetDatabaseId: a9f3b8015c76930449969058634281b4
     m_importFrom: Assets/Resources/Sprites/baloon.png
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: af01376cd11ba3a4ab9d41ba4a1e245d
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E1.png"
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 2c02a8b8b25c15146bb528e7cbd45ab5
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E2.png"
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 6d82568bf619a344ab0f168761b847c4
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E4.png"
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: ab4917bd47233704789791498046dcc1
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E5.png"
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 35810f6d24232b345a998bec334a9add
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E6.png"
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 7887c3c2db792ce40b05fd4f66476cc8
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E7.png"
+    m_exportTo: 
+    m_variantName: 
+    m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - m_assetDatabaseId: 5f78057731c5c05429e2f7fcc03d184c
+    m_importFrom: "Assets/Resources/Sprites/\u8AAC\u660E3.png"
     m_exportTo: 
     m_variantName: 
     m_assetTypeString: UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral,
